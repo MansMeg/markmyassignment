@@ -95,7 +95,7 @@ check_config <- function(config_list=NULL){
       next()
     }
   }
-  if(any(!source_ok)) warning("Error in accessing:\n",  
+  if(any(!test_suite_ok)) warning("Error in accessing:\n",  
                               paste(config_list$test_suite$path[!test_suite_ok], collapse = "\n"),
                               call. = FALSE)
 }
