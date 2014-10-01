@@ -79,8 +79,10 @@ get_test_suite_type <- function(test_suite){
 #' @examples
 #' get_test_suite_type("https://api.github.com/repos/MansMeg/KursRprgm/contents/Labs/Test/")
 #' 
-check_config <- function(config_list){
+check_config <- function(config_list=NULL){
   
+  if(is.null(config_list)) config_list <- get_config()
+    
   test_suite_ok <- !logical(length(config_list$test_suite$path))
   for(i in seq_along(config_list$test_suite$path)){
     if(config_list$test_suite$type[i] == "local"){
@@ -88,28 +90,14 @@ check_config <- function(config_list){
       next()
     }
     if(config_list$test_suite$type[i] %in% c("github", "http", "https")){
-      url_ok <- try(httr::url_success(config_list$test_suite$path[i]))
+      url_ok <- try(httr::url_success(config_list$test_suite$path[i]), silent = TRUE)
       test_suite_ok[i] <- !(class(url_ok) == "try-error" || !url_ok)
       next()
     }
   }
   if(any(!source_ok)) warning("Error in accessing:\n",  
                               paste(config_list$test_suite$path[!test_suite_ok], collapse = "\n"),
-                              call. = FALSE)  
+                              call. = FALSE)
 }
 
 
-
-
-
-# test_suite <- c(test_source, "dir", "http://www.mai.liu.se/~laeld/kurser/Sese-comp-stat/3")
-
-# test_source <- c("https://api.github.com/repos/MansMeg/KursRprgm/contents/Labs/Test/", "https://api.github.com/repos/MansMeg/KursRprgm/contents/Labs/Test/TESTS")
-
-# Loop over test-parts and print the results. Which which test-files that are there.
-# get_remote_file_list(config_list)
-# test <- RJSONIO::fromJSON(httr::content(testFolder, as = "text"))
-# length(test)
-# test[[2]]
-
-# Change test suites
