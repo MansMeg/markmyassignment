@@ -19,6 +19,6 @@ Currently the following sources can be used for storing testsuites.
 Multiple sources can be set
 }
 \examples{
-set_test_suite("https://api.github.com/repos/MansMeg/KursRprgm/contents/Labs/Test/")
+set_test_suite(test_suite = "https://api.github.com/repos/MansMeg/KursRprgm/contents/Labs/Test/")
 }
 
