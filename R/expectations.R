@@ -1,5 +1,5 @@
 #' @title
-#' Expect that the tested functiopn is self-contained.
+#' Expect that the tested function is self-contained.
 #' 
 #' @details
 #' Tests if a fuction is self-contained (i.e. do not use any global variables).
@@ -31,3 +31,29 @@ is_self_contained <-
   }
 
 
+
+#' @title
+#' Expect that packages are not used
+#' 
+#' @details
+#' Tests that the following packages are not used.
+#' 
+#' @param pkg 
+#' Package to check for.
+#' 
+#' @export
+expect_not_use_package <- function()
+
+  
+#' @title
+#' Expect tidy format
+#' 
+#' @details
+#' Test that the format used in a function is tidy (see formatR)
+#' 
+#' @param object
+#' Function to test.
+#' 
+#' @export
+expect_tidy_format <- function()
+  
