@@ -3,7 +3,7 @@
 \alias{set_assignment}
 \title{Set assignment to mark}
 \usage{
-set_assignment()
+set_assignment(path, auth_token = NULL)
 }
 \arguments{
 \item{path}{Path to the yml file}
@@ -15,5 +15,8 @@ Set assignment to mark
 }
 \details{
 Sets the assignment to mark. Behind the scenes it download the test suite for the assignment.
+}
+\examples{
+set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
 }
 

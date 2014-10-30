@@ -16,6 +16,10 @@ Objects:
   - mandatory
     - test_url
 
+Stored in:
+[Rtemp]/markmyassignment/assignment.yml
+
+
 Public apis:
 - set_assignment()
 - show_tasks()

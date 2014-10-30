@@ -9,11 +9,30 @@
 #' @param auth_token 
 #' Authorization token (for github)
 #' 
+#' @examples
+#' set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
+#' 
 #' @export
-set_assignment <- function(){}
+set_assignment <- function(path, auth_token = NULL){
+  temp_folder_check_create()
+  dest <- paste0(tempdir(), "/markmyassignment/assignment.yml")
+  if(file.exists(dest)) file.remove(dest)
+  get_file(path, dest, auth_token)  
+  if(!check_assignment_yml()) file.remove(dest)
+  invisible(dest)
+}
 
-# Get the yml file and download the test suite and store in a temp folder.
-
+#' @title
+#'  Check and create folder if missing.
+#' 
+#' @details
+#'   Checks if markmyassignment folder exist in R temp directory.
+#'   If not, the folder is created.
+temp_folder_check_create <- function() {
+  if(!"markmyassignment" %in% dir(tempdir())){
+    dir.create(path = paste0(tempdir(), "/", "markmyassignment"))
+  }
+}
 
 #' @title
 #'   Check yml file to be correct.
