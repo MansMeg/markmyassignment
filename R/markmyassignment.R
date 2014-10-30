@@ -5,5 +5,5 @@
 #' 
 #' @name markmyassignment
 #' @docType package
-#' @import httr RJSONIO
+#' @import httr yaml testthat
 NULL

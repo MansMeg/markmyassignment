@@ -8,3 +8,8 @@ Maintainer: Mans Magnusson <mans.magnusson@gmail.com>
 Description: Automatic marking of R assignments for students and teachers based
     on testthat test suites.
 License: BSD_2_clause + file LICENSE
+Depends:
+    yaml,
+    testthat,
+    httr
+Enhances: formatR

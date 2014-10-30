@@ -10,19 +10,19 @@
 #' Authorization token (for github)
 #' 
 #' @export
-check_assignment_yml <- function(){}
+set_assignment <- function(){}
 
 # Get the yml file and download the test suite and store in a temp folder.
 
 
 #' @title
-#' Check yml file to be correct.
+#'   Check yml file to be correct.
 #' 
 #' @details
-#' Check the yml file that it is correct and can be used. Otherwise warn.
+#'   Check the yml file that it is correct and can be used. Otherwise warn.
 #' 
-#' @return
-#' boolean 
+#' @return 
+#'   boolean 
 #' 
 check_assignment_yml <- function(){}
 
@@ -33,8 +33,8 @@ check_assignment_yml <- function(){}
 #' @details
 #' Check the path type. 
 #' 
-#' @return
-#' path object
+#' @return path object
+#' 
 #' 
 path_type <- function(){}
 
@@ -45,14 +45,13 @@ path_type <- function(){}
 #' Get the file from the path
 #' 
 #' @details
-#' Get the file from the path.
+#' Get/download the file from the path.
 #' 
 #' @param path
-#' The path to get the file from
+#' Path object
 #' @param dest
 #' Destination for the file
 #' 
-#' @return
 #' 
 get_file <- function(){}
 
@@ -64,7 +63,14 @@ get_file <- function(){}
 #' @details
 #' Check if there is an assignmentfile and load it.
 #' 
-#' @return
-#' Assignment object.
+#' @return assignment object
 #' 
 load_assignment_info <- function(){}
+
+
+#' @title
+#'   Show the tasks in the assignment.
+#' 
+#' 
+#' @export
+show_tasks <- function(){}

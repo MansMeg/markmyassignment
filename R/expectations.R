@@ -55,5 +55,5 @@ expect_not_use_package <- function()
 #' Function to test.
 #' 
 #' @export
-expect_tidy_format <- function()
+expect_tidy_format <- function(){}
   

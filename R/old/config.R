@@ -4,11 +4,27 @@
 #' @examples
 #' get_config()
 #' 
+#' @export
 get_config <- function(){
-  config <- RJSONIO::fromJSON(system.file("config/config.json", package = "markmyassignment"))
+  config <- yaml::yaml.load_file(input = system.file("config/config.yml", package = "markmyassignment"))
   class(config) <- c("markmyassignment_config", "list")
   config
 }
+
+#' @export
+print.markmyassignment_config <- function (x,...) 
+{
+  cat(yaml::as.yaml(get_config()))
+}
+
+
+add_github_test_suite <- function()
+
+
+add_http_test_suite <- function()
+
+
+rm_test_suite <- function()
 
 
 #' @title
@@ -58,7 +74,7 @@ get_test_suite_type <- function(test_suite){
   test_suite_type <- character(length(test_suite))
   test_suite_type[grepl(x = test_suite, pattern = "^http:")] <- "http"
   test_suite_type[grepl(x = test_suite, pattern = "^https:")] <- "https"
-  test_suite_type[grepl(x = test_suite, pattern = "http.*api.*github")] <- "github"
+  test_suite_type[grepl(x = test_suite, pattern = "http.*api.*github")] <- "github_api"
   test_suite_type[!grepl(x = test_suite, pattern = "^http")] <- "local"
   if(any(test_suite_type == "")) warning("Package can't use tests in:\n", 
                                      paste(test_suite[test_suite_type==""], collapse="\n"),
@@ -100,4 +116,4 @@ check_config <- function(config_list=NULL){
                               call. = FALSE)
 }
 
-
+# Fix so local always have trailing / and check for file
