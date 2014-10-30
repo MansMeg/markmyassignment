@@ -43,7 +43,9 @@ temp_folder_check_create <- function() {
 #' @return 
 #'   boolean 
 #' 
-check_assignment_yml <- function(){}
+check_assignment_yml <- function(){
+  assignment <- read_assignment_yml()
+}
 
 
 #' @title
@@ -52,13 +54,23 @@ check_assignment_yml <- function(){}
 #' @details
 #' Check the path type. 
 #' 
-#' @return path object
+#' @return path type as character element c("local", "http", "error")
 #' 
-#' 
-path_type <- function(){}
-
-
-
+#' @examples
+#'  path_type(path = "README.md")
+#'  path_type(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
+#'  path_type(path = "XXX")
+path_type <- function(path){
+  if(file.exists(path)){
+    return("local")
+  }
+  try_http <- try(httr::url_ok(path), silent = TRUE)
+  if (!is(try_http, "try-error") && try_http){
+    return("http")
+  } else {
+    return("error")
+  }
+}
 
 #' @title
 #' Get the file from the path
@@ -80,12 +92,18 @@ get_file <- function(){}
 #' Load assignment information
 #' 
 #' @details
-#' Check if there is an assignmentfile and load it.
+#' Check if there exist an assignmentfile and then load it.
 #' 
 #' @return assignment object
 #' 
-load_assignment_info <- function(){}
-
+read_assignment_yml <- function(){
+  assignment_file <- paste0(tempdir(),"/markmyassignment/assignment.yml")
+  if(file.exists(assignment_file)){
+    return(yaml::yaml.load_file(assignment_file))
+  } else {
+    stop("No assignment has been set. Please use set_assignment().", call. = FALSE)
+  }
+}
 
 #' @title
 #'   Show the tasks in the assignment.

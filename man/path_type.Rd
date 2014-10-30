@@ -3,15 +3,20 @@
 \alias{path_type}
 \title{Get the path type.}
 \usage{
-path_type()
+path_type(path)
 }
 \value{
-path object
+path type as character element c("local", "http", "error")
 }
 \description{
 Get the path type.
 }
 \details{
 Check the path type.
+}
+\examples{
+path_type(path = "README.md")
+ path_type(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
+ path_type(path = "XXX")
 }
 
