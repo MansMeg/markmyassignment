@@ -21,6 +21,7 @@
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE){
   get_tests(tasks = tasks, force = force_get_tests)
   test_results <- run_test_suite(tasks, mark_file, quiet)
+  if(sum(test_results$failed) == 0 & is.null(tasks)) cheer()
   return(invisible(test_results))
 }
 
@@ -186,3 +187,14 @@ mark_my_assignment_dir <- function(no = 1) paste0(mark_my_base_dir(), "/assignme
 mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
 
 
+
+#' @title
+#'  Cheer when all tasks pass
+#'  
+cheer <- function() {
+  cat(sample(x = c("Yay! All done!",
+               "Good work!",
+               "You're a coding rockstar!",
+               "Keep up the good work!",
+               "Everything's correct!"), 1))
+}
