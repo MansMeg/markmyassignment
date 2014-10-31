@@ -30,6 +30,9 @@ Public apis:
 ### Tests
 test working and non working assignments paths
 test working and non working assignments on windows, mac and linux
+wrong format on yml file
+no mandatory files
+multiple mandatory files
 
 ### User story.
 Studenten sätter på R. Ställer in vilka tester som ska köras med set_assignment().

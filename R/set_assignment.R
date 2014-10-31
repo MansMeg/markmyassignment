@@ -20,7 +20,7 @@ set_assignment <- function(path, auth_token = NULL){
   temp_folder_check_create()
   temp_file <- tempfile()
   on.exit(unlink(temp_file))
-  dest <- paste0(tempdir(), "/markmyassignment/assignment1/assignment1.yml")
+  dest <- paste0(mark_my_assignment_dir(), "/assignment1.yml")
   get_file(path, temp_file)  
   if(!assignment_yml_ok(path = temp_file)) {
     stop("Not a correct assignment file.")
@@ -40,7 +40,7 @@ set_assignment <- function(path, auth_token = NULL){
 #'   If not, the folder is created.
 temp_folder_check_create <- function() {
   if(!"markmyassignment" %in% dir(tempdir())){
-    dir.create(path = paste0(tempdir(), "/markmyassignment"))
+    dir.create(path = mark_my_base_dir())
   }
 }
 
@@ -128,9 +128,10 @@ get_file.path_http <- function(path, dest, ...){
 #' 
 #' @examples
 #'  read_assignment_yml()
+
 read_assignment_yml <- function(path = NULL){
   if(is.null(path)){
-    assignment_file <- paste0(tempdir(),"/markmyassignment/assignment1/assignment1.yml")
+    assignment_file <- paste0(mark_my_assignment_dir(), "/assignment1.yml")
   } else {
     assignment_file <- path
   }

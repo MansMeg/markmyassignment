@@ -75,24 +75,24 @@ mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
 #'  get_tests(verbose=TRUE)
 get_tests <- function(tasks = NULL, force_get_tests = FALSE, verbose = FALSE){
   assignment <- read_assignment_yml()
-  dir.create(path = paste0(tempdir(), "/markmyassignment/assignment1/tests"), recursive = TRUE, showWarnings = FALSE)
-
+  dir.create(path = mark_my_test_dir(), recursive = TRUE, showWarnings = FALSE)
+  
   tasks_to_get <- names(assignment$tasks)
   if(!is.null(tasks)) tasks_to_get <- tasks_to_get[tasks_to_get %in% tasks]
   if(!force_get_tests) tasks_to_get <- tasks_to_get[!tasks_to_get %in% cached_tasks()]
     
   for(task in tasks_to_get) {
     for(i in seq_along(assignment$tasks[[task]]$url)){
-      dest <- paste0(tempdir(), "/markmyassignment/assignment1/tests/test-", task, "-", i, ".R")
+      dest <- paste0(mark_my_test_dir(), "/test-", task, "-", i, ".R")
       path <- path_type(assignment$tasks[[task]]$url[i]) 
       if(verbose) message("Downloading : ", path)
       get_file(path = path, dest = dest)
     }
   }
-  
+    
   if(force_get_tests | !"00mandatory" %in% cached_tasks()){
     for(i in seq_along(assignment$mandatory$url)){
-      dest <- paste0(tempdir(), "/markmyassignment/assignment1/tests/test-00mandatory-", i, ".R")
+      dest <- paste0(mark_my_test_dir(), "/test-00mandatory-", i, ".R")
       path <- path_type(assignment$mandatory$url[i]) 
       if(verbose) message("Downloading : ", path)
       get_file(path = path, dest = dest)
@@ -113,8 +113,8 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE, verbose = FALSE){
 #' @examples
 #'  cached_tasks()
 #' 
-cached_tasks <- function(){
-  files <- dir(paste0(tempdir(), "/markmyassignment/assignment1/tests"))
+cached_tasks <- function(){    
+  files <- dir(mark_my_test_dir())
   unique(unlist(lapply(strsplit(files, split = "-"), FUN=function(X) X[2])))
 }
 
@@ -143,7 +143,7 @@ cached_tasks <- function(){
 #'
 run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
   
-  test_directory <- paste0(tempdir(), "/markmyassignment/assignment1/tests")
+  test_directory <- mark_my_test_dir()
   
   if(!is.null(mark_file)){
     if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.")
@@ -170,3 +170,19 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
   }
   test_res
 }
+
+
+#' @title
+#'  Functions to create directories
+#'  
+#' @name directories
+#' 
+mark_my_base_dir <- function() paste0(tempdir(), "/markmyassignment")
+
+#' @rdname directories
+mark_my_assignment_dir <- function(no = 1) paste0(mark_my_base_dir(), "/assignment", no)
+
+#' @rdname directories
+mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
+
+
