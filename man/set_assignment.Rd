@@ -8,7 +8,7 @@ set_assignment(path, auth_token = NULL)
 \arguments{
 \item{path}{Path to the yml file}
 
-\item{auth_token}{Authorization token (for github)}
+\item{auth_token}{Authorization token (for github). Not implemented.}
 }
 \description{
 Set assignment to mark
@@ -18,5 +18,6 @@ Sets the assignment to mark. Behind the scenes it download the test suite for th
 }
 \examples{
 set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
+set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/d1.yml")
 }
 

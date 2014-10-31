@@ -3,19 +3,26 @@
 \alias{mark_my_assignment}
 \title{Mark assignment in global environment}
 \usage{
-mark_my_assignment()
+mark_my_assignment(tasks = NULL, mark_file = NULL,
+  force_get_tests = FALSE, quiet = FALSE)
 }
 \arguments{
-\item{task}{Which task should be corrected (if more than one).}
+\item{tasks}{Which task should be corrected (if more than one). Default is all. To see the different task, see show_task().}
 
-\item{file}{Run tests on a R-file. Default is NULL means global environment.}
+\item{mark_file}{Run tests on a R-file. Default is NULL means global environment.}
 
-\item{force_files}{Force download of test files before marking of assignments. Default is FALSE.}
+\item{force_get_tests}{Force download of test files before marking of assignments. Default is FALSE.}
+
+\item{quiet}{Should test be run without output?}
 }
 \description{
 Mark assignment in global environment
 }
 \details{
 Mark assignment in global environment.
+}
+\examples{
+mark_my_assignment()
+  mark_my_assignment()
 }
 

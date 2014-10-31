@@ -3,7 +3,7 @@
 \alias{read_assignment_yml}
 \title{Load assignment information}
 \usage{
-read_assignment_yml()
+read_assignment_yml(path = NULL)
 }
 \value{
 assignment object
@@ -13,5 +13,8 @@ Load assignment information
 }
 \details{
 Check if there exist an assignmentfile and then load it.
+}
+\examples{
+read_assignment_yml()
 }
 

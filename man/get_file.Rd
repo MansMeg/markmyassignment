@@ -3,7 +3,7 @@
 \alias{get_file}
 \title{Get the file from the path}
 \usage{
-get_file()
+get_file(path, dest, ...)
 }
 \arguments{
 \item{path}{Path object}
@@ -15,5 +15,8 @@ Get the file from the path
 }
 \details{
 Get/download the file from the path.
+}
+\examples{
+get_file(path, dest)
 }
 

@@ -3,20 +3,27 @@
 \alias{run_test_suite}
 \title{Run test suite.}
 \usage{
-run_test_suite()
+run_test_suite(tasks = NULL, mark_file = NULL, quiet = FALSE)
 }
 \arguments{
-\item{task}{Which task should be tested}
+\item{tasks}{Which task should be tested}
 
-\item{file}{Run tests on a R-file. Default is NULL means global environment.}
+\item{mark_file}{Run tests on a R-file. Default is NULL means global environment.}
+
+\item{quiet}{Should the output be supressed (only returning test results)}
 }
 \value{
-Character vector with cached assignments.
+test_suite results
 }
 \description{
 Run test suite.
 }
 \details{
 Runs test on the tasks. Always run mandatory tests.
+}
+\examples{
+run_test_suite(tasks = "uppgift1")
+  run_test_suite(tasks = c("uppgift1", "uppgift3"))
+  run_test_suite(tasks = c("uppgift1", "uppgift3"), quiet = TRUE)
 }
 

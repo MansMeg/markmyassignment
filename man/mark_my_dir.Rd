@@ -3,17 +3,22 @@
 \alias{mark_my_dir}
 \title{Mark assignments in a directory}
 \usage{
-mark_my_dir()
+mark_my_dir(directory, tasks = NULL, force_get_tests = FALSE)
 }
 \arguments{
-\item{dir}{Directory with assignments files.}
+\item{directory}{Directory with assignments files.}
 
-\item{force_files}{Force download of test files before marking of assignments. Default is FALSE.}
+\item{force_get_tests}{Force download of test files before marking of assignments. Default is FALSE.}
 }
 \description{
 Mark assignments in a directory
 }
 \details{
 Marks assignments in a directory. Stores the results.
+}
+\examples{
+directory <- paste0(tempdir(), "/gitmsge2926d41ba09.txt")
+  directory <- tempdir()
+  writeLines("test", tempfile(fileext = ".R"))
 }
 
