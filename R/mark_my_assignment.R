@@ -21,7 +21,7 @@
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE){
   get_tests(tasks = tasks, force = force_get_tests)
   test_results <- run_test_suite(tasks, mark_file, quiet)
-  if(sum(test_results$failed) == 0 & is.null(tasks)) cheer()
+  if(sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
   return(invisible(test_results))
 }
 
@@ -45,15 +45,24 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #'   
 #' @export
 mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
-  files_to_mark <- dir(directory, pattern = "\\.[Rr]")
+  files_to_mark <- paste0(directory, "/", dir(directory, pattern = "\\.[Rr]"))
   if(length(files_to_mark) == 0) stop("No files to mark.")
-  for(single_file in files_to_mark){
-    res_mark <- 
+  for(i in seq_along(files_to_mark)){
+    res_mark_temp <- try(
       mark_my_assignment(tasks = tasks, 
-                         mark_file = single_file, 
+                         mark_file = files_to_mark[i], 
                          force_get_tests = force_get_tests, 
-                         quiet = TRUE)
+                         quiet = TRUE))
     force_get_tests <- FALSE
+    if(class(res_mark_temp) == "try-error") {
+      warning(files_to_mark[i], " could not be read.")
+      } else if (!exists(x = "res_mark")){
+        res_mark_temp$marked_file <- files_to_mark[i]
+        res_mark <- res_mark_temp
+      } else {
+        res_mark_temp$marked_file <- files_to_mark[i]
+        res_mark <- rbind(res_mark, res_mark_temp)
+      }
   }
   return(res_mark)
 }
