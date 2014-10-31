@@ -56,4 +56,18 @@ expect_not_use_package <- function()
 #' 
 #' @export
 expect_tidy_format <- function(){}
+
+
+
+#' @title
+#' Expect object
+#' 
+#' @details
+#'  Test that an object with a given name exist in the environment.
+#' 
+#' @param object
+#'  Object that is expected to exist.
+#' 
+#' @export
+expect_object <- function(){}
   
