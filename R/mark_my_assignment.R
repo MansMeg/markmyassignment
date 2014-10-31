@@ -45,22 +45,25 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #'   
 #' @export
 mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
-  files_to_mark <- paste0(directory, "/", dir(directory, pattern = "\\.[Rr]"))
+  file_names <- dir(directory, pattern = "\\.[Rr]")
+  files_to_mark <- paste0(directory, "/", file_names)
+  if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
   if(length(files_to_mark) == 0) stop("No files to mark.")
-  for(i in seq_along(files_to_mark)){
+  for(i in seq_along(files_to_mark)){ #i <- 1
     res_mark_temp <- try(
       mark_my_assignment(tasks = tasks, 
                          mark_file = files_to_mark[i], 
                          force_get_tests = force_get_tests, 
-                         quiet = TRUE))
+                         quiet = TRUE), silent=TRUE)
     force_get_tests <- FALSE
     if(class(res_mark_temp) == "try-error") {
-      warning(files_to_mark[i], " could not be read.")
+      res_mark_temp[1]
+      message(file_names[i], " could not be marked.")
       } else if (!exists(x = "res_mark")){
-        res_mark_temp$marked_file <- files_to_mark[i]
+        res_mark_temp$marked_file <- file_names[i]
         res_mark <- res_mark_temp
       } else {
-        res_mark_temp$marked_file <- files_to_mark[i]
+        res_mark_temp$marked_file <- file_names[i]
         res_mark <- rbind(res_mark, res_mark_temp)
       }
   }
