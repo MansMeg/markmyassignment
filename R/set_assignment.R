@@ -20,13 +20,13 @@ set_assignment <- function(path, auth_token = NULL){
   temp_folder_check_create()
   temp_file <- tempfile()
   on.exit(unlink(temp_file))
+  dir.create(mark_my_assignment_dir(), recursive = TRUE, showWarnings = FALSE)
   dest <- paste0(mark_my_assignment_dir(), "/assignment1.yml")
   get_file(path, temp_file)  
   if(!assignment_yml_ok(path = temp_file)) {
     stop("Not a correct assignment file.")
   }
-  if(file.exists(dest)) file.remove(dest)
-  file.rename(from = temp_file, to = dest)
+  file.copy(from = temp_file, to = dest, overwrite = TRUE)
   assignment <- read_assignment_yml()
   message("Assignment set:\n", assignment$name, " : ", assignment$description)
   invisible(dest)
