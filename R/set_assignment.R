@@ -7,17 +7,19 @@
 #' @param path
 #' Path to the yml file
 #' @param auth_token 
-#' Authorization token (for github)
+#' Authorization token (for github). Not implemented.
 #' 
 #' @examples
 #' set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
 #' 
 #' @export
 set_assignment <- function(path, auth_token = NULL){
+  path <- path_type(path)
+  if(inherits(path,what = "path_error")) stop("Path does not exist", call. = FALSE)
   temp_folder_check_create()
   dest <- paste0(tempdir(), "/markmyassignment/assignment.yml")
   if(file.exists(dest)) file.remove(dest)
-  get_file(path, dest, auth_token)  
+  get_file(path, dest)  
   if(!check_assignment_yml()) file.remove(dest)
   invisible(dest)
 }
@@ -62,14 +64,16 @@ check_assignment_yml <- function(){
 #'  path_type(path = "XXX")
 path_type <- function(path){
   if(file.exists(path)){
-    return("local")
-  }
-  try_http <- try(httr::url_ok(path), silent = TRUE)
-  if (!is(try_http, "try-error") && try_http){
-    return("http")
+    class(path) <- c("path_local", "character")
   } else {
-    return("error")
-  }
+    try_http <- try(httr::url_ok(path), silent = TRUE)
+    if (!is(try_http, "try-error") && try_http){
+      class(path) <- c("path_http", "character")
+    } else {
+      class(path) <- c("path_error", "character")
+    }
+  }  
+  path
 }
 
 #' @title
@@ -79,13 +83,14 @@ path_type <- function(path){
 #' Get/download the file from the path.
 #' 
 #' @param path
-#' Path object
+#'  Path object
 #' @param dest
-#' Destination for the file
+#'  Destination for the file
 #' 
 #' 
-get_file <- function(){}
-
+get_file <- function(path, dest){
+  stopifnot(!inherits(path, "path_error"))
+}
 
 
 #' @title
