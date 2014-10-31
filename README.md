@@ -27,6 +27,9 @@ Public apis:
 - mark_my_file()
 - mark_my_dir()
 
+### Tests
+test working and non working assignments paths
+test working and non working assignments on windows, mac and linux
 
 ### User story.
 Studenten sätter på R. Ställer in vilka tester som ska köras med set_assignment().
