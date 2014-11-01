@@ -1,5 +1,7 @@
 ### Assignment : task2 ###
 
+context("task2")
+
 test_that("Marking task2", {
   expect_object("task2")
   expect_is(task2, "function")
