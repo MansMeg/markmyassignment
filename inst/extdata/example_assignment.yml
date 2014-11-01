@@ -1,4 +1,4 @@
-assignment  : Test assignment
+name  : Test assignment
 description : An example of how an assignment can be constructed.
 tasks:
   task1:
