@@ -21,7 +21,7 @@
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE){
   get_tests(tasks = tasks, force = force_get_tests)
   test_results <- run_test_suite(tasks, mark_file, quiet)
-  if(sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
+  if(!any(test_results$error) & is.null(tasks) & !quiet) cheer()
   return(invisible(test_results))
 }
 

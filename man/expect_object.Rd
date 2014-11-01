@@ -3,7 +3,7 @@
 \alias{expect_object}
 \title{Expect object}
 \usage{
-expect_object()
+expect_object(object, ..., info = NULL, label = NULL)
 }
 \arguments{
 \item{object}{Object that is expected to exist.}
