@@ -86,7 +86,7 @@ has_function_arguments <-
       self <- list()
       self$formals <- names(formals(actual))
       self$missing <- !self$formals %in% expected
-      expectation(all(self$formals %in% expected),
+      expectation(all(expected %in% self$formals),
                   failure_msg = paste0(paste(expected[self$missing], collapse = ", "), 
                                        " is missing"),
                   success_msg = "all arguments exist")
@@ -95,7 +95,7 @@ has_function_arguments <-
 
 
 #' @title
-#' Expect tidy format
+#' Expect tidy format (to be constructed)
 #' 
 #' @details
 #' Test that the format used in a function is tidy (see formatR)
@@ -103,6 +103,5 @@ has_function_arguments <-
 #' @param object
 #' Function to test.
 #' 
-#' @export
 expect_tidy_code <- function(){}
 
