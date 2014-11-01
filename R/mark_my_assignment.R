@@ -156,15 +156,13 @@ cached_tasks <- function(){
 #'
 run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
   
-  test_directory <- mark_my_test_dir()
+  test_directory <- mark_my_test_dir()  
+  mark_my_env <- test_env()
   
   if(!is.null(mark_file)){
-    if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.")
-    mark_my_env <- new.env()
+    if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
     source(file = mark_file, local = mark_my_env)
-  } else {
-    mark_my_env <- test_env()
-  }
+  } 
   
   if(quiet) report <- "silent" else report <- "summary"
   

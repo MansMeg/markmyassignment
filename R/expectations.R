@@ -58,32 +58,6 @@ do_not_use_package <-
     }
   }
 
-#' @title
-#' Expect object
-#' 
-#' @details
-#'  Test that an object with a given name exist in the environment.
-#' 
-#' @param object
-#'  Object that is expected to exist.
-#' 
-#' @export
-expect_object <- function(object, ..., info = NULL, label = NULL){
-  if (is.null(label)) {
-    label <- testthat:::find_expr("object")
-  }
-  expect_that(object, object_exist() , info = info, label = label)
-}
-
-object_exist <- 
-  function(){
-    function(object) {
-      expectation(exists(x = object), 
-                  paste0("is missing"), 
-                  paste0("exist"))
-    }
-  }
-  
 
 #' @title
 #' Expect function arguments
@@ -102,7 +76,7 @@ expect_function_arguments <- function(object, expected, ..., info = NULL, label 
   }
   expect_that(object, 
               has_function_arguments(expected, label = label, ...), 
-              info = info, label = "argument(s)")
+              info = info, label = label)
 }
 
 has_function_arguments <- 
@@ -114,7 +88,7 @@ has_function_arguments <-
       self$missing <- !self$formals %in% expected
       expectation(all(self$formals %in% expected),
                   failure_msg = paste0(paste(expected[self$missing], collapse = ", "), 
-                                       " is missing in ", label),
+                                       " is missing"),
                   success_msg = "all arguments exist")
     }
   }

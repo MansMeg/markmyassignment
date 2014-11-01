@@ -3,7 +3,7 @@
 context("Mandatory tests")
 
 test_that("Mandatory tests", {
-  expect_object("my_name")
-  expect_package_not_used("cheating_package")
+  expect_true(exists("my_name"), "Variable my_name is missing")
+  expect_package_not_used("cheating_package", info = "package 'cheating_package' is not allowed")
 })
 
