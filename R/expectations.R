@@ -42,22 +42,21 @@ is_self_contained <-
 #' Package to check for.
 #' 
 #' @export
-expect_not_use_package <- function()
+expect_package_not_used <- function(object, ..., info = NULL, label = NULL){
+  if (is.null(label)) {
+    label <- testthat:::find_expr("object")
+  }
+  expect_that(object, do_not_use_package() , info = info, label = label)
+}
 
-  
-#' @title
-#' Expect tidy format
-#' 
-#' @details
-#' Test that the format used in a function is tidy (see formatR)
-#' 
-#' @param object
-#' Function to test.
-#' 
-#' @export
-expect_tidy_format <- function(){}
-
-
+do_not_use_package <- 
+  function(){
+    function(pkg) {
+      expectation(!any(grepl(pkg, search())), 
+                  paste0("package is used"), 
+                  paste0("package is not used"))
+    }
+  }
 
 #' @title
 #' Expect object
@@ -69,5 +68,67 @@ expect_tidy_format <- function(){}
 #'  Object that is expected to exist.
 #' 
 #' @export
-expect_object <- function(){}
+expect_object <- function(object, ..., info = NULL, label = NULL){
+  if (is.null(label)) {
+    label <- testthat:::find_expr("object")
+  }
+  expect_that(object, object_exist() , info = info, label = label)
+}
+
+object_exist <- 
+  function(){
+    function(object) {
+      expectation(exists(x = object), 
+                  paste0("is missing"), 
+                  paste0("exist"))
+    }
+  }
   
+
+#' @title
+#' Expect function arguments
+#' 
+#' @details
+#'  Test that an object with a given name exist in the environment.
+#' 
+#' @param object
+#'  Object that is expected to exist.
+#' 
+#' @export
+expect_function_arguments <- function(object, expected, ..., info = NULL, label = NULL, expected.label = NULL) 
+{
+  if (is.null(label)) {
+    label <- testthat:::find_expr("object")
+  }
+  expect_that(object, 
+              has_function_arguments(expected, label = label, ...), 
+              info = info, label = "argument(s)")
+}
+
+has_function_arguments <- 
+  function (expected, label = NULL, ...) 
+  {
+    function(actual) {
+      self <- list()
+      self$formals <- names(formals(actual))
+      self$missing <- !self$formals %in% expected
+      expectation(all(self$formals %in% expected),
+                  failure_msg = paste0(paste(expected[self$missing], collapse = ", "), 
+                                       " is missing in ", label),
+                  success_msg = "all arguments exist")
+    }
+  }
+
+
+#' @title
+#' Expect tidy format
+#' 
+#' @details
+#' Test that the format used in a function is tidy (see formatR)
+#' 
+#' @param object
+#' Function to test.
+#' 
+#' @export
+expect_tidy_code <- function(){}
+
