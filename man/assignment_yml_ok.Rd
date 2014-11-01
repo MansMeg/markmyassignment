@@ -5,6 +5,9 @@
 \usage{
 assignment_yml_ok(path = NULL)
 }
+\arguments{
+\item{path}{\code{path} object from \code{\link{path_type}}}
+}
 \value{
 boolean
 }

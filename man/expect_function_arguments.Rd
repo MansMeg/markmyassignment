@@ -3,11 +3,22 @@
 \alias{expect_function_arguments}
 \title{Expect function arguments}
 \usage{
-expect_function_arguments(object, expected, ..., info = NULL, label = NULL,
+expect_function_arguments(object, expected, info = NULL, label = NULL,
   expected.label = NULL)
 }
 \arguments{
-\item{object}{Object that is expected to exist.}
+\item{object}{Function to check the arguments of.}
+
+\item{expected}{Expected arguments in function.}
+
+\item{info}{Extra information to be included in the message (useful when writing tests in loops).}
+
+\item{label}{For full form, label of expected object used in error messages.
+Useful to override default (deparsed expected expression) when doing
+tests in a loop. For short cut form, object label. When NULL, computed from
+deparsed object.}
+
+\item{expected.label}{Equivalent of \code{label} for shortcut form.}
 }
 \description{
 Expect function arguments

@@ -3,10 +3,12 @@
 \alias{get_tests}
 \title{Get test files}
 \usage{
-get_tests(tasks = NULL, force_get_tests = FALSE, verbose = FALSE)
+get_tests(tasks = NULL, force_get_tests = FALSE)
 }
 \arguments{
 \item{tasks}{Which task should be downloaded. Default is "all".}
+
+\item{force_get_tests}{Force download/get test (ignore cached tests).}
 }
 \description{
 Get test files
@@ -14,10 +16,5 @@ Get test files
 \details{
 Downloads the test files for the current assignment and save them to
 temp directory.
-}
-\examples{
-get_tests(c("uppgift2", "uppgift5"), force_get_tests=TRUE, verbose=TRUE)
- get_tests(force_get_tests=TRUE, verbose=TRUE)
- get_tests(verbose=TRUE)
 }
 

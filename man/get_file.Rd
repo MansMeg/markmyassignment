@@ -9,14 +9,13 @@ get_file(path, dest, ...)
 \item{path}{Path object}
 
 \item{dest}{Destination for the file}
+
+\item{...}{Further arguments to send to \code{httr::GET()}.}
 }
 \description{
 Get the file from the path
 }
 \details{
 Get/download the file from the path.
-}
-\examples{
-get_file(path, dest)
 }
 

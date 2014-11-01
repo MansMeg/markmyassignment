@@ -12,6 +12,11 @@ mark_my_assignment_dir(no = 1)
 
 mark_my_test_dir(...)
 }
+\arguments{
+\item{no}{assignment number}
+
+\item{...}{to send to \code{\link{mark_my_assignment_dir}}}
+}
 \description{
 Functions to create directories
 }

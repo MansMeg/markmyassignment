@@ -2,19 +2,27 @@
 #' Expect that the tested function is self-contained.
 #' 
 #' @details
-#' Tests if a fuction is self-contained (i.e. do not use any global variables).
+#'   Tests if a fuction is self-contained (i.e. do not use any global variables).
 #' 
 #' @param object 
-#' Function to test if it is self-contained.
+#'   Function to test if it is self-contained.
+#' @param label
+#'   For full form, label of expected object used in error messages. 
+#'   Useful to override default (deparsed expected expression) when doing 
+#'   tests in a loop. For short cut form, object label. When NULL, computed from 
+#'   deparsed object.
+#' @param info 
+#'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
 #' @export
 
-expect_self_contained <- function(object, ..., info = NULL, label = NULL) {
+expect_self_contained <- function(object, info = NULL, label = NULL) {
   if (is.null(label)) {
-    label <- testthat:::find_expr("object")
+    label <- find_expr("object")
   }
   expect_that(object, is_self_contained() , info = info, label = label)
 }
+
 
 is_self_contained <- 
   function (expected) 
@@ -38,13 +46,20 @@ is_self_contained <-
 #' @details
 #' Tests that the following packages are not used.
 #' 
-#' @param pkg 
-#' Package to check for.
+#' @param object
+#'   Package to check for.
+#' @param label
+#'   For full form, label of expected object used in error messages. 
+#'   Useful to override default (deparsed expected expression) when doing 
+#'   tests in a loop. For short cut form, object label. When NULL, computed from 
+#'   deparsed object.
+#' @param info 
+#'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
 #' @export
-expect_package_not_used <- function(object, ..., info = NULL, label = NULL){
+expect_package_not_used <- function(object, info = NULL, label = NULL){
   if (is.null(label)) {
-    label <- testthat:::find_expr("object")
+    label <- find_expr("object")
   }
   expect_that(object, do_not_use_package() , info = info, label = label)
 }
@@ -66,21 +81,32 @@ do_not_use_package <-
 #'  Test that an object with a given name exist in the environment.
 #' 
 #' @param object
-#'  Object that is expected to exist.
+#'   Function to check the arguments of.
+#' @param expected
+#'   Expected arguments in function.
+#' @param label
+#'   For full form, label of expected object used in error messages. 
+#'   Useful to override default (deparsed expected expression) when doing 
+#'   tests in a loop. For short cut form, object label. When NULL, computed from 
+#'   deparsed object.
+#' @param info 
+#'   Extra information to be included in the message (useful when writing tests in loops).
+#' @param expected.label Equivalent of \code{label} for shortcut form.
 #' 
 #' @export
-expect_function_arguments <- function(object, expected, ..., info = NULL, label = NULL, expected.label = NULL) 
+expect_function_arguments <- 
+  function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
 {
   if (is.null(label)) {
-    label <- testthat:::find_expr("object")
+    label <- find_expr("object")
   }
   expect_that(object, 
-              has_function_arguments(expected, label = label, ...), 
+              has_function_arguments(expected, label = expected.label), 
               info = info, label = label)
 }
 
 has_function_arguments <- 
-  function (expected, label = NULL, ...) 
+  function (expected, label = NULL) 
   {
     function(actual) {
       self <- list()
@@ -100,8 +126,18 @@ has_function_arguments <-
 #' @details
 #' Test that the format used in a function is tidy (see formatR)
 #' 
-#' @param object
-#' Function to test.
-#' 
 expect_tidy_code <- function(){}
 
+
+
+#' @title
+#' Internal function (taken from testthat)
+#' 
+#' @param name See \code{testthat:::find_expr()}.
+#' @param env See \code{testthat:::find_expr()}.
+#' 
+find_expr <- function(name, env = parent.frame()){
+  subs <- do.call("substitute", list(as.name(name), env))
+  paste0(deparse(subs, width.cutoff = 500), collapse = "\n")
+}
+formals(testthat:::find_expr)

@@ -10,8 +10,11 @@
 #' Authorization token (for github). Not implemented.
 #' 
 #' @examples
-#' set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
-#' set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/d1.yml")
+#' \donttest{
+#' assignment_path <- 
+#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
+#' set_assignment(assignment_url)
+#' }
 #' 
 #' @export
 set_assignment <- function(path, auth_token = NULL){
@@ -38,6 +41,7 @@ set_assignment <- function(path, auth_token = NULL){
 #' @details
 #'   Checks if markmyassignment folder exist in R temp directory.
 #'   If not, the folder is created.
+#'   
 temp_folder_check_create <- function() {
   if(!"markmyassignment" %in% dir(tempdir())){
     dir.create(path = mark_my_base_dir())
@@ -49,6 +53,8 @@ temp_folder_check_create <- function() {
 #' 
 #' @details
 #'   Check the yml file that it is correct and can be used. Otherwise warn.
+#' 
+#' @param path \code{path} object from \code{\link{path_type}}
 #' 
 #' @return 
 #'   boolean 
@@ -69,12 +75,10 @@ assignment_yml_ok <- function(path = NULL){
 #' @details
 #' Check the path type. 
 #' 
+#' @param path Character element of url or local search path.
+#' 
 #' @return path type as character element c("local", "http", "error")
 #' 
-#' @examples
-#'  path_type(path = "README.md")
-#'  path_type(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
-#'  path_type(path = "XXX")
 path_type <- function(path){
   if(file.exists(path)){
     class(path) <- c("path_local", "character")
@@ -96,12 +100,12 @@ path_type <- function(path){
 #' Get/download the file from the path.
 #' 
 #' @param path
-#'  Path object
+#'   Path object
 #' @param dest
-#'  Destination for the file
+#'   Destination for the file
+#' @param ...
+#'   Further arguments to send to \code{httr::GET()}.
 #' 
-#' @examples
-#'   get_file(path, dest)
 #' 
 get_file <- function(path, dest, ...){
   stopifnot(!inherits(path, "path_error"))
@@ -124,10 +128,10 @@ get_file.path_http <- function(path, dest, ...){
 #' @details
 #' Check if there exist an assignmentfile and then load it.
 #' 
+#' @param path \code{path object} from \code{\link{path_type}}
+#' 
 #' @return assignment object
 #' 
-#' @examples
-#'  read_assignment_yml()
 
 read_assignment_yml <- function(path = NULL){
   if(is.null(path)){
@@ -148,7 +152,12 @@ read_assignment_yml <- function(path = NULL){
 #'   Get the name of the tasks in the assignment.
 #' 
 #' @examples
-#'  show_tasks()
+#' \donttest{
+#' assignment_path <- 
+#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
+#' set_assignment(assignment_url)
+#' show_tasks()
+#' }
 #' 
 #' @export
 show_tasks <- function(){

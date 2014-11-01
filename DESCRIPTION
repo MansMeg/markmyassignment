@@ -12,4 +12,5 @@ Depends:
     yaml,
     testthat,
     httr
-Enhances: formatR
+Enhances: formatR,
+    codetools

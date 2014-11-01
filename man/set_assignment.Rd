@@ -17,7 +17,10 @@ Set assignment to mark
 Sets the assignment to mark. Behind the scenes it download the test suite for the assignment.
 }
 \examples{
-set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/mandatory.R")
-set_assignment(path = "https://raw.githubusercontent.com/MansMeg/KursRprgm/master/Labs/Test/d1.yml")
+\donttest{
+assignment_path <-
+  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
+set_assignment(assignment_url)
+}
 }
 

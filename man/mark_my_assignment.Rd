@@ -7,7 +7,8 @@ mark_my_assignment(tasks = NULL, mark_file = NULL,
   force_get_tests = FALSE, quiet = FALSE)
 }
 \arguments{
-\item{tasks}{Which task should be corrected (if more than one). Default is all. To see the different task, see show_task().}
+\item{tasks}{Which task should be corrected (if more than one). Default is all.
+To see the different task, see \code{\link{show_tasks}}.}
 
 \item{mark_file}{Run tests on a R-file. Default is NULL means global environment.}
 
@@ -22,7 +23,12 @@ Mark assignment in global environment
 Mark assignment in global environment.
 }
 \examples{
+\donttest{
+assignment_path <-
+  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
+set_assignment(assignment_url)
+source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
 mark_my_assignment()
-  mark_my_assignment()
+}
 }
 

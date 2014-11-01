@@ -5,7 +5,8 @@
 #' Mark assignment in global environment.
 #' 
 #' @param tasks
-#'   Which task should be corrected (if more than one). Default is all. To see the different task, see show_task().
+#'   Which task should be corrected (if more than one). Default is all. 
+#'   To see the different task, see \code{\link{show_tasks}}.
 #' @param mark_file
 #'   Run tests on a R-file. Default is NULL means global environment.
 #' @param force_get_tests
@@ -14,12 +15,17 @@
 #'   Should test be run without output?
 #' 
 #' @examples
-#'   mark_my_assignment()
-#'   mark_my_assignment()
+#' \donttest{
+#' assignment_path <- 
+#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
+#' set_assignment(assignment_url)
+#' source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
+#' mark_my_assignment()
+#' }
 #' 
 #' @export
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE){
-  get_tests(tasks = tasks, force = force_get_tests)
+  get_tests(tasks = tasks, force_get_tests = force_get_tests)
   test_results <- run_test_suite(tasks, mark_file, quiet)
   if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
   return(invisible(test_results))
@@ -35,13 +41,11 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #' 
 #' @param directory
 #'   Directory with assignments files.
+#' @param tasks
+#'   Which task should be corrected (if more than one). 
+#'   Default is all. To see the different task, see \code{\link{show_tasks}}.
 #' @param force_get_tests
 #'   Force download of test files before marking of assignments. Default is FALSE.
-#' 
-#' @examples
-#'   directory <- paste0(tempdir(), "/gitmsge2926d41ba09.txt")
-#'   directory <- tempdir()
-#'   writeLines("test", tempfile(fileext = ".R"))
 #'   
 #' @export
 mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
@@ -80,13 +84,11 @@ mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
 #' temp directory.
 #' 
 #' @param tasks
-#'  Which task should be downloaded. Default is "all".
+#'   Which task should be downloaded. Default is "all".
+#' @param force_get_tests
+#'   Force download/get test (ignore cached tests).
 #' 
-#' @examples
-#'  get_tests(c("uppgift2", "uppgift5"), force_get_tests=TRUE, verbose=TRUE)
-#'  get_tests(force_get_tests=TRUE, verbose=TRUE)
-#'  get_tests(verbose=TRUE)
-get_tests <- function(tasks = NULL, force_get_tests = FALSE, verbose = FALSE){
+get_tests <- function(tasks = NULL, force_get_tests = FALSE){
   assignment <- read_assignment_yml()
   dir.create(path = mark_my_test_dir(), recursive = TRUE, showWarnings = FALSE)
   
@@ -98,7 +100,6 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE, verbose = FALSE){
     for(i in seq_along(assignment$tasks[[task]]$url)){
       dest <- paste0(mark_my_test_dir(), "/test-", task, "-", i, ".R")
       path <- path_type(assignment$tasks[[task]]$url[i]) 
-      if(verbose) message("Downloading : ", path)
       get_file(path = path, dest = dest)
     }
   }
@@ -107,7 +108,6 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE, verbose = FALSE){
     for(i in seq_along(assignment$mandatory$url)){
       dest <- paste0(mark_my_test_dir(), "/test-00mandatory-", i, ".R")
       path <- path_type(assignment$mandatory$url[i]) 
-      if(verbose) message("Downloading : ", path)
       get_file(path = path, dest = dest)
     }
   }
@@ -115,16 +115,13 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE, verbose = FALSE){
 }
 
 #' @title
-#' Cached tasks.
+#' Cached tasks
 #' 
 #' @details
 #'   Checks which assignments that are cached (ie already downloaded to temp dir).
 #' 
 #' @return
 #'   character vector with cached assignments.
-#' 
-#' @examples
-#'  cached_tasks()
 #' 
 cached_tasks <- function(){    
   files <- dir(mark_my_test_dir())
@@ -133,7 +130,7 @@ cached_tasks <- function(){
 
 
 #' @title
-#'   Run test suite.
+#'   Run test suite
 #' 
 #' @details
 #'   Runs test on the tasks. Always run mandatory tests.
@@ -145,15 +142,9 @@ cached_tasks <- function(){
 #' @param quiet
 #'   Should the output be supressed (only returning test results)
 #'
-#' 
 #' @return
 #'   test_suite results
 #'   
-#' @examples
-#'   run_test_suite(tasks = "uppgift1")
-#'   run_test_suite(tasks = c("uppgift1", "uppgift3"))
-#'   run_test_suite(tasks = c("uppgift1", "uppgift3"), quiet = TRUE)
-#'
 run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
   
   test_directory <- mark_my_test_dir()  
@@ -191,9 +182,11 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
 mark_my_base_dir <- function() paste0(tempdir(), "/markmyassignment")
 
 #' @rdname directories
+#' @param no assignment number
 mark_my_assignment_dir <- function(no = 1) paste0(mark_my_base_dir(), "/assignment", no)
 
 #' @rdname directories
+#' @param ... to send to \code{\link{mark_my_assignment_dir}}
 mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
 
 

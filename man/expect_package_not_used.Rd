@@ -3,10 +3,17 @@
 \alias{expect_package_not_used}
 \title{Expect that packages are not used}
 \usage{
-expect_package_not_used(object, ..., info = NULL, label = NULL)
+expect_package_not_used(object, info = NULL, label = NULL)
 }
 \arguments{
-\item{pkg}{Package to check for.}
+\item{object}{Package to check for.}
+
+\item{info}{Extra information to be included in the message (useful when writing tests in loops).}
+
+\item{label}{For full form, label of expected object used in error messages.
+Useful to override default (deparsed expected expression) when doing
+tests in a loop. For short cut form, object label. When NULL, computed from
+deparsed object.}
 }
 \description{
 Expect that packages are not used

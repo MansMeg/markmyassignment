@@ -8,6 +8,9 @@ mark_my_dir(directory, tasks = NULL, force_get_tests = FALSE)
 \arguments{
 \item{directory}{Directory with assignments files.}
 
+\item{tasks}{Which task should be corrected (if more than one).
+Default is all. To see the different task, see \code{\link{show_tasks}}.}
+
 \item{force_get_tests}{Force download of test files before marking of assignments. Default is FALSE.}
 }
 \description{
@@ -15,10 +18,5 @@ Mark assignments in a directory
 }
 \details{
 Marks assignments in a directory. Stores the results.
-}
-\examples{
-directory <- paste0(tempdir(), "/gitmsge2926d41ba09.txt")
-  directory <- tempdir()
-  writeLines("test", tempfile(fileext = ".R"))
 }
 

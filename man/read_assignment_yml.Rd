@@ -5,6 +5,9 @@
 \usage{
 read_assignment_yml(path = NULL)
 }
+\arguments{
+\item{path}{\code{path object} from \code{\link{path_type}}}
+}
 \value{
 assignment object
 }
@@ -13,8 +16,5 @@ Load assignment information
 }
 \details{
 Check if there exist an assignmentfile and then load it.
-}
-\examples{
-read_assignment_yml()
 }
 

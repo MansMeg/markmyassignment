@@ -9,6 +9,11 @@ show_tasks()
 Get the name of the tasks in the assignment.
 }
 \examples{
+\donttest{
+assignment_path <-
+  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
+set_assignment(assignment_url)
 show_tasks()
+}
 }
 
