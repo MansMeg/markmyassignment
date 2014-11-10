@@ -12,14 +12,14 @@
 #' @examples
 #' \donttest{
 #' assignment_path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
-#' set_assignment(assignment_url)
+#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml")
+#' set_assignment(assignment_path)
 #' }
 #' 
 #' @export
 set_assignment <- function(path, auth_token = NULL){
   path <- path_type(path)
-  if(inherits(path,what = "path_error")) stop("Path/url does not work.")
+  if(inherits(path, what = "path_error")) stop("Path/url does not work.")
   temp_folder_check_create()
   temp_file <- tempfile()
   on.exit(unlink(temp_file))
@@ -61,13 +61,39 @@ temp_folder_check_create <- function() {
 #' 
 assignment_yml_ok <- function(path = NULL){
   assignment <- try(read_assignment_yml(path), silent = TRUE)
-  if(inherits(assignment, "try-error")) return(FALSE)
-  
-  # Check the structure of assignment list here!
+  if(inherits(assignment, "try-error")) return(FALSE)  
+  check_assignment_file(assignment)
+}
+
+#' @title
+#'   Check assignment yml file that it is a correct assignment file
+#' 
+#' @param assignment list to test.
+#' 
+#' @return 
+#'   boolean 
+#' 
+check_assignment_file <- function(assignment){
+  # The yml contain at most 4 slots.
+  check <- all(names(assignment) %in% c("name", "description", "tasks", "mandatory"))
+  if(!check) return(FALSE)
+  # The name and description is of length 1
+  check <- all(unlist(lapply(assignment[1:2], length)) == 1)
+  if(!check) return(FALSE)  
+  # Check that all url exists/works
+  urls <- as.list(unlist(lapply(assignment[["tasks"]], FUN = function(X) return(X$url))))
+  check <- all(unlist(lapply(urls, httr::url_ok)))
+  if(!check) return(FALSE)
+
+  if("mandatory" %in% names(assignment)) {
+    # Check mandatory urls
+    urls <- as.list(assignment[["mandatory"]]$url)
+    check <- all(unlist(lapply(urls, httr::url_ok)))
+    if(!check) return(FALSE)
+  }
   
   TRUE
 }
-
 
 #' @title
 #' Get the path type.
