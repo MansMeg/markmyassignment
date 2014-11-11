@@ -9,7 +9,7 @@ path_type(path)
 \item{path}{Character element of url or local search path.}
 }
 \value{
-path type as character element c("local", "http", "error")
+path type as character element c("path_local", "path_http", "path_error")
 }
 \description{
 Get the path type.

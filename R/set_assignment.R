@@ -11,8 +11,8 @@
 #' 
 #' @examples
 #' \donttest{
-#' assignment_path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml")
+#' assignment_path <- path <- 
+#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 #' set_assignment(assignment_path)
 #' }
 #' 
@@ -78,17 +78,17 @@ check_assignment_file <- function(assignment){
   check <- all(names(assignment) %in% c("name", "description", "tasks", "mandatory"))
   if(!check) return(FALSE)
   # The name and description is of length 1
-  check <- all(unlist(lapply(assignment[1:2], length)) == 1)
+  check <- all(unlist(lapply(assignment[c("name", "description")], length)) == 1)
   if(!check) return(FALSE)  
   # Check that all url exists/works
   urls <- as.list(unlist(lapply(assignment[["tasks"]], FUN = function(X) return(X$url))))
-  check <- all(unlist(lapply(urls, httr::url_ok)))
+  check <- !any(unlist(lapply(lapply(urls, path_type), class)) == "path_error")
   if(!check) return(FALSE)
 
   if("mandatory" %in% names(assignment)) {
     # Check mandatory urls
     urls <- as.list(assignment[["mandatory"]]$url)
-    check <- all(unlist(lapply(urls, httr::url_ok)))
+    check <- !any(unlist(lapply(lapply(urls, path_type), class)) == "path_error")
     if(!check) return(FALSE)
   }
   
@@ -103,7 +103,7 @@ check_assignment_file <- function(assignment){
 #' 
 #' @param path Character element of url or local search path.
 #' 
-#' @return path type as character element c("local", "http", "error")
+#' @return path type as character element c("path_local", "path_http", "path_error")
 #' 
 path_type <- function(path){
   if(file.exists(path)){

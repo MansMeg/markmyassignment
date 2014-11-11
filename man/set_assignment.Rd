@@ -18,8 +18,8 @@ Sets the assignment to mark. Behind the scenes it download the test suite for th
 }
 \examples{
 \donttest{
-assignment_path <-
-  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml")
+assignment_path <- path <-
+  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 set_assignment(assignment_path)
 }
 }
