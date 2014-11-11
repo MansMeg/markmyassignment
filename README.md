@@ -57,21 +57,21 @@ mark_my_assignment(tasks = c("foo", "bar"), mark_file = [my search path to file]
 
 To use `markmyassignment` as a teacher the following steps are needed. 
 
-1. Create a lab and task unit test files using `testthat`
+#### 1. Create a lab and task unit test files using `testthat`
 
 The first step is to create a lab. =) Then produce unit tests using the `testthat` package. If the task is to create a numeric vector with the values `pi` and `e` an example test file can be found [here](https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_task1.R).
 
 In a similar way one or more mandatory test files can be used for testing that should be tested. This is more to test the structure of the lab file. One example is that there should exist a `name` character vector with the students name.
 
-2. Create an assignment yml file
+#### 2. Create an assignment yml file
 
 The next step is to put tasks together to an assignment. This is collection of testfiles and mandatory test files ordered hiearchically. The assignment files is in [yaml](http://www.yaml.org/) format and consists of the root nodes `name` (assignment name), `description` (assignment description), `tasks` (tasks in assignments as separate nodes) and `mandatory` (optional, with urls to mandatory test). 
 
 A working example can be seen [here](https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_assignment01.yml).
 
-3. Let the students work with the assignments and retrun lab R files with soulutions.
+#### 3. Let the students work with the assignments and retrun lab R files with soulutions.
 
-4. Mark all student solutions with `set_assignment()` and `mark_my_dir()`.
+#### 4. Mark all student solutions with `set_assignment()` and `mark_my_dir()`.
 
 All solutions from the students can be collected and stored in a local directory. The assignment to test needs to be set with `set_assignment()`. The `mark_my_dir()` function can the be used for the directory with the student solutions. The function returns a `data.frame` with one row per unit test file and lab file. 
 
@@ -93,5 +93,7 @@ No extra reporters are implemented now.
 ### Future work
 
 - better reporters (suited for reporting back to students)
-- more expectations (expect tidy code)
+- more expectations 
+  - Expect tidy code
+  - Expect ROxygen
 - oauth connections to github
