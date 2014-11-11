@@ -81,13 +81,15 @@ check_assignment_file <- function(assignment){
   check <- all(unlist(lapply(assignment[c("name", "description")], length)) == 1)
   if(!check) return(FALSE)  
   # Check that all url exists/works
-  urls <- as.list(unlist(lapply(assignment[["tasks"]], FUN = function(X) return(X$url))))
+  urls <- try(as.list(unlist(lapply(assignment[["tasks"]], FUN = function(X) return(X$url)))), silent = TRUE)
+  if(inherits(urls, "try-error")) return(FALSE)
   check <- !any(unlist(lapply(lapply(urls, path_type), class)) == "path_error")
   if(!check) return(FALSE)
 
   if("mandatory" %in% names(assignment)) {
     # Check mandatory urls
-    urls <- as.list(assignment[["mandatory"]]$url)
+    urls <- try(as.list(assignment[["mandatory"]]$url), silent = TRUE)
+    if(inherits(urls, "try-error")) return(FALSE)
     check <- !any(unlist(lapply(lapply(urls, path_type), class)) == "path_error")
     if(!check) return(FALSE)
   }
