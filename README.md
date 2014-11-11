@@ -90,11 +90,10 @@ The extra exceptations implemented are:
 
 To return the results to the students all `testthat` reporters can be used. As default the `summary` reporter is used.
 
-One extra reporter is implemented in `markmyassignment` called `student` reporter with minimal information (only test name and expectation information) is returned. this is to minimize (more complex) unit tests results.
+One extra reporter is implemented in `markmyassignment` called `student` reporter with minimal information (only test name and expectation information). The purpose is to minimize (more complex) unit tests results.
 
 ### Future work
 
-- better reporters (suited for reporting back to students)
 - more expectations 
   - Expect tidy code
   - Expect ROxygen
