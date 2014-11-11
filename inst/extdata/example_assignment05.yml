@@ -1,0 +1,13 @@
+name2  : Test assignment 05
+description : Another example of an erroneous assignment file (root names). 
+tasks:
+  task1:
+    url: 
+      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task1.R
+  task2:
+    url:
+      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task2_a.R
+      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task2_b.R
+mandatory:
+  url:
+    - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_mandatory.R
