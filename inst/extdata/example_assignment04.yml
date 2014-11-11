@@ -1,0 +1,10 @@
+name  : Test assignment 04
+description : An example of how an assignment can be constructed with multiple mandatory files.
+tasks:
+  task1:
+    url: 
+      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task1.R
+mandatory:
+  url:
+    - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_mandatory.R
+    - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_mandatory.R
