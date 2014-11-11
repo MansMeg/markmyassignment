@@ -65,7 +65,7 @@ In a similar way one or more mandatory test files can be used for testing that s
 
 #### 2. Create an assignment yml file
 
-The next step is to put tasks together to an assignment. This is collection of testfiles and mandatory test files ordered hiearchically. The assignment files is in [yaml](http://www.yaml.org/) format and consists of the root nodes `name` (assignment name), `description` (assignment description), `tasks` (tasks in assignments as separate nodes) and `mandatory` (optional, with urls to mandatory test). 
+The next step is to put tasks together to an assignment. This is collection of testfiles and mandatory test files ordered hiearchically. The assignment files is in [yaml](http://www.yaml.org/) format and consists of the root nodes `name` (assignment name), `description` (assignment description),`reporter` (reporter to use, see below), `tasks` (tasks in assignments as separate nodes) and `mandatory` (optional, with urls to mandatory test). 
 
 A working example can be seen [here](https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_assignment01.yml).
 
@@ -88,7 +88,9 @@ The extra exceptations implemented are:
 
 ### Reporters
 
-No extra reporters are implemented now.
+To return the results to the students all `testthat` reporters can be used. As default the `summary` reporter is used.
+
+One extra reporter is implemented in `markmyassignment` called `student` reporter with minimal information (only test name and expectation information) is returned. this is to minimize (more complex) unit tests results.
 
 ### Future work
 

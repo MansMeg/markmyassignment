@@ -3,7 +3,8 @@
 \alias{run_test_suite}
 \title{Run test suite}
 \usage{
-run_test_suite(tasks = NULL, mark_file = NULL, quiet = FALSE)
+run_test_suite(tasks = NULL, mark_file = NULL, quiet = FALSE,
+  reporter = "summary")
 }
 \arguments{
 \item{tasks}{Which task should be tested}
@@ -11,6 +12,8 @@ run_test_suite(tasks = NULL, mark_file = NULL, quiet = FALSE)
 \item{mark_file}{Run tests on a R-file. Default is NULL means global environment.}
 
 \item{quiet}{Should the output be supressed (only returning test results)}
+
+\item{reporter}{Reporter to use. Standard is student.}
 }
 \value{
 test_suite results

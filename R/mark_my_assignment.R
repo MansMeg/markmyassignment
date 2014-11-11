@@ -13,6 +13,7 @@
 #'   Force download of test files before marking of assignments. Default is FALSE.
 #' @param quiet
 #'   Should test be run without output?
+#' @param reporter to use. Default is the 'summary' or specified in assignment yml file.
 #' 
 #' @examples
 #' \donttest{
@@ -24,14 +25,13 @@
 #' }
 #' 
 #' @export
-mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE){
+mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, reporter = NULL){
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
-  test_results <- run_test_suite(tasks, mark_file, quiet)
+  if(is.null(reporter)) reporter <- get_mark_my_reporter()
+  test_results <- run_test_suite(tasks, mark_file, quiet, reporter = reporter)
   if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
   return(invisible(test_results))
 }
-
-
 
 #' @title
 #' Mark assignments in a directory
@@ -141,11 +141,13 @@ cached_tasks <- function(){
 #'   Run tests on a R-file. Default is NULL means global environment.
 #' @param quiet
 #'   Should the output be supressed (only returning test results)
+#' @param reporter
+#'   Reporter to use. Standard is student.
 #'
 #' @return
 #'   test_suite results
 #'   
-run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
+run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, reporter = "summary"){
   
   test_directory <- mark_my_test_dir()  
   mark_my_env <- test_env()
@@ -155,7 +157,7 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
     source(file = mark_file, local = mark_my_env)
   } 
   
-  if(quiet) report <- "silent" else report <- "summary"
+  if(quiet) reporter <- "silent"
   
   if(is.null(tasks)) tasks <- "all" else tasks <- c("00mandatory", tasks)
 
@@ -163,7 +165,7 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE){
     if(tasks[no] == "all") tasks <- NULL
     test_res_temp <- test_dir(path = test_directory, 
                               filter = tasks[no], 
-                              reporter = report, env = mark_my_env)
+                              reporter = reporter, env = mark_my_env)
     if(no == 1) {
       test_res <- test_res_temp
     } else {
@@ -200,4 +202,19 @@ cheer <- function() {
                "You're a coding rockstar!",
                "Keep up the good work!",
                "Everything's correct!"), 1))
+}
+
+#' @title
+#'  Get reporter from yml file
+#'  
+#'  Default reporter is 'summary'. 
+#'  
+get_mark_my_reporter <-function(){
+  assign_yml <- read_assignment_yml()
+  if("reporter" %in% names(assign_yml)){
+    reporter <- assign_yml$reporter
+  } else {
+    reporter <- "summary"
+  }
+  reporter
 }

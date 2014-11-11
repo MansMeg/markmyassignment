@@ -75,7 +75,7 @@ assignment_yml_ok <- function(path = NULL){
 #' 
 check_assignment_file <- function(assignment){
   # The yml contain at most 4 slots.
-  check <- all(names(assignment) %in% c("name", "description", "tasks", "mandatory"))
+  check <- all(names(assignment) %in% c("name", "description", "reporter", "tasks", "mandatory"))
   if(!check) return(FALSE)
   # The name and description is of length 1
   check <- all(unlist(lapply(assignment[c("name", "description")], length)) == 1)
