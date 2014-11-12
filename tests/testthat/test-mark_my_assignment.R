@@ -6,12 +6,13 @@ test_that(desc="mark_my_assignment()",{
   
   if(length(ls(name = .GlobalEnv)) == 0){
     expect_is(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), quiet = TRUE), "data.frame")  
+    expect_error(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_circular.R"), quiet = TRUE))
   }
   
   source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
   
   expect_is(capture.output(mark_my_assignment()), "character")
-  expect_equal(capture.output(mark_my_assignment())[1], "Mandatory tests : ..")
+  expect_equal(capture.output(mark_my_assignment())[1], "Marking assignment...")
   expect_is(mark_my_assignment(quiet = TRUE), "data.frame")
   expect_is(mark_my_assignment(tasks = "task1", quiet = TRUE), "data.frame")
   expect_equal(nrow(mark_my_assignment(tasks = "task1", quiet = TRUE)), 2)

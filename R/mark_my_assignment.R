@@ -154,6 +154,7 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, report
   
   if(!is.null(mark_file)){
     if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
+    stop_if_circular_calls(mark_file)
     source(file = mark_file, local = mark_my_env)
   } 
   
@@ -217,4 +218,20 @@ get_mark_my_reporter <-function(){
     reporter <- "summary"
   }
   reporter
+}
+
+#' @title
+#'  Checks and stop if there are circular calls 
+#'  
+#' @param mark_file File to check
+#'  
+stop_if_circular_calls <- function(mark_file){
+  forbidden <- c("mark_my_assignment", "mark_my_dir", "set_assignment")
+  forbidden_exist_in_code <- 
+    lapply(forbidden, FUN = grepl,  x = as.character(parse(mark_file)))
+  if(any(unlist(forbidden_exist_in_code))){
+    res <- unlist(lapply(forbidden_exist_in_code, any))
+    error <- unique(forbidden[res])
+    stop(paste0("Please remove circular calls (", paste(error, collapse = "(), "),"()) from file."), call. = FALSE)    
+  }
 }

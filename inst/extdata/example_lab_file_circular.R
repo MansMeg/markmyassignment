@@ -1,4 +1,4 @@
-## My lab report ###
+## My lab report ##
 my_name <- "Foo Bar"
 
 # Create a vector with the values pi and e
@@ -9,4 +9,4 @@ task2 <- function(vector){
   vector[1] + vector[length(vector)]
 }
 
-# mark_my_assignment()
+mark_my_assignment()

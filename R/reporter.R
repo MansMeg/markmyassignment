@@ -39,6 +39,7 @@ StudentReporter <-
                   failures <<- list()
                   has_tests <<- FALSE
                   n <<- 0L
+                  cat("Marking assignment...\n\n")
                   },
                   
                 add_result = function(result) {
