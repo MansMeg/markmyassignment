@@ -19,16 +19,14 @@
 #' @export
 set_assignment <- function(path, auth_token = NULL){
   path <- path_type(path)
-  if(inherits(path, what = "path_error")) stop("Path/url does not work.")
+  if(inherits(path, what = "path_error")) stop("Assignment path/url does not work.")
   temp_folder_check_create()
   temp_file <- tempfile()
   on.exit(unlink(temp_file))
   dir.create(mark_my_assignment_dir(), recursive = TRUE, showWarnings = FALSE)
   dest <- paste0(mark_my_assignment_dir(), "/assignment1.yml")
   get_file(path, temp_file)  
-  if(!assignment_yml_ok(path = temp_file)) {
-    stop("Not a correct assignment file.")
-  }
+  assignment_yml_ok(path = temp_file)
   file.copy(from = temp_file, to = dest, overwrite = TRUE)
   assignment <- read_assignment_yml()
   message("Assignment set:\n", assignment$name, " : ", assignment$description)
@@ -76,22 +74,22 @@ assignment_yml_ok <- function(path = NULL){
 check_assignment_file <- function(assignment){
   # The yml contain at most 4 slots.
   check <- all(names(assignment) %in% c("name", "description", "reporter", "tasks", "mandatory"))
-  if(!check) return(FALSE)
+  if(!check) stop("Assignment file contain erroneous parts (except name, desc., reporter, tasks and mandatory.")
   # The name and description is of length 1
   check <- all(unlist(lapply(assignment[c("name", "description")], length)) == 1)
-  if(!check) return(FALSE)  
+  if(!check) stop("Name/description is not of length 1 in assignment file.")
   # Check that all url exists/works
   urls <- try(as.list(unlist(lapply(assignment[["tasks"]], FUN = function(X) return(X$url)))), silent = TRUE)
-  if(inherits(urls, "try-error")) return(FALSE)
+  if(inherits(urls, "try-error")) stop("All tasks in assignments file do not contain urls")
   check <- !any(unlist(lapply(lapply(urls, path_type), class)) == "path_error")
-  if(!check) return(FALSE)
+  if(!check) stop("Not all tasks in assignments have working urls.")
 
   if("mandatory" %in% names(assignment)) {
     # Check mandatory urls
     urls <- try(as.list(assignment[["mandatory"]]$url), silent = TRUE)
-    if(inherits(urls, "try-error")) return(FALSE)
+    if(inherits(urls, "try-error")) stop("Mandatory urls are missing.")
     check <- !any(unlist(lapply(lapply(urls, path_type), class)) == "path_error")
-    if(!check) return(FALSE)
+    if(!check) stop("Mandatory urls are not working.")
   }
   
   TRUE
