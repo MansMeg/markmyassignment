@@ -23,6 +23,8 @@ set_assignment <- function(path, auth_token = NULL){
   temp_folder_check_create()
   temp_file <- tempfile()
   on.exit(unlink(temp_file))
+  
+  if(file.exists(mark_my_assignment_dir())) unlink(mark_my_assignment_dir(), recursive = TRUE, force = TRUE)
   dir.create(mark_my_assignment_dir(), recursive = TRUE, showWarnings = FALSE)
   dest <- paste0(mark_my_assignment_dir(), "/assignment1.yml")
   get_file(path, temp_file)  
