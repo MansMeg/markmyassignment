@@ -26,3 +26,11 @@ test_that(desc="expect_function_arguments()",{
   res <- has_function_arguments(c("X"))(f)
   expect_that(res$passed, is_false())
 })
+
+
+test_that(desc="expect_function_code()",{
+  expect_function_code(object = base::mean, expected = "UseMethod")
+  res <- function_code("markmyassignment")(base::mean)
+  expect_that(res$passed, is_false())
+})
+

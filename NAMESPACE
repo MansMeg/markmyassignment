@@ -2,6 +2,7 @@
 
 export(StudentReporter)
 export(expect_function_arguments)
+export(expect_function_code)
 export(expect_package_used)
 export(expect_self_contained)
 export(mark_my_assignment)

@@ -121,6 +121,50 @@ has_function_arguments <-
 
 
 #' @title
+#' Expect function contain code
+#' 
+#' @details
+#'  Test that a given code code exists in function
+#' 
+#' @param object
+#'   Function to check the body
+#' @param expected
+#'   Expected arguments in function.
+#' @param label
+#'   For full form, label of expected object used in error messages. 
+#'   Useful to override default (deparsed expected expression) when doing 
+#'   tests in a loop. For short cut form, object label. When NULL, computed from 
+#'   deparsed object.
+#' @param info 
+#'   Extra information to be included in the message (useful when writing tests in loops).
+#' @param expected.label Equivalent of \code{label} for shortcut form.
+#' 
+#' @export
+expect_function_code <- 
+  function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
+  {
+    if (is.null(label)) {
+      label <- find_expr("object")
+    }
+    expect_that(object, 
+                function_code(expected, label = expected.label), 
+                info = info, label = label)
+  }
+
+function_code <- 
+  function (expected, label = NULL) 
+  {
+    function(actual) {
+      self <- list()
+      self$body <- as.character(body(actual))
+      expectation(any(grepl(x = self$body, pattern = expected)),
+                  failure_msg = paste0("'", expected, "' not found in function body."),
+                  success_msg = paste0("'", expected, "' in function body."))
+    }
+  }
+
+
+#' @title
 #' Expect tidy format (to be constructed)
 #' 
 #' @details
@@ -140,4 +184,3 @@ find_expr <- function(name, env = parent.frame()){
   subs <- do.call("substitute", list(as.name(name), env))
   paste0(deparse(subs, width.cutoff = 500), collapse = "\n")
 }
-formals(testthat:::find_expr)
