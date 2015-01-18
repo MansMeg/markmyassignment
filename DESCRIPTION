@@ -15,5 +15,4 @@ Depends:
     testthat,
     httr
 Imports:
-    formatR,
     codetools
