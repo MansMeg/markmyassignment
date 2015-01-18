@@ -168,7 +168,7 @@ read_assignment_yml <- function(path = NULL){
     assignment_file <- path
   }
   if(file.exists(assignment_file)){
-    res <- yaml::yaml.load_file(assignment_file)
+    res <- suppressWarnings(yaml::yaml.load_file(assignment_file))
     if(is.list(res)) return(res) else stop("Not a correct .yml file")
   } else {
     stop("No assignment has been set. Please use set_assignment().", call. = FALSE)
