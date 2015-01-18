@@ -11,9 +11,9 @@ test_that(desc="expect_self_contained()",{
 })
 
 
-test_that(desc="expect_not_package()",{
-  expect_package_not_used("fake_package_name")
-  res <- do_not_use_package()("base")
+test_that(desc="expect_package()",{
+  expect_package_used("base")
+  res <- use_package()("fake_package_name")
   expect_that(res$passed, is_false())
 })
 

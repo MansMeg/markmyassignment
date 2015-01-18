@@ -41,10 +41,10 @@ is_self_contained <-
 
 
 #' @title
-#' Expect that packages are not used
+#' Expect that a given package is used
 #' 
 #' @details
-#' Tests that the following packages are not used.
+#'   Tests that the following packages is used.
 #' 
 #' @param object
 #'   Package to check for.
@@ -57,17 +57,17 @@ is_self_contained <-
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
 #' @export
-expect_package_not_used <- function(object, info = NULL, label = NULL){
+expect_package_used <- function(object, info = NULL, label = NULL){
   if (is.null(label)) {
     label <- find_expr("object")
   }
-  expect_that(object, do_not_use_package() , info = info, label = label)
+  expect_that(object, use_package() , info = info, label = label)
 }
 
-do_not_use_package <- 
+use_package <- 
   function(){
     function(pkg) {
-      expectation(!any(grepl(pkg, search())), 
+      expectation(any(grepl(pkg, search())), 
                   paste0("package is used"), 
                   paste0("package is not used"))
     }
