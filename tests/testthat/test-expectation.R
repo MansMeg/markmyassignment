@@ -12,7 +12,7 @@ test_that(desc="expect_self_contained()",{
 
 
 test_that(desc="expect_package()",{
-  expect_package_used("base")
+  expect_package("base")
   res <- use_package()("fake_package_name")
   expect_that(res$passed, is_false())
 })
