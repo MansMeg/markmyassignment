@@ -22,7 +22,7 @@ test_that(desc="set_assignment()",{
   expect_is(suppressMessages(set_assignment(correct_local2)), "character")
   expect_error(set_assignment(path = correct_url3))
   expect_error(set_assignment(path = correct_url5))
-  expect_error(set_assignment(wrong_url1))
+  expect_error(set_assignment(path = wrong_url1))
   expect_error(set_assignment(wrong_url2))
   expect_error(set_assignment(wrong_local1))
   expect_error(set_assignment(wrong_local2))

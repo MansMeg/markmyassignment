@@ -14,6 +14,7 @@ test_that(desc="mark_my_assignment()",{
   expect_is(capture.output(mark_my_assignment()), "character")
   expect_equal(capture.output(mark_my_assignment())[1], "Marking assignment...")
   expect_is(mark_my_assignment(quiet = TRUE), "data.frame")
+  expect_true(sum(grepl(x = capture.output(mark_my_assignment(tasks = "task1")), pattern = "Marking assignment..."))==1)
   expect_is(mark_my_assignment(tasks = "task1", quiet = TRUE), "data.frame")
   expect_equal(nrow(mark_my_assignment(tasks = "task1", quiet = TRUE)), 2)
   expect_is(mark_my_assignment(tasks = c("task1", "task2"), quiet = TRUE), "data.frame")
