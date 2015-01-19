@@ -160,19 +160,12 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, report
   
   if(quiet) reporter <- "silent"
   
-  if(is.null(tasks)) tasks <- "all" else tasks <- c("00mandatory", tasks)
+  if(is.null(tasks)) tasks <- "all" else tasks <- paste(c("00mandatory", paste(tasks, collapse="|")), collapse="|")
 
-  for(no in seq_along(tasks)){
-    if(tasks[no] == "all") tasks <- NULL
-    test_res_temp <- test_dir(path = test_directory, 
-                              filter = tasks[no], 
-                              reporter = reporter, env = mark_my_env)
-    if(no == 1) {
-      test_res <- test_res_temp
-    } else {
-      test_res <- rbind(test_res, test_res_temp)
-    }
-  }
+  if(tasks == "all") tasks <- NULL
+  test_res <- test_dir(path = test_directory, 
+                       filter = tasks, 
+                       reporter = reporter, env = mark_my_env)
   test_res
 }
 
