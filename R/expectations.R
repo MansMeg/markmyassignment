@@ -57,7 +57,7 @@ is_self_contained <-
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
 #' @export
-expect_package_used <- function(object, info = NULL, label = NULL){
+expect_package <- function(object, info = NULL, label = NULL){
   if (is.null(label)) {
     label <- find_expr("object")
   }
@@ -68,8 +68,8 @@ use_package <-
   function(){
     function(pkg) {
       expectation(any(grepl(pkg, search())), 
-                  paste0("package is used"), 
-                  paste0("package is not used"))
+                  paste0("package '", pkg,"' is not used"), 
+                  paste0("package '", pkg,"' is used"))
     }
   }
 
