@@ -3,7 +3,7 @@
 \name{StudentReporter-class}
 \alias{StudentReporter}
 \alias{StudentReporter-class}
-\title{Test reporter: Simplified summary of errors.}
+\title{Test reporter: Simplified summary of failures and errors.}
 \arguments{
 \item{...}{Arguments used to initialise class}
 }
