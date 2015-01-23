@@ -10,7 +10,7 @@ To install the package use the following:
 
 ```r
 install.packages("devtools")
-devtools::install_github("markmyassignment","MansMeg")
+devtools::install_github("MansMeg/markmyassignment")
 library(markmyassignment)
 ```
 
