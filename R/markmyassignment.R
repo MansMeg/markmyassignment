@@ -5,5 +5,5 @@
 #' 
 #' @name markmyassignment
 #' @docType package
-#' @import httr yaml testthat
+#' @import httr yaml testthat methods
 NULL

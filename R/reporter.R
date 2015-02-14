@@ -1,4 +1,4 @@
-#' Test reporter: Simplified summary of errors.
+#' Test reporter: Simplified summary of failures and errors.
 #'
 #' This reporter is used to report errors and failures to students. Only
 #' the testname and test information is returned. Otherwise similar to
@@ -81,7 +81,13 @@ StudentReporter <-
                       linewidth <- ifelse(nchar(header) > getOption("width"),0,getOption("width") - nchar(header))
                       line <- charrep("-", linewidth )
                       message <- vapply(failures, "[[", "failure_msg", FUN.VALUE = character(1))
-                      message <- paste("Info:", unlist(lapply(strsplit(message, split = "\n"), function(X) X[length(X)])))
+                      for (i in seq_along(message)){
+                        # message <- paste("Info:", unlist(lapply(strsplit(message, split = "\n"), function(X) X[length(X)])))                         
+                        if(type[i] == "Failure") {
+                          temp_mes <- strsplit(message[i], split = "\n")[[1]]
+                          message[i] <- temp_mes[length(temp_mes)]
+                        }
+                      }
                       reports <- paste0(
                         testthat:::colourise(header, "error"), line, "\n",
                         message, "\n")

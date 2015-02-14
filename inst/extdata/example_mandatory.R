@@ -4,6 +4,7 @@ context("Mandatory tests")
 
 test_that("Mandatory tests", {
   expect_true(exists("my_name"), "Variable my_name is missing")
-  expect_package_not_used("cheating_package", info = "package 'cheating_package' is not allowed")
+  res <- use_package()("cheating_package")
+  expect_that(res$passed, is_false(), info = "package 'cheating_package' should not be used.")
 })
 

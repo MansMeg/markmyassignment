@@ -41,10 +41,10 @@ is_self_contained <-
 
 
 #' @title
-#' Expect that packages are not used
+#' Expect that a given package is used
 #' 
 #' @details
-#' Tests that the following packages are not used.
+#'   Tests that the following packages is used.
 #' 
 #' @param object
 #'   Package to check for.
@@ -57,19 +57,19 @@ is_self_contained <-
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
 #' @export
-expect_package_not_used <- function(object, info = NULL, label = NULL){
+expect_package <- function(object, info = NULL, label = NULL){
   if (is.null(label)) {
     label <- find_expr("object")
   }
-  expect_that(object, do_not_use_package() , info = info, label = label)
+  expect_that(object, use_package() , info = info, label = label)
 }
 
-do_not_use_package <- 
+use_package <- 
   function(){
     function(pkg) {
-      expectation(!any(grepl(pkg, search())), 
-                  paste0("package is used"), 
-                  paste0("package is not used"))
+      expectation(any(grepl(pkg, search())), 
+                  paste0("package '", pkg,"' is not used"), 
+                  paste0("package '", pkg,"' is used"))
     }
   }
 
@@ -121,6 +121,50 @@ has_function_arguments <-
 
 
 #' @title
+#' Expect function contain code
+#' 
+#' @details
+#'  Test that a given code code exists in function
+#' 
+#' @param object
+#'   Function to check the body
+#' @param expected
+#'   Expected arguments in function.
+#' @param label
+#'   For full form, label of expected object used in error messages. 
+#'   Useful to override default (deparsed expected expression) when doing 
+#'   tests in a loop. For short cut form, object label. When NULL, computed from 
+#'   deparsed object.
+#' @param info 
+#'   Extra information to be included in the message (useful when writing tests in loops).
+#' @param expected.label Equivalent of \code{label} for shortcut form.
+#' 
+#' @export
+expect_function_code <- 
+  function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
+  {
+    if (is.null(label)) {
+      label <- find_expr("object")
+    }
+    expect_that(object, 
+                function_code(expected, label = expected.label), 
+                info = info, label = label)
+  }
+
+function_code <- 
+  function (expected, label = NULL) 
+  {
+    function(actual) {
+      self <- list()
+      self$body <- as.character(body(actual))
+      expectation(any(grepl(x = self$body, pattern = expected)),
+                  failure_msg = paste0("'", expected, "' not found in function body."),
+                  success_msg = paste0("'", expected, "' in function body."))
+    }
+  }
+
+
+#' @title
 #' Expect tidy format (to be constructed)
 #' 
 #' @details
@@ -140,4 +184,3 @@ find_expr <- function(name, env = parent.frame()){
   subs <- do.call("substitute", list(as.name(name), env))
   paste0(deparse(subs, width.cutoff = 500), collapse = "\n")
 }
-formals(testthat:::find_expr)
