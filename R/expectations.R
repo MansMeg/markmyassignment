@@ -1,5 +1,5 @@
 #' @title
-#' Expect that the tested function is self-contained.
+#' Expect that the tested function is self-contained
 #' 
 #' @details
 #'   Tests if a fuction is self-contained (i.e. do not use any global variables).
@@ -23,6 +23,15 @@ expect_self_contained <- function(object, info = NULL, label = NULL) {
   expect_that(object, is_self_contained() , info = info, label = label)
 }
 
+#' @title
+#' Function is self contained test
+#' 
+#' @details
+#' Tests if a function is self contained (no global variables)
+#' 
+#' @param expected
+#'   Function to test if it is self contained.
+#' 
 #' @export
 is_self_contained <- 
   function (expected) 
@@ -64,6 +73,12 @@ expect_package <- function(object, info = NULL, label = NULL){
   expect_that(object, use_package() , info = info, label = label)
 }
 
+#' @title
+#' Package is used test
+#' 
+#' @details
+#'    test if a packages is loaded.
+#' 
 #' @export
 use_package <- 
   function(){
@@ -106,6 +121,17 @@ expect_function_arguments <-
               info = info, label = label)
 }
 
+#' @title
+#' Function has argument test
+#' 
+#' @description
+#'  Test if a function has the given arguments
+#' 
+#' @param expected
+#'   Arguments as text vector to test for.
+#' @param label
+#'   Expectation label used by \code{expect_function_arguments()}
+#' 
 #' @export
 has_function_arguments <- 
   function (expected, label = NULL) 
@@ -153,6 +179,16 @@ expect_function_code <-
                 info = info, label = label)
   }
 
+#' @title
+#' Function contain code test
+#' 
+#' @details
+#'    Test if function code contains a given text string.
+#' @param expected
+#'   Pattern to test for in function code.
+#' @param label
+#'   Expectation label used by \code{expect_function_code()}
+#'   
 #' @export
 function_code <- 
   function (expected, label = NULL) 
