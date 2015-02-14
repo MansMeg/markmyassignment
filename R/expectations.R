@@ -23,7 +23,7 @@ expect_self_contained <- function(object, info = NULL, label = NULL) {
   expect_that(object, is_self_contained() , info = info, label = label)
 }
 
-
+#' @export
 is_self_contained <- 
   function (expected) 
   {
@@ -64,6 +64,7 @@ expect_package <- function(object, info = NULL, label = NULL){
   expect_that(object, use_package() , info = info, label = label)
 }
 
+#' @export
 use_package <- 
   function(){
     function(pkg) {
@@ -105,6 +106,7 @@ expect_function_arguments <-
               info = info, label = label)
 }
 
+#' @export
 has_function_arguments <- 
   function (expected, label = NULL) 
   {
@@ -151,6 +153,7 @@ expect_function_code <-
                 info = info, label = label)
   }
 
+#' @export
 function_code <- 
   function (expected, label = NULL) 
   {
