@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/MansMeg/markmyassignment.svg)](https://travis-ci.org/MansMeg/markmyassignment)
+[![Build Status](https://travis-ci.org/MansMeg/markmyassignment.svg)](https://travis-ci.org/MansMeg/markmyassignment.svg?branch=master)
+
 
 markmyassignment
 ================
