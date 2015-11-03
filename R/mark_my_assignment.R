@@ -8,7 +8,7 @@
 #'   Which task should be corrected (if more than one). Default is all. 
 #'   To see the different task, see \code{\link{show_tasks}}.
 #' @param mark_file
-#'   Run tests on a R-file. Default is NULL means global environment.
+#'   Argument is deprecated, use mark_my_file instead.
 #' @param force_get_tests
 #'   Force download of test files before marking of assignments. Default is FALSE.
 #' @param quiet
@@ -26,6 +26,7 @@
 #' 
 #' @export
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, reporter = NULL){
+  if(!is.null(mark_file)) .Deprecated("mark_my_file", old = "mark_file")
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   if(is.null(reporter)) reporter <- get_mark_my_reporter()
   test_results <- run_test_suite(tasks, mark_file, quiet, reporter = reporter)
