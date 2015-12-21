@@ -16,3 +16,4 @@ Depends:
     httr
 Imports:
     codetools
+RoxygenNote: 5.0.1

@@ -26,11 +26,15 @@
 #' 
 #' @export
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, reporter = NULL){
+  assert_function_arguments_in_API(
+    tasks = tasks, mark_file = mark_file, force_get_tests = force_get_tests,
+    quiet = quiet, reporter = reporter)
   if(!is.null(mark_file)) .Deprecated("mark_my_file", old = "mark_file")
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   if(is.null(reporter)) reporter <- get_mark_my_reporter()
   test_results <- run_test_suite(tasks, mark_file, quiet, reporter = reporter)
   if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
+  check_existance_tasks(tasks = tasks)
   return(invisible(test_results))
 }
 
