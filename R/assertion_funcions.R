@@ -20,18 +20,45 @@ check_existance_tasks <- function(tasks, path = NULL){
 
 
 
-# mark_my_file 
-# (tasks = NULL, mark_file=file.choose(), lab_file, force_get_tests = FALSE, quiet = FALSE, reporter)
-# mark_my_assignment
-# (tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, reporter = NULL)
+#' @title
+#' Checks the input arguments for \code{mark_my_assignment} and \code{mark_my_file}
+#' 
+#' @details
+#' Checks that the input arguments are of the correct type.
+#' 
+#' @param tasks
+#' Arguments from \code{mark_my_assignment} and \code{mark_my_file}. 
+#' @param mark_file
+#'
+#' @param lab_file
+#'
+#' @param force_get_tests
+#'
+#' @param quiet
+#' 
+#' @param reporter
+#'
+#' @return
+#' If all inputs are OK, nothing. Otherwise the functions stop.
 assert_function_arguments_in_API <- function(
-  tasks, mark_file, lab_file, force_get_tests, quiet, reporter){
+  tasks, mark_file, lab_file = NULL, force_get_tests, quiet, reporter){
   
   if(!is.null(tasks) & !is.character(tasks))
     stop("Tasks must be a character vector or NULL.")
   
+  if(!is.null(mark_file))
+    if(!file.exists(mark_file))
+      stop("Mark file does not exist.")
+  
+  if(!is.null(lab_file))
+    if(!file.exists(lab_file))
+      stop("Mark file does not exist.")
+  
   if(!is.logical(force_get_tests) | !is.logical(quiet))
     stop("force_get_tests and quiet must be logical.")
+
+  if(!is.null(reporter) & !is.character(reporter))
+    stop("reporter must be character.")
   
 }
 

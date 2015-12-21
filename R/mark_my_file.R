@@ -28,6 +28,11 @@
 #' 
 #' @export
 mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_get_tests = FALSE, quiet = FALSE, reporter){
+  
+  assert_function_arguments_in_API(
+    tasks = tasks, mark_file = mark_file, lab_file = lab_file,
+    force_get_tests = force_get_tests, quiet = quiet, reporter = reporter)
+  
   if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
 
   if(!missing(lab_file)) suppressMessages(set_assignment(lab_file))
