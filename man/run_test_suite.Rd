@@ -4,10 +4,12 @@
 \alias{run_test_suite}
 \title{Run test suite}
 \usage{
-run_test_suite(tasks = NULL, mark_file = NULL, quiet = FALSE,
+run_test_suite(caller, tasks = NULL, mark_file = NULL, quiet = FALSE,
   reporter = "summary")
 }
 \arguments{
+\item{caller}{Either "mark_my_assignment" or "mark_my_file"}
+
 \item{tasks}{Which task should be tested}
 
 \item{mark_file}{Run tests on a R-file. Default is NULL means global environment.}

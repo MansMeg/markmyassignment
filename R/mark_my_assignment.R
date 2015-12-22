@@ -18,8 +18,8 @@
 #' @examples
 #' \donttest{
 #' assignment_path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
-#' set_assignment(assignment_url)
+#'  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#' set_assignment(assignment_path)
 #' source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
 #' mark_my_assignment()
 #' }
@@ -32,7 +32,7 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
   if(!is.null(mark_file)) .Deprecated("mark_my_file", old = "mark_file")
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   if(is.null(reporter)) reporter <- get_mark_my_reporter()
-  test_results <- run_test_suite(tasks, mark_file, quiet, reporter = reporter)
+  test_results <- run_test_suite("mark_my_assignment", tasks, mark_file, quiet, reporter = reporter)
   if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
   check_existance_tasks(tasks = tasks)
   return(invisible(test_results))
@@ -140,6 +140,8 @@ cached_tasks <- function(){
 #' @description
 #'   Runs test on the tasks. Always run mandatory tests.
 #' 
+#' @param caller
+#'   Either "mark_my_assignment" or "mark_my_file"
 #' @param tasks
 #'   Which task should be tested
 #' @param mark_file
@@ -152,13 +154,16 @@ cached_tasks <- function(){
 #' @return
 #'   test_suite results
 #'   
-run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, reporter = "summary"){
+run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, reporter = "summary"){
   
-  test_directory <- mark_my_test_dir()  
-  mark_my_env <- test_env()
+  test_directory <- mark_my_test_dir()
+  
+  if(caller == "mark_my_assignment" & is.null(mark_file))
+    mark_my_env <- .GlobalEnv
+  else
+    mark_my_env <- new.env(parent = parent.env(env = .GlobalEnv))
   
   if(!is.null(mark_file)){
-    if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
     stop_if_circular_calls(mark_file)
     source(file = mark_file, local = mark_my_env)
   } 

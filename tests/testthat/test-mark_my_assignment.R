@@ -19,7 +19,8 @@ test_that(desc="mark_my_assignment()",{
   expect_equal(length(mark_my_assignment(tasks = "task1", quiet = TRUE)), 2)
   expect_is(mark_my_assignment(tasks = c("task1", "task2"), quiet = TRUE), "testthat_results")
   expect_is(mark_my_assignment(force_get_tests = TRUE, quiet = TRUE), "testthat_results")
-  expect_error(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), quiet = TRUE))
+  expect_is(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), quiet = TRUE), "testthat_results")
+  # Above was error until new envionment was used.
 
 })
 
