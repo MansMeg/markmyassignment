@@ -16,7 +16,7 @@ Useful to override default (deparsed expected expression) when doing
 tests in a loop. For short cut form, object label. When NULL, computed from 
 deparsed object.}
 }
-\details{
+\description{
 Tests that the following packages is used.
 }
 

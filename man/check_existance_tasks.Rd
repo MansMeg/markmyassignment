@@ -14,7 +14,7 @@ check_existance_tasks(tasks, path = NULL)
 \value{
 A warning message or nothing.
 }
-\details{
+\description{
 Checks that tasks that are inputted in mark_my_assignment exists. If not, a warning is produced.
 }
 

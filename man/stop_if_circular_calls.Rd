@@ -9,4 +9,7 @@ stop_if_circular_calls(mark_file)
 \arguments{
 \item{mark_file}{File to check}
 }
+\description{
+Checks and stop if there are circular calls
+}
 

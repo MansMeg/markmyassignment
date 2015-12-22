@@ -21,7 +21,7 @@ To see the different task, see \code{\link{show_tasks}}.}
 
 \item{reporter}{to use. Default is the 'summary' or specified in assignment yml file.}
 }
-\details{
+\description{
 Mark a specific assignment file
 }
 \examples{

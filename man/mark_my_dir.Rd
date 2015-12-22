@@ -14,7 +14,7 @@ Default is all. To see the different task, see \code{\link{show_tasks}}.}
 
 \item{force_get_tests}{Force download of test files before marking of assignments. Default is FALSE.}
 }
-\details{
+\description{
 Marks assignments in a directory. Stores the results.
 }
 

@@ -1,7 +1,7 @@
 #' @title
 #' Check that tasks exist in assignment.
 #' 
-#' @details
+#' @description
 #' Checks that tasks that are inputted in mark_my_assignment exists. If not, a warning is produced.
 #' 
 #' @param tasks
@@ -21,23 +21,23 @@ check_existance_tasks <- function(tasks, path = NULL){
 
 
 #' @title
-#' Checks the input arguments for \code{mark_my_assignment} and \code{mark_my_file}
+#' Checks the input arguments for mark_my_assignment and mark_my_file
 #' 
-#' @details
+#' @description
 #' Checks that the input arguments are of the correct type.
 #' 
 #' @param tasks
 #' Arguments from \code{mark_my_assignment} and \code{mark_my_file}. 
 #' @param mark_file
-#'
+#' Arguments from \code{mark_my_assignment} and \code{mark_my_file}. 
 #' @param lab_file
-#'
+#' Arguments from \code{mark_my_assignment} and \code{mark_my_file}. 
 #' @param force_get_tests
-#'
+#' Arguments from \code{mark_my_assignment} and \code{mark_my_file}. 
 #' @param quiet
-#' 
+#' Arguments from \code{mark_my_assignment} and \code{mark_my_file}. 
 #' @param reporter
-#'
+#' Arguments from \code{mark_my_assignment} and \code{mark_my_file}. 
 #' @return
 #' If all inputs are OK, nothing. Otherwise the functions stop.
 assert_function_arguments_in_API <- function(

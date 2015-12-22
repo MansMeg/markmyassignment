@@ -6,7 +6,7 @@
 \usage{
 temp_folder_check_create()
 }
-\details{
+\description{
 Checks if markmyassignment folder exist in R temp directory.
   If not, the folder is created.
 }

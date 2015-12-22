@@ -9,7 +9,7 @@ cached_tasks()
 \value{
 character vector with cached assignments.
 }
-\details{
+\description{
 Checks which assignments that are cached (ie already downloaded to temp dir).
 }
 

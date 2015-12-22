@@ -11,7 +11,7 @@ set_assignment(path, auth_token = NULL)
 
 \item{auth_token}{Authorization token (for github). Not implemented.}
 }
-\details{
+\description{
 Sets the assignment to mark. Behind the scenes it download the test suite for the assignment.
 }
 \examples{

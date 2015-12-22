@@ -1,7 +1,7 @@
 #' @title
 #' Expect that the tested function is self-contained
 #' 
-#' @details
+#' @description
 #'   Tests if a fuction is self-contained (i.e. do not use any global variables).
 #' 
 #' @param object 
@@ -26,7 +26,7 @@ expect_self_contained <- function(object, info = NULL, label = NULL) {
 #' @title
 #' Function is self contained test
 #' 
-#' @details
+#' @description
 #' Tests if a function is self contained (no global variables)
 #' 
 #' @param expected
@@ -52,7 +52,7 @@ is_self_contained <-
 #' @title
 #' Expect that a given package is used
 #' 
-#' @details
+#' @description
 #'   Tests that the following packages is used.
 #' 
 #' @param object
@@ -76,7 +76,7 @@ expect_package <- function(object, info = NULL, label = NULL){
 #' @title
 #' Package is used test
 #' 
-#' @details
+#' @description
 #'    test if a packages is loaded.
 #' 
 #' @export
@@ -93,7 +93,7 @@ use_package <-
 #' @title
 #' Expect function arguments
 #' 
-#' @details
+#' @description
 #'  Test that an object with a given name exist in the environment.
 #' 
 #' @param object
@@ -151,7 +151,7 @@ has_function_arguments <-
 #' @title
 #' Expect function contain code
 #' 
-#' @details
+#' @description
 #'  Test that a given code code exists in function
 #' 
 #' @param object
@@ -182,7 +182,7 @@ expect_function_code <-
 #' @title
 #' Function contain code test
 #' 
-#' @details
+#' @description
 #'    Test if function code contains a given text string.
 #' @param expected
 #'   Pattern to test for in function code.
@@ -206,7 +206,7 @@ function_code <-
 #' @title
 #' Expect tidy format (to be constructed)
 #' 
-#' @details
+#' @description
 #' Test that the format used in a function is tidy (see formatR)
 #' 
 expect_tidy_code <- function(){}
@@ -214,6 +214,9 @@ expect_tidy_code <- function(){}
 
 
 #' @title
+#' Internal function (taken from testthat)
+#' 
+#' @description
 #' Internal function (taken from testthat)
 #' 
 #' @param name See \code{testthat:::find_expr()}.

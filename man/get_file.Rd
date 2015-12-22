@@ -13,7 +13,7 @@ get_file(path, dest, ...)
 
 \item{...}{Further arguments to send to \code{httr::GET()}.}
 }
-\details{
+\description{
 Get/download the file from the path.
 }
 

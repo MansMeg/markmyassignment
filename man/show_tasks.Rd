@@ -6,6 +6,9 @@
 \usage{
 show_tasks()
 }
+\description{
+Get the name of the tasks in the assignment.
+}
 \examples{
 \donttest{
 assignment_path <- 

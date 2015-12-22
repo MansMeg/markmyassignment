@@ -11,4 +11,7 @@ find_expr(name, env = parent.frame())
 
 \item{env}{See \code{testthat:::find_expr()}.}
 }
+\description{
+Internal function (taken from testthat)
+}
 

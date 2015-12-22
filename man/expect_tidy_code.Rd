@@ -6,7 +6,7 @@
 \usage{
 expect_tidy_code()
 }
-\details{
+\description{
 Test that the format used in a function is tidy (see formatR)
 }
 

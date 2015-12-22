@@ -2,7 +2,7 @@
 % Please edit documentation in R/assertion_funcions.R
 \name{assert_function_arguments_in_API}
 \alias{assert_function_arguments_in_API}
-\title{Checks the input arguments for \code{mark_my_assignment} and \code{mark_my_file}}
+\title{Checks the input arguments for mark_my_assignment and mark_my_file}
 \usage{
 assert_function_arguments_in_API(tasks, mark_file, lab_file = NULL,
   force_get_tests, quiet, reporter)
@@ -10,20 +10,20 @@ assert_function_arguments_in_API(tasks, mark_file, lab_file = NULL,
 \arguments{
 \item{tasks}{Arguments from \code{mark_my_assignment} and \code{mark_my_file}.}
 
-\item{mark_file}{}
+\item{mark_file}{Arguments from \code{mark_my_assignment} and \code{mark_my_file}.}
 
-\item{lab_file}{}
+\item{lab_file}{Arguments from \code{mark_my_assignment} and \code{mark_my_file}.}
 
-\item{force_get_tests}{}
+\item{force_get_tests}{Arguments from \code{mark_my_assignment} and \code{mark_my_file}.}
 
-\item{quiet}{}
+\item{quiet}{Arguments from \code{mark_my_assignment} and \code{mark_my_file}.}
 
-\item{reporter}{}
+\item{reporter}{Arguments from \code{mark_my_assignment} and \code{mark_my_file}.}
 }
 \value{
 If all inputs are OK, nothing. Otherwise the functions stop.
 }
-\details{
+\description{
 Checks that the input arguments are of the correct type.
 }
 

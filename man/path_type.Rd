@@ -12,7 +12,7 @@ path_type(path)
 \value{
 path type as character element c("path_local", "path_http", "path_error")
 }
-\details{
+\description{
 Check the path type.
 }
 

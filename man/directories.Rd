@@ -18,4 +18,7 @@ mark_my_test_dir(...)
 
 \item{...}{to send to \code{\link{mark_my_assignment_dir}}}
 }
+\description{
+Functions to create directories
+}
 

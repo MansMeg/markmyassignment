@@ -12,7 +12,7 @@ assignment_yml_ok(path = NULL)
 \value{
 boolean
 }
-\details{
+\description{
 Check the yml file that it is correct and can be used. Otherwise warn.
 }
 

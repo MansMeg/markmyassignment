@@ -1,7 +1,7 @@
 #' @title
 #' Set assignment to mark
 #' 
-#' @details
+#' @description
 #' Sets the assignment to mark. Behind the scenes it download the test suite for the assignment.
 #' 
 #' @param path
@@ -38,7 +38,7 @@ set_assignment <- function(path, auth_token = NULL){
 #' @title
 #'  Check and create folder if missing.
 #' 
-#' @details
+#' @description
 #'   Checks if markmyassignment folder exist in R temp directory.
 #'   If not, the folder is created.
 #'   
@@ -51,7 +51,7 @@ temp_folder_check_create <- function() {
 #' @title
 #'   Check the yml file to be a correct assignment yml.
 #' 
-#' @details
+#' @description
 #'   Check the yml file that it is correct and can be used. Otherwise warn.
 #' 
 #' @param path \code{path} object from \code{\link{path_type}}
@@ -66,8 +66,10 @@ assignment_yml_ok <- function(path = NULL){
 }
 
 #' @title
-#'   Check assignment yml file that it is a correct assignment file
+#' Check assignment yml file that it is a correct assignment file
 #' 
+#' @description
+#' Check assignment yml file that it is a correct assignment file
 #' @param assignment list to test.
 #' 
 #' @return 
@@ -100,7 +102,7 @@ check_assignment_file <- function(assignment){
 #' @title
 #' Get the path type.
 #' 
-#' @details
+#' @description
 #' Check the path type. 
 #' 
 #' @param path Character element of url or local search path.
@@ -124,7 +126,7 @@ path_type <- function(path){
 #' @title
 #' Get the file from the path
 #' 
-#' @details
+#' @description
 #' Get/download the file from the path.
 #' 
 #' @param path
@@ -153,7 +155,7 @@ get_file.path_http <- function(path, dest, ...){
 #' @title
 #' Load assignment information
 #' 
-#' @details
+#' @description
 #' Check if there exist an assignmentfile and then load it.
 #' 
 #' @param path \code{path object} from \code{\link{path_type}}
@@ -179,6 +181,9 @@ read_assignment_yml <- function(path = NULL){
 #' @title
 #'   Get the name of the tasks in the assignment.
 #' 
+#' @description
+#'   Get the name of the tasks in the assignment.
+#'   
 #' @examples
 #' \donttest{
 #' assignment_path <- 

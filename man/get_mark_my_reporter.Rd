@@ -2,10 +2,13 @@
 % Please edit documentation in R/mark_my_assignment.R
 \name{get_mark_my_reporter}
 \alias{get_mark_my_reporter}
-\title{Get reporter from yml file
- 
- Default reporter is 'summary'.}
+\title{Get reporter from yml file}
 \usage{
 get_mark_my_reporter()
+}
+\description{
+Get reporter from yml file
+ 
+ Default reporter is 'summary'.
 }
 

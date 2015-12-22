@@ -6,4 +6,7 @@
 \usage{
 cheer()
 }
+\description{
+Cheer when all tasks pass
+}
 

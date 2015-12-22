@@ -12,7 +12,7 @@ read_assignment_yml(path = NULL)
 \value{
 assignment object
 }
-\details{
+\description{
 Check if there exist an assignmentfile and then load it.
 }
 

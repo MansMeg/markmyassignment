@@ -6,7 +6,7 @@
 \usage{
 use_package()
 }
-\details{
+\description{
 test if a packages is loaded.
 }
 

@@ -9,7 +9,7 @@ is_self_contained(expected)
 \arguments{
 \item{expected}{Function to test if it is self contained.}
 }
-\details{
+\description{
 Tests if a function is self contained (no global variables)
 }
 

@@ -1,7 +1,7 @@
 #' @title
 #' Mark assignment in global environment
 #' 
-#' @details
+#' @description
 #' Mark assignment in global environment.
 #' 
 #' @param tasks
@@ -41,7 +41,7 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #' @title
 #' Mark assignments in a directory
 #' 
-#' @details
+#' @description
 #' Marks assignments in a directory. Stores the results.
 #' 
 #' @param directory
@@ -84,7 +84,7 @@ mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
 #' @title
 #' Get test files
 #' 
-#' @details
+#' @description
 #' Downloads the test files for the current assignment and save them to 
 #' temp directory.
 #' 
@@ -122,7 +122,7 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE){
 #' @title
 #' Cached tasks
 #' 
-#' @details
+#' @description
 #'   Checks which assignments that are cached (ie already downloaded to temp dir).
 #' 
 #' @return
@@ -137,7 +137,7 @@ cached_tasks <- function(){
 #' @title
 #'   Run test suite
 #' 
-#' @details
+#' @description
 #'   Runs test on the tasks. Always run mandatory tests.
 #' 
 #' @param tasks
@@ -178,6 +178,9 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, report
 #' @title
 #'  Functions to create directories
 #'  
+#' @description
+#'  Functions to create directories
+#'  
 #' @name directories
 #' 
 mark_my_base_dir <- function() paste0(tempdir(), "/markmyassignment")
@@ -195,6 +198,8 @@ mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
 #' @title
 #'  Cheer when all tasks pass
 #'  
+#' @description
+#' Cheer when all tasks pass
 cheer <- function() {
   cat(sample(x = c("Yay! All done!",
                "Good work!",
@@ -204,6 +209,9 @@ cheer <- function() {
 }
 
 #' @title
+#'  Get reporter from yml file
+#'  
+#' @description
 #'  Get reporter from yml file
 #'  
 #'  Default reporter is 'summary'. 
@@ -219,6 +227,9 @@ get_mark_my_reporter <-function(){
 }
 
 #' @title
+#'  Checks and stop if there are circular calls 
+#'  
+#' @description
 #'  Checks and stop if there are circular calls 
 #'  
 #' @param mark_file File to check

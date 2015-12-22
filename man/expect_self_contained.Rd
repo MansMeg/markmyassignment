@@ -16,7 +16,7 @@ Useful to override default (deparsed expected expression) when doing
 tests in a loop. For short cut form, object label. When NULL, computed from 
 deparsed object.}
 }
-\details{
+\description{
 Tests if a fuction is self-contained (i.e. do not use any global variables).
 }
 

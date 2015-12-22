@@ -11,7 +11,7 @@ get_tests(tasks = NULL, force_get_tests = FALSE)
 
 \item{force_get_tests}{Force download/get test (ignore cached tests).}
 }
-\details{
+\description{
 Downloads the test files for the current assignment and save them to 
 temp directory.
 }

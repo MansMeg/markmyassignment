@@ -11,7 +11,7 @@ function_code(expected, label = NULL)
 
 \item{label}{Expectation label used by \code{expect_function_code()}}
 }
-\details{
+\description{
 Test if function code contains a given text string.
 }
 

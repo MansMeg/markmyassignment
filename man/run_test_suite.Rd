@@ -19,7 +19,7 @@ run_test_suite(tasks = NULL, mark_file = NULL, quiet = FALSE,
 \value{
 test_suite results
 }
-\details{
+\description{
 Runs test on the tasks. Always run mandatory tests.
 }
 
