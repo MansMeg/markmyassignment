@@ -161,7 +161,7 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   test_directory <- mark_my_test_dir()
   
   if(caller == "mark_my_assignment" & is.null(mark_file))
-    mark_my_env <- .GlobalEnv
+    mark_my_env <- new.env(parent = .GlobalEnv)
   else
     mark_my_env <- new.env(parent = parent.env(env = .GlobalEnv))
   
