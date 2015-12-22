@@ -13,8 +13,8 @@
 check_existance_tasks <- function(tasks, path = NULL){
   res <- read_assignment_yml(path = path)
   if(!all(tasks %in% names(res$tasks))){
-    message("Warning: The following tasks do not exist:")
-    message(paste(tasks[!(tasks %in% names(res$tasks))], collapse = ", "))
+    warning(paste("The following tasks do not exist:", paste(
+      tasks[!(tasks %in% names(res$tasks))], collapse = ", ")))
   }  
 }
 
@@ -56,7 +56,7 @@ assert_function_arguments_in_API <- function(
   
   if(!is.logical(force_get_tests) | !is.logical(quiet))
     stop("force_get_tests and quiet must be logical.")
-
+  
   if(!is.null(reporter) & !is.character(reporter))
     stop("reporter must be character.")
   

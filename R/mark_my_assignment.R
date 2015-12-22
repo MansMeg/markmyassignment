@@ -29,7 +29,9 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
   assert_function_arguments_in_API(
     tasks = tasks, mark_file = mark_file, force_get_tests = force_get_tests,
     quiet = quiet, reporter = reporter)
-  if(!is.null(mark_file)) .Deprecated("mark_my_file", old = "mark_file")
+  if(!is.null(mark_file)){
+    .Deprecated("mark_my_file", old = "mark_file")
+  }
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   if(is.null(reporter)) reporter <- get_mark_my_reporter()
   test_results <- run_test_suite("mark_my_assignment", tasks, mark_file, quiet, reporter = reporter)
@@ -68,13 +70,13 @@ mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
     if(class(res_mark_temp) == "try-error") {
       res_mark_temp[1]
       message(file_names[i], " could not be marked.")
-      } else if (!exists(x = "res_mark")){
-        res_mark_temp$marked_file <- file_names[i]
-        res_mark <- res_mark_temp
-      } else {
-        res_mark_temp$marked_file <- file_names[i]
-        res_mark <- rbind(res_mark, res_mark_temp)
-      }
+    } else if (!exists(x = "res_mark")){
+      res_mark_temp$marked_file <- file_names[i]
+      res_mark <- res_mark_temp
+    } else {
+      res_mark_temp$marked_file <- file_names[i]
+      res_mark <- rbind(res_mark, res_mark_temp)
+    }
   }
   return(res_mark)
 }
@@ -100,7 +102,7 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE){
   tasks_to_get <- names(assignment$tasks)
   if(!is.null(tasks)) tasks_to_get <- tasks_to_get[tasks_to_get %in% tasks]
   if(!force_get_tests) tasks_to_get <- tasks_to_get[!tasks_to_get %in% cached_tasks()]
-    
+  
   for(task in tasks_to_get) {
     for(i in seq_along(assignment$tasks[[task]]$url)){
       dest <- paste0(mark_my_test_dir(), "/test-", task, "-", i, ".R")
@@ -108,7 +110,7 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE){
       get_file(path = path, dest = dest)
     }
   }
-    
+  
   if(force_get_tests | !"00mandatory" %in% cached_tasks()){
     for(i in seq_along(assignment$mandatory$url)){
       dest <- paste0(mark_my_test_dir(), "/test-00mandatory-", i, ".R")
@@ -171,7 +173,7 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   if(quiet) reporter <- "silent"
   
   if(is.null(tasks)) tasks <- "all" else tasks <- paste(c("00mandatory", paste(tasks, collapse="|")), collapse="|")
-
+  
   if(tasks == "all") tasks <- NULL
   test_res <- test_dir(path = test_directory, 
                        filter = tasks, 
@@ -207,10 +209,10 @@ mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
 #' Cheer when all tasks pass
 cheer <- function() {
   cat(sample(x = c("Yay! All done!",
-               "Good work!",
-               "You're a coding rockstar!",
-               "Keep up the good work!",
-               "Everything's correct!"), 1))
+                   "Good work!",
+                   "You're a coding rockstar!",
+                   "Keep up the good work!",
+                   "Everything's correct!"), 1))
 }
 
 #' @title

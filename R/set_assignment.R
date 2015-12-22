@@ -187,8 +187,8 @@ read_assignment_yml <- function(path = NULL){
 #' @examples
 #' \donttest{
 #' assignment_path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
-#' set_assignment(assignment_url)
+#'  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#'  set_assignment(assignment_path)
 #' show_tasks()
 #' }
 #' 
