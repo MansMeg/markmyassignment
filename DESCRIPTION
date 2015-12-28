@@ -1,9 +1,9 @@
 Package: markmyassignment
 Type: Package
 Title: Automatic Marking of R Assignments
-Version: 0.2.1
-Date: 2015-02-13
-Author: Mans Magnusson
+Version: 0.3.0
+Date: 2015-12-28
+Author: Mans Magnusson, Oscar Pettersson
 Maintainer: Mans Magnusson <mans.magnusson@gmail.com>
 Description: Automatic marking of R assignments for students and teachers based
     on testthat test suites.
@@ -12,7 +12,8 @@ Depends:
     R (>= 3.1.0),
     methods,
     yaml,
-    testthat,
+    testthat (>= 0.11.0),
     httr
 Imports:
     codetools
+RoxygenNote: 5.0.1

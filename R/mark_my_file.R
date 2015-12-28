@@ -1,7 +1,7 @@
 #' @title
 #' Mark assignment file
 #' 
-#' @details
+#' @description
 #' Mark a specific assignment file
 #' 
 #' @param tasks
@@ -18,24 +18,26 @@
 #' @param reporter to use. Default is the 'summary' or specified in assignment yml file.
 #' 
 #' @examples
-#' \donttest{
 #' assignment_path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
+#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 #' file_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
 #' mark_my_file(mark_file = file_path, lab_file = assignment_path)
-#' mark_my_assignment()
-#' }
 #' 
 #' @export
 mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_get_tests = FALSE, quiet = FALSE, reporter){
-  if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
-
+  
   if(!missing(lab_file)) suppressMessages(set_assignment(lab_file))
+  if(missing(reporter)) reporter <- get_mark_my_reporter()
+  
+  assert_function_arguments_in_API(
+    tasks = tasks, mark_file = mark_file, lab_file = lab_file,
+    force_get_tests = force_get_tests, quiet = quiet, reporter = reporter)
+  
   
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
-  if(missing(reporter)) reporter <- get_mark_my_reporter()
-  test_results <- run_test_suite(tasks, mark_file, quiet, reporter = reporter)
+  test_results <- run_test_suite("mark_my_file", tasks, mark_file, quiet, reporter = reporter)
   if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
+  check_existance_tasks(tasks = tasks)
   return(invisible(test_results))
 }
 

@@ -1,7 +1,7 @@
 #' @title
 #' Mark assignment in global environment
 #' 
-#' @details
+#' @description
 #' Mark assignment in global environment.
 #' 
 #' @param tasks
@@ -16,28 +16,32 @@
 #' @param reporter to use. Default is the 'summary' or specified in assignment yml file.
 #' 
 #' @examples
-#' \donttest{
 #' assignment_path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment.yml.R")
-#' set_assignment(assignment_url)
+#'  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#' set_assignment(assignment_path)
 #' source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
 #' mark_my_assignment()
-#' }
 #' 
 #' @export
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, reporter = NULL){
-  if(!is.null(mark_file)) .Deprecated("mark_my_file", old = "mark_file")
+  assert_function_arguments_in_API(
+    tasks = tasks, mark_file = mark_file, force_get_tests = force_get_tests,
+    quiet = quiet, reporter = reporter)
+  if(!is.null(mark_file)){
+    .Deprecated("mark_my_file", old = "mark_file")
+  }
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   if(is.null(reporter)) reporter <- get_mark_my_reporter()
-  test_results <- run_test_suite(tasks, mark_file, quiet, reporter = reporter)
+  test_results <- run_test_suite("mark_my_assignment", tasks, mark_file, quiet, reporter = reporter)
   if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
+  check_existance_tasks(tasks = tasks)
   return(invisible(test_results))
 }
 
 #' @title
 #' Mark assignments in a directory
 #' 
-#' @details
+#' @description
 #' Marks assignments in a directory. Stores the results.
 #' 
 #' @param directory
@@ -64,13 +68,13 @@ mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
     if(class(res_mark_temp) == "try-error") {
       res_mark_temp[1]
       message(file_names[i], " could not be marked.")
-      } else if (!exists(x = "res_mark")){
-        res_mark_temp$marked_file <- file_names[i]
-        res_mark <- res_mark_temp
-      } else {
-        res_mark_temp$marked_file <- file_names[i]
-        res_mark <- rbind(res_mark, res_mark_temp)
-      }
+    } else if (!exists(x = "res_mark")){
+      res_mark_temp$marked_file <- file_names[i]
+      res_mark <- res_mark_temp
+    } else {
+      res_mark_temp$marked_file <- file_names[i]
+      res_mark <- rbind(res_mark, res_mark_temp)
+    }
   }
   return(res_mark)
 }
@@ -80,7 +84,7 @@ mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
 #' @title
 #' Get test files
 #' 
-#' @details
+#' @description
 #' Downloads the test files for the current assignment and save them to 
 #' temp directory.
 #' 
@@ -96,7 +100,7 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE){
   tasks_to_get <- names(assignment$tasks)
   if(!is.null(tasks)) tasks_to_get <- tasks_to_get[tasks_to_get %in% tasks]
   if(!force_get_tests) tasks_to_get <- tasks_to_get[!tasks_to_get %in% cached_tasks()]
-    
+  
   for(task in tasks_to_get) {
     for(i in seq_along(assignment$tasks[[task]]$url)){
       dest <- paste0(mark_my_test_dir(), "/test-", task, "-", i, ".R")
@@ -104,7 +108,7 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE){
       get_file(path = path, dest = dest)
     }
   }
-    
+  
   if(force_get_tests | !"00mandatory" %in% cached_tasks()){
     for(i in seq_along(assignment$mandatory$url)){
       dest <- paste0(mark_my_test_dir(), "/test-00mandatory-", i, ".R")
@@ -118,7 +122,7 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE){
 #' @title
 #' Cached tasks
 #' 
-#' @details
+#' @description
 #'   Checks which assignments that are cached (ie already downloaded to temp dir).
 #' 
 #' @return
@@ -133,9 +137,11 @@ cached_tasks <- function(){
 #' @title
 #'   Run test suite
 #' 
-#' @details
+#' @description
 #'   Runs test on the tasks. Always run mandatory tests.
 #' 
+#' @param caller
+#'   Either "mark_my_assignment" or "mark_my_file"
 #' @param tasks
 #'   Which task should be tested
 #' @param mark_file
@@ -148,13 +154,16 @@ cached_tasks <- function(){
 #' @return
 #'   test_suite results
 #'   
-run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, reporter = "summary"){
+run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, reporter = "summary"){
   
-  test_directory <- mark_my_test_dir()  
-  mark_my_env <- test_env()
+  test_directory <- mark_my_test_dir()
+  
+  if(caller == "mark_my_assignment" & is.null(mark_file))
+    mark_my_env <- new.env(parent = .GlobalEnv)
+  else
+    mark_my_env <- new.env(parent = parent.env(env = .GlobalEnv))
   
   if(!is.null(mark_file)){
-    if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
     stop_if_circular_calls(mark_file)
     source(file = mark_file, local = mark_my_env)
   } 
@@ -162,7 +171,7 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, report
   if(quiet) reporter <- "silent"
   
   if(is.null(tasks)) tasks <- "all" else tasks <- paste(c("00mandatory", paste(tasks, collapse="|")), collapse="|")
-
+  
   if(tasks == "all") tasks <- NULL
   test_res <- test_dir(path = test_directory, 
                        filter = tasks, 
@@ -172,6 +181,9 @@ run_test_suite <- function(tasks = NULL, mark_file = NULL, quiet = FALSE, report
 
 
 #' @title
+#'  Functions to create directories
+#'  
+#' @description
 #'  Functions to create directories
 #'  
 #' @name directories
@@ -191,15 +203,20 @@ mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
 #' @title
 #'  Cheer when all tasks pass
 #'  
+#' @description
+#' Cheer when all tasks pass
 cheer <- function() {
   cat(sample(x = c("Yay! All done!",
-               "Good work!",
-               "You're a coding rockstar!",
-               "Keep up the good work!",
-               "Everything's correct!"), 1))
+                   "Good work!",
+                   "You're a coding rockstar!",
+                   "Keep up the good work!",
+                   "Everything's correct!"), 1))
 }
 
 #' @title
+#'  Get reporter from yml file
+#'  
+#' @description
 #'  Get reporter from yml file
 #'  
 #'  Default reporter is 'summary'. 
@@ -215,6 +232,9 @@ get_mark_my_reporter <-function(){
 }
 
 #' @title
+#'  Checks and stop if there are circular calls 
+#'  
+#' @description
 #'  Checks and stop if there are circular calls 
 #'  
 #' @param mark_file File to check
