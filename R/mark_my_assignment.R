@@ -16,13 +16,11 @@
 #' @param reporter to use. Default is the 'summary' or specified in assignment yml file.
 #' 
 #' @examples
-#' \donttest{
 #' assignment_path <- 
 #'  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 #' set_assignment(assignment_path)
 #' source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
 #' mark_my_assignment()
-#' }
 #' 
 #' @export
 mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, reporter = NULL){

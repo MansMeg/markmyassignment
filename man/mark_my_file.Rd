@@ -25,12 +25,10 @@ To see the different task, see \code{\link{show_tasks}}.}
 Mark a specific assignment file
 }
 \examples{
-\donttest{
 assignment_path <- 
   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 file_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
 mark_my_file(mark_file = file_path, lab_file = assignment_path)
-}
 
 }
 

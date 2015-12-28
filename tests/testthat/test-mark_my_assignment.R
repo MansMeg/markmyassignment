@@ -21,12 +21,25 @@ test_that(desc="mark_my_assignment()",{
   expect_is(mark_my_assignment(force_get_tests = TRUE, quiet = TRUE), "testthat_results")
   expect_warning(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), quiet = TRUE))
   
-  expect_warning(mark_my_assignment(tasks = c("no such task"), quiet = TRUE))
-  expect_warning(mark_my_assignment(tasks = c("task1", "no such task", "task2"), quiet = TRUE))
-  expect_error(mark_my_assignment(tasks = task1, quiet = TRUE))
-  expect_error(mark_my_assignment(mark_file = "~/no such directory/no such file.R"))
   
 })
+
+
+test_that(desc="Assertions on arguments in mark_my_assignment()",{
+  
+  suppressMessages(set_assignment(paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")))
+  source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
+  
+  expect_warning(mark_my_assignment(tasks = "no such task", quiet = TRUE))
+  expect_warning(mark_my_assignment(tasks = c("task1", "no such task", "task2"), quiet = TRUE))
+  expect_error(mark_my_assignment(tasks = task2, quiet = TRUE))
+  expect_error(mark_my_assignment(mark_file = "~/no such directory/no such file.R"))
+  expect_error(mark_my_assignment(quiet = "TRUE"))
+  expect_error(mark_my_assignment(force_get_tests = "TRUE"))
+  expect_error(mark_my_assignment(reporter = StudentReporter))
+  
+})
+
 
 test_that(desc="mark_my_dir()",{
   suppressMessages(set_assignment(paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")))

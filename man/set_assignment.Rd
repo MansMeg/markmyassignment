@@ -15,11 +15,9 @@ set_assignment(path, auth_token = NULL)
 Sets the assignment to mark. Behind the scenes it download the test suite for the assignment.
 }
 \examples{
-\donttest{
 assignment_path <- path <- 
   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 set_assignment(assignment_path)
-}
 
 }
 
