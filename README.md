@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/MansMeg/markmyassignment.svg?branch=master)](https://travis-ci.org/MansMeg/markmyassignment)
-
+[![Build Status](https://travis-ci.org/MansMeg/markmyassignment.svg?branch=master)](https://travis-ci.org/MansMeg/markmyassignment)[![Coverage Status](https://coveralls.io/repos/MansMeg/markmyassignment/badge.svg?branch=master&service=github)](https://coveralls.io/github/MansMeg/markmyassignment?branch=master) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/markmyassignment)](https://github.com/metacran/cranlogs.app)
+[![cran version](http://www.r-pkg.org/badges/version/markmyassignment)](http://cran.rstudio.com/web/packages/sweidnumbr)
 markmyassignment
 ================
 
