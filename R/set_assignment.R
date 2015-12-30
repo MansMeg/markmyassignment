@@ -29,6 +29,8 @@ set_assignment <- function(path, auth_token = NULL){
   assignment_yml_ok(path = temp_file)
   file.copy(from = temp_file, to = dest, overwrite = TRUE)
   assignment <- read_assignment_yml()
+  if("packages" %in% names(assignment))
+    check_installed_packages(assignment$packages)
   message("Assignment set:\n", assignment$name, " : ", assignment$description)
   invisible(dest)
 }
@@ -74,8 +76,8 @@ assignment_yml_ok <- function(path = NULL){
 #'   boolean 
 #' 
 check_assignment_file <- function(assignment){
-  # The yml contain at most 4 slots.
-  check <- all(names(assignment) %in% c("name", "description", "reporter", "tasks", "mandatory"))
+  # The yml contain at most 6 slots.
+  check <- all(names(assignment) %in% c("name", "description", "reporter", "tasks", "mandatory", "packages"))
   if(!check) stop("Assignment file contain erroneous parts (except name, desc., reporter, tasks and mandatory.")
   # The name and description is of length 1
   check <- all(unlist(lapply(assignment[c("name", "description")], length)) == 1)
@@ -85,7 +87,7 @@ check_assignment_file <- function(assignment){
   if(inherits(urls, "try-error")) stop("All tasks in assignments file do not contain urls")
   check <- !any(unlist(lapply(lapply(urls, path_type), class)) == "path_error")
   if(!check) stop("Not all tasks in assignments have working urls.")
-
+  
   if("mandatory" %in% names(assignment)) {
     # Check mandatory urls
     urls <- try(as.list(assignment[["mandatory"]]$url), silent = TRUE)
@@ -193,3 +195,30 @@ show_tasks <- function(){
   assignment <- read_assignment_yml()
   names(assignment$task)
 }
+
+
+#' @title
+#'  Check whether required packages are installed and loaded.
+#' 
+#' @description
+#'   Checks if the packages listed in assignment file are loaded and installed.
+#'   If not, a warning message is printed.
+#' @param packages
+#'   Packages to check
+#'   
+check_installed_packages <- function(packages) {
+  
+  if(all(paste("package:", packages, sep="") %in% search())){
+    # All packages are loaded and installed
+  }else{
+    if(all(packages %in% rownames(installed.packages()))){
+      warning("The following packages need to be loaded:\n",
+              paste(packages[!paste("package:", packages, sep="") %in% search()], collapse = ", "))
+    }
+    else{
+      warning("The following packages need to be installed and then loaded:\n",
+              paste(packages[!packages %in% rownames(installed.packages())], collapse=", "))
+    }
+  }
+}
+

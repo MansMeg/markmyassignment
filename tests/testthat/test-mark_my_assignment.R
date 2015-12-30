@@ -42,9 +42,10 @@ test_that(desc="Assertions on arguments in mark_my_assignment()",{
 
 
 test_that(desc="mark_my_dir()",{
-  suppressMessages(set_assignment(paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")))
-  if(length(ls(name = .GlobalEnv)) == 0){
-    expect_is(mark_my_dir(paste0(system.file(package = "markmyassignment"), "/extdata/example_dir")), class = "data.frame")
-    expect_equal(nrow(mark_my_dir(paste0(system.file(package = "markmyassignment"), "/extdata/example_dir"))), 8)
-  }
+  test_assgn_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+  test_dir <- paste0(system.file(package = "markmyassignment"), "/extdata/example_dir")
+  res_mark <- mark_my_dir(directory = test_dir, lab_file = test_assgn_file)
+  expect_is(res_mark, class = "list")
+  expect_equal(length(res_mark), 2)
+  expect_is(res_mark[[1]], class = "testthat_results")
 })

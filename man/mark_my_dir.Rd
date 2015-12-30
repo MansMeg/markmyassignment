@@ -4,10 +4,12 @@
 \alias{mark_my_dir}
 \title{Mark assignments in a directory}
 \usage{
-mark_my_dir(directory, tasks = NULL, force_get_tests = FALSE)
+mark_my_dir(directory, lab_file, tasks = NULL, force_get_tests = FALSE)
 }
 \arguments{
 \item{directory}{Directory with assignments files.}
+
+\item{lab_file}{Assignment file to set before marking the assignment (url or local path).}
 
 \item{tasks}{Which task should be corrected (if more than one). 
 Default is all. To see the different task, see \code{\link{show_tasks}}.}
