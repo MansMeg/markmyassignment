@@ -1,0 +1,15 @@
+name  : Test assignment 01
+description : An example of how an assignment requiring packages can be constructed.
+reporter : student
+tasks:
+  task1:
+    url: 
+      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task1.R
+  task2:
+    url:
+      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task2_a.R
+      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task2_b.R
+mandatory:
+  url:
+    - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_mandatory.R
+packages: ['ggplot2', 'stringr']
