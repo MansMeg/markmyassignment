@@ -26,7 +26,13 @@
 #' @export
 mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_get_tests = FALSE, quiet = FALSE, reporter){
   
-  if(!missing(lab_file)) suppressMessages(set_assignment(lab_file))
+  if(!missing(lab_file)) {
+    old_warn_opt <- options(warn = 2)
+    set_assgn_result <- try(suppressMessages(set_assignment(lab_file)), silent = TRUE)
+    options(warn = old_warn_opt$warn)
+    if(is(set_assgn_result, "try-error"))
+      stop(set_assgn_result[1])
+  }
   if(missing(reporter)) reporter <- get_mark_my_reporter()
   
   assert_function_arguments_in_API(
