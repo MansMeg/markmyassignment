@@ -167,8 +167,11 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
     mark_my_env <- new.env(parent = parent.env(env = .GlobalEnv))
   
   if(!is.null(mark_file)){
-    stop_if_circular_calls(mark_file)
-    source(file = mark_file, local = mark_my_env)
+    mark_file <- delete_circular_calls(mark_file)
+    tf_path <- tempfile(pattern = "mark_file", fileext = ".txt")
+    writeLines(text = mark_file, con = tf_path)
+    source(file = tf_path, local = mark_my_env)
+    unlink(x = tf_path)
   } 
   
   if(quiet) reporter <- "silent"
@@ -235,20 +238,25 @@ get_mark_my_reporter <-function(){
 }
 
 #' @title
-#'  Checks and stop if there are circular calls 
+#'  Checks and deletes circular calls 
 #'  
 #' @description
-#'  Checks and stop if there are circular calls 
+#'  Checks and deletes circular calls 
 #'  
 #' @param mark_file File to check
 #'  
-stop_if_circular_calls <- function(mark_file){
-  forbidden <- c("mark_my_assignment", "mark_my_dir", "set_assignment")
-  forbidden_exist_in_code <- 
-    lapply(forbidden, FUN = grepl,  x = as.character(parse(mark_file)))
-  if(any(unlist(forbidden_exist_in_code))){
-    res <- unlist(lapply(forbidden_exist_in_code, any))
-    error <- unique(forbidden[res])
-    stop(paste0("Please remove circular calls (", paste(error, collapse = "(), "),"()) from file."), call. = FALSE)    
+#' @return
+#'  Character vector of the possibly changed mark file
+delete_circular_calls <- function(mark_file){
+  txt <- as.character(parse(mark_file))
+  forbidden <- c(
+    "mark_my_assignment", "mark_my_dir", "set_assignment", "mark_my_file",
+    "install.packages", "utils::install.packages",
+    "devtools::install_github", "install_github")
+  regex <- paste("(^|;| )", forbidden, "\\([^\\)]*\\)", sep = "")
+  for(pattern in regex){
+    txt <- gsub(pattern = pattern, replacement = "", x = txt)
   }
+  # change_list <- c("data")
+  return(txt)
 }

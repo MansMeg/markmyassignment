@@ -43,7 +43,7 @@ mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   test_results <- run_test_suite("mark_my_file", tasks, mark_file, quiet, reporter = reporter)
   test_results_df <- as.data.frame(test_results)
-  if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
+  if(!any(test_results_df$error) & sum(test_results_df$failed) == 0 & is.null(tasks) & !quiet) cheer()
   check_existance_tasks(tasks = tasks)
   return(invisible(test_results))
 }
