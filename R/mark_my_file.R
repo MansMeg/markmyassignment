@@ -26,7 +26,13 @@
 #' @export
 mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_get_tests = FALSE, quiet = FALSE, reporter){
   
-  if(!missing(lab_file)) suppressMessages(set_assignment(lab_file))
+  if(!missing(lab_file)) {
+    old_warn_opt <- options(warn = 2)
+    set_assgn_result <- try(suppressMessages(set_assignment(lab_file)), silent = TRUE)
+    options(warn = old_warn_opt$warn)
+    if(is(set_assgn_result, "try-error"))
+      stop(set_assgn_result[1])
+  }
   if(missing(reporter)) reporter <- get_mark_my_reporter()
   
   assert_function_arguments_in_API(
@@ -36,6 +42,7 @@ mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_
   
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   test_results <- run_test_suite("mark_my_file", tasks, mark_file, quiet, reporter = reporter)
+  test_results_df <- as.data.frame(test_results)
   if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
   check_existance_tasks(tasks = tasks)
   return(invisible(test_results))

@@ -37,3 +37,16 @@ test_that(desc="show_tasks()",{
   suppressMessages(set_assignment(correct_local2))
   expect_equal(show_tasks(), c("task1","task2"))
 })
+
+test_that(desc="check_installed_packages()",{
+  assgn_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment08_bad_pkgs.yml")
+  expect_warning(set_assignment(path = assgn_path), regexp = "The following packages need to be installed and then loaded")
+  assgn_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment07_pkgs.yml")
+  if( all(c("ggplot2", "stringr") %in% installed.packages()) ){
+    expect_warning(set_assignment(path = assgn_path), regexp = "The following packages need to be loaded")
+    library(ggplot2) ; library(stringr)
+    expect_is(suppressMessages(set_assignment(assgn_path)), "character")
+    detach(name = "package:ggplot2")
+    detach(name = "package:stringr")
+  }
+})

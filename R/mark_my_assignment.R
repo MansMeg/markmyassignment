@@ -33,7 +33,8 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
   if(is.null(reporter)) reporter <- get_mark_my_reporter()
   test_results <- run_test_suite("mark_my_assignment", tasks, mark_file, quiet, reporter = reporter)
-  if(!any(test_results$error) & sum(test_results$failed) == 0 & is.null(tasks) & !quiet) cheer()
+  test_results_df <- as.data.frame(test_results) 
+  if(!any(test_results_df$error) & sum(test_results_df$failed) == 0 & is.null(tasks) & !quiet) cheer()
   check_existance_tasks(tasks = tasks)
   return(invisible(test_results))
 }
@@ -46,6 +47,8 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #' 
 #' @param directory
 #'   Directory with assignments files.
+#' @param lab_file
+#'   Assignment file to set before marking the assignment (url or local path).
 #' @param tasks
 #'   Which task should be corrected (if more than one). 
 #'   Default is all. To see the different task, see \code{\link{show_tasks}}.
@@ -53,27 +56,27 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #'   Force download of test files before marking of assignments. Default is FALSE.
 #'   
 #' @export
-mark_my_dir <- function(directory, tasks = NULL, force_get_tests = FALSE){
+mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FALSE){
   file_names <- dir(directory, pattern = "\\.[Rr]")
+  if(length(file_names) == 0) stop("No files to mark.")
   files_to_mark <- paste0(directory, "/", file_names)
-  if(length(ls(.GlobalEnv)) > 0) stop("Clean global environment before running tests on file.", call. = FALSE)
-  if(length(files_to_mark) == 0) stop("No files to mark.")
-  for(i in seq_along(files_to_mark)){ #i <- 1
+  res_mark <- vector(mode = "list", length = length(files_to_mark))
+  names(res_mark) <- file_names
+  
+  for(i in seq_along(files_to_mark)){
     res_mark_temp <- try(
-      mark_my_assignment(tasks = tasks, 
-                         mark_file = files_to_mark[i], 
-                         force_get_tests = force_get_tests, 
-                         quiet = TRUE), silent=TRUE)
+      mark_my_file(tasks = tasks, 
+                   mark_file = files_to_mark[i],
+                   lab_file = lab_file,
+                   force_get_tests = force_get_tests, 
+                   quiet = TRUE), silent=TRUE)
     force_get_tests <- FALSE
     if(class(res_mark_temp) == "try-error") {
-      res_mark_temp[1]
+      message(res_mark_temp[1])
       message(file_names[i], " could not be marked.")
-    } else if (!exists(x = "res_mark")){
-      res_mark_temp$marked_file <- file_names[i]
-      res_mark <- res_mark_temp
+      res_mark[[i]] <- as.character(res_mark_temp[1])
     } else {
-      res_mark_temp$marked_file <- file_names[i]
-      res_mark <- rbind(res_mark, res_mark_temp)
+      res_mark[[i]] <- res_mark_temp
     }
   }
   return(res_mark)
