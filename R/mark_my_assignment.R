@@ -253,10 +253,42 @@ delete_circular_calls <- function(mark_file){
     "mark_my_assignment", "mark_my_dir", "set_assignment", "mark_my_file",
     "install.packages", "utils::install.packages",
     "devtools::install_github", "install_github")
-  regex <- paste("(^|;| )", forbidden, "\\([^\\)]*\\)", sep = "")
+  regex <- paste("(^|;| )", forbidden, "\\(.*\\)", sep = "")
   for(pattern in regex){
     txt <- gsub(pattern = pattern, replacement = "", x = txt)
   }
-  # change_list <- c("data")
+  
+#   indices <- grep(pattern = "^data\\(.*\\)", x = txt, value = F)
+#   txt[indices] <- gsub(pattern = "^data\\(", replacement = "markmyassignment:::data_mma\\(", x = txt[indices])
+  
   return(txt)
 }
+
+
+
+#' @title
+#'  Loads a data set into a specific environment
+#'  
+#' @description
+#'  Loads a data set into a specific environment
+#'  
+#' @param ...
+#'  Arguments to pass on to data().
+#' @param env
+#'  Environment to load data into.
+#'  
+#' @return
+#'  One or more data sets are loaded into the specified environment
+data_mma <- function(..., env ){ #= mark_my_env){
+  A <- list(...)
+  if( !any(names(A) == "envir") ){
+    data(..., envir = env)
+  }else if( !any(names(A) == "") ){
+    A$envir = env
+    do.call(what = data, args = A)
+  }else{
+    message("Not functional yet.")
+  }
+}
+
+
