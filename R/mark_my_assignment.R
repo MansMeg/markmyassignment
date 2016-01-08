@@ -77,6 +77,7 @@ mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FAL
       res_mark[[i]] <- as.character(res_mark_temp[1])
     } else {
       res_mark[[i]] <- res_mark_temp
+      print(paste(file_names[i], "was marked."))
     }
   }
   return(res_mark)
@@ -248,20 +249,23 @@ get_mark_my_reporter <-function(){
 #' @return
 #'  Character vector of the possibly changed mark file
 delete_circular_calls <- function(mark_file){
-  txt <- as.character(parse(mark_file))
+  txt_in <- txt_out <- as.character(parse(mark_file))
   forbidden <- c(
     "mark_my_assignment", "mark_my_dir", "set_assignment", "mark_my_file",
     "install.packages", "utils::install.packages",
     "devtools::install_github", "install_github", "data", "system")
   regex <- paste("(^|;| )", forbidden, "\\(.*\\)", sep = "")
   for(pattern in regex){
-    txt <- gsub(pattern = pattern, replacement = "", x = txt)
+    txt_out <- gsub(pattern = pattern, replacement = "", x = txt_out)
   }
+  if(!identical(txt_in, txt_out))
+    message("The following statements were ignored when running mark_my_file:\n",
+            paste(txt_in[txt_in != txt_out], collapse = "\n"))
   
-#   indices <- grep(pattern = "^data\\(.*\\)", x = txt, value = F)
-#   txt[indices] <- gsub(pattern = "^data\\(", replacement = "markmyassignment:::data_mma\\(", x = txt[indices])
+  #   indices <- grep(pattern = "^data\\(.*\\)", x = txt_out, value = F)
+  #   txt_out[indices] <- gsub(pattern = "^data\\(", replacement = "markmyassignment:::data_mma\\(", x = txt[indices])
   
-  return(txt)
+  return(txt_out)
 }
 
 
@@ -280,12 +284,12 @@ delete_circular_calls <- function(mark_file){
 #' @return
 #'  One or more data sets are loaded into the specified environment
 data_mma <- function(..., env ){ #= mark_my_env){
-  A <- list(...)
-  if( !any(names(A) == "envir") ){
+  arguments <- list(...)
+  if( !any(names(arguments) == "envir") ){
     data(..., envir = env)
-  }else if( !any(names(A) == "") ){
-    A$envir = env
-    do.call(what = data, args = A)
+  }else if( !any(names(arguments) == "") ){
+    arguments$envir = env
+    do.call(what = data, args = arguments)
   }else{
     message("Not functional yet.")
   }
