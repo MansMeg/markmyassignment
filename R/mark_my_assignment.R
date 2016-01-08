@@ -252,7 +252,7 @@ delete_circular_calls <- function(mark_file){
   forbidden <- c(
     "mark_my_assignment", "mark_my_dir", "set_assignment", "mark_my_file",
     "install.packages", "utils::install.packages",
-    "devtools::install_github", "install_github")
+    "devtools::install_github", "install_github", "data", "system")
   regex <- paste("(^|;| )", forbidden, "\\(.*\\)", sep = "")
   for(pattern in regex){
     txt <- gsub(pattern = pattern, replacement = "", x = txt)
