@@ -269,30 +269,3 @@ delete_circular_calls <- function(mark_file){
 }
 
 
-
-#' @title
-#'  Loads a data set into a specific environment
-#'  
-#' @description
-#'  Loads a data set into a specific environment
-#'  
-#' @param ...
-#'  Arguments to pass on to data().
-#' @param env
-#'  Environment to load data into.
-#'  
-#' @return
-#'  One or more data sets are loaded into the specified environment
-data_mma <- function(..., env ){ #= mark_my_env){
-  arguments <- list(...)
-  if( !any(names(arguments) == "envir") ){
-    data(..., envir = env)
-  }else if( !any(names(arguments) == "") ){
-    arguments$envir = env
-    do.call(what = data, args = arguments)
-  }else{
-    message("Not functional yet.")
-  }
-}
-
-
