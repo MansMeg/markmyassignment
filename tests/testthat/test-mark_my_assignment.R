@@ -4,10 +4,9 @@ context("mark_my_assignment")
 test_that(desc="mark_my_assignment()",{
   suppressMessages(set_assignment(paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")))
   
-  if(length(ls(name = .GlobalEnv)) == 0){
-    expect_is(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), quiet = TRUE), "testthat_results")  
-    expect_error(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_circular.R"), quiet = TRUE))
-  }
+  expect_is(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), quiet = TRUE), "testthat_results")  
+  expect_is(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_circular.R"), quiet = TRUE), "testthat_results")
+  expect_is(mark_my_assignment(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_messy.R"), quiet = TRUE), "testthat_results")
   
   source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
   
