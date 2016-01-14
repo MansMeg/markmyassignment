@@ -4,7 +4,7 @@
 \alias{mark_my_file}
 \title{Mark assignment file}
 \usage{
-mark_my_file(tasks = NULL, mark_file = file.choose(), lab_file,
+mark_my_file(tasks = NULL, mark_file = file.choose(), assignment_path,
   force_get_tests = FALSE, quiet = FALSE, reporter)
 }
 \arguments{
@@ -13,7 +13,7 @@ To see the different task, see \code{\link{show_tasks}}.}
 
 \item{mark_file}{Path to the file to mark.}
 
-\item{lab_file}{Assignment file to set before marking the assignment (url or local path).}
+\item{assignment_path}{Assignment file to set before marking the assignment (url or local path).}
 
 \item{force_get_tests}{Force download of test files before marking of assignments. Default is FALSE.}
 
@@ -28,7 +28,7 @@ Mark a specific assignment file
 assignment_path <- 
   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 file_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
-mark_my_file(mark_file = file_path, lab_file = assignment_path)
+mark_my_file(mark_file = file_path, assignment_path = assignment_path)
 
 }
 

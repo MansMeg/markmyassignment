@@ -1,0 +1,138 @@
+---
+title: "markmyassignment"
+author: "Mans Magnusson, Oscar Pettersson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{markmyassignment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# For students
+
+The markmyassignment package is a tool to easily correct your own lab assignments before sending them in.
+
+To mark an assignment you need to set the assignment to mark in the followning way:
+
+set_assignment([assignment path]),
+
+where [assignment path] should be supplied by the teacher.
+
+### Show tasks
+You can see which tasks that are included in the assignment with show_tasks():
+
+show_tasks()
+
+### Mark all tasks in global environment
+To mark all tasks in an assignment use mark_my_assignment(). Remember that the task needs to be in R:s global environment.
+
+mark_my_assignment()
+
+### Mark the tasks "foo" and "bar" 
+You can also mark specific tasks with the tasks argument:
+
+mark_my_assignment(tasks = c("foo", "bar"))
+
+### Mark all tasks in a file.
+As a last step the whole lab file can be marked. To do this use mark_my_file() and give a search path to the file to mark and a search path to the assignment file.
+
+mark_my_file(mark_file = [my search path to file], assignment_path = [assignment path])
+
+### Mark the tasks "foo" and "bar" in the file
+Mark specific tasks in a lab file by using the tasks argument:
+
+mark_my_file(tasks = c("foo", "bar"), mark_file = [my search path to file], assignment_path = [assignment path])
+
+## Example usage
+
+To use the package markmyassignment, it first needs to be loaded:
+
+```{r, message=FALSE}
+library(markmyassignment)
+```
+
+Then, use set_assignment() and the path your teacher has provided:
+
+```{r, message=FALSE}
+assignment_path <- 
+ paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+set_assignment(assignment_path)
+```
+
+Let's look at the tasks:
+
+```{r}
+show_tasks()
+```
+
+In this example, there are two tasks and also a mandatory requirement:
+
+Mandatory: *Store your name in the variable my_name.*
+
+task1: *Create a vector containing the values of $\pi$ and e. The name should be task1*
+
+task2: *Create a function that takes a numeric vector as argument and returns the sum of the first and last element. Name the function task2.*
+
+The vector for the first task is created and it seems to work well:
+
+```{r}
+task1 <- c(pi, exp(1))
+print(task1)
+```
+
+We now try to correct our lab using markmyassignment:
+
+```{r}
+mark_my_assignment()
+```
+
+That did not work to well. This is how it looks when something goes wrong when the markmyassignment package is used.
+
+The first part of the message contains the names of the tests that are run. The names should only be followed by dots. If there are numbers then there is some kind of problem.
+First, we forgot to include our name and for this lab, the teacher has decided that this is mandatory. But we also tried to correct the entire lab before solving all tasks.
+
+So we include the name and also try to only correct the first task by using the tasks argument in mark_my_assignment:
+
+```{r}
+my_name <- "Foo Bar"
+print(my_name)
+mark_my_assignment(tasks = "task1")
+```
+
+That worked better! Let's solve the second task.
+
+```{r}
+task2 <- function(vector){
+  vector[1] + vector[length(vector)]
+}
+task2(1:5)
+task2(5:10)
+```
+
+It seems to work well.
+
+```{r}
+mark_my_assignment(tasks = "task2")
+```
+
+It passed the test. Now all tasks are done and to be sure, we can now use mark_my_assignment() to correct the entire lab. But it is important that my_name and all the objects are in the global environment.
+
+```{r}
+mark_my_assignment()
+```
+
+If we save our file now, we could even clean the global environment and run the tests on the file. This is also what the teacher will use when correcting the labs. We need both the file path and the same assignment path that we used together with set_assignment() before:
+
+```{r}
+mark_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
+mark_my_file(mark_file = mark_file, assignment_path = assignment_path)
+```
+
+We could also correct individual tasks in a file, similar to before:
+
+```{r}
+mark_my_file(tasks = "task1", mark_file = mark_file, assignment_path = assignment_path)
+```
+
+
