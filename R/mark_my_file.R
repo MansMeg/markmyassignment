@@ -9,7 +9,7 @@
 #'   To see the different task, see \code{\link{show_tasks}}.
 #' @param mark_file
 #'   Path to the file to mark.
-#' @param lab_file
+#' @param assignment_path
 #'   Assignment file to set before marking the assignment (url or local path).
 #' @param force_get_tests
 #'   Force download of test files before marking of assignments. Default is FALSE.
@@ -21,14 +21,14 @@
 #' assignment_path <- 
 #'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
 #' file_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
-#' mark_my_file(mark_file = file_path, lab_file = assignment_path)
+#' mark_my_file(mark_file = file_path, assignment_path = assignment_path)
 #' 
 #' @export
-mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_get_tests = FALSE, quiet = FALSE, reporter){
+mark_my_file <- function(tasks = NULL, mark_file=file.choose(), assignment_path, force_get_tests = FALSE, quiet = FALSE, reporter){
   
-  if(!missing(lab_file)) {
+  if(!missing(assignment_path)) {
     old_warn_opt <- options(warn = 2)
-    set_assgn_result <- try(suppressMessages(set_assignment(lab_file)), silent = TRUE)
+    set_assgn_result <- try(suppressMessages(set_assignment(assignment_path)), silent = TRUE)
     options(warn = old_warn_opt$warn)
     if(is(set_assgn_result, "try-error"))
       stop(set_assgn_result[1])
@@ -36,7 +36,7 @@ mark_my_file <- function(tasks = NULL, mark_file=file.choose(), lab_file, force_
   if(missing(reporter)) reporter <- get_mark_my_reporter()
   
   assert_function_arguments_in_API(
-    tasks = tasks, mark_file = mark_file, lab_file = lab_file,
+    tasks = tasks, mark_file = mark_file, lab_file = assignment_path,
     force_get_tests = force_get_tests, quiet = quiet, reporter = reporter)
   
   

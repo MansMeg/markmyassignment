@@ -67,7 +67,7 @@ mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FAL
     res_mark_temp <- try(
       mark_my_file(tasks = tasks, 
                    mark_file = files_to_mark[i],
-                   lab_file = lab_file,
+                   assignment_path = lab_file,
                    force_get_tests = force_get_tests, 
                    quiet = TRUE), silent=TRUE)
     force_get_tests <- FALSE
