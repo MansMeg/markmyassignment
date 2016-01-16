@@ -16,4 +16,5 @@ get_file(path, dest, ...)
 \description{
 Get/download the file from the path.
 }
+\keyword{internal}
 

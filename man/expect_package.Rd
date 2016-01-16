@@ -19,4 +19,5 @@ deparsed object.}
 \description{
 Tests that the following packages is used.
 }
+\keyword{internal}
 

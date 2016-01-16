@@ -24,4 +24,5 @@ deparsed object.}
 \description{
 Test that a given code code exists in function
 }
+\keyword{internal}
 

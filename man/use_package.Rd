@@ -9,4 +9,5 @@ use_package()
 \description{
 test if a packages is loaded.
 }
+\keyword{internal}
 

@@ -15,4 +15,5 @@ get_tests(tasks = NULL, force_get_tests = FALSE)
 Downloads the test files for the current assignment and save them to 
 temp directory.
 }
+\keyword{internal}
 

@@ -14,4 +14,5 @@ find_expr(name, env = parent.frame())
 \description{
 Internal function (taken from testthat)
 }
+\keyword{internal}
 

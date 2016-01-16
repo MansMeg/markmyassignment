@@ -15,4 +15,5 @@ path type as character element c("path_local", "path_http", "path_error")
 \description{
 Check the path type.
 }
+\keyword{internal}
 

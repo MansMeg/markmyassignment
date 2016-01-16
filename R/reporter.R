@@ -7,7 +7,7 @@
 #' @export
 #' @export StudentReporter
 #' @aliases StudentReporter
-#' @keywords debugging
+#' @keywords debugging internal
 #' @param ... Arguments used to initialise class
 
 StudentReporter <- 

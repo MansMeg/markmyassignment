@@ -11,4 +11,5 @@ Get reporter from yml file
  
  Default reporter is 'summary'.
 }
+\keyword{internal}
 

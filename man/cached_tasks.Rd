@@ -12,4 +12,5 @@ character vector with cached assignments.
 \description{
 Checks which assignments that are cached (ie already downloaded to temp dir).
 }
+\keyword{internal}
 

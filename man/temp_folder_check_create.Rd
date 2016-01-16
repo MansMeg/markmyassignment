@@ -10,4 +10,5 @@ temp_folder_check_create()
 Checks if markmyassignment folder exist in R temp directory.
   If not, the folder is created.
 }
+\keyword{internal}
 

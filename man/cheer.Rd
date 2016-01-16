@@ -9,4 +9,5 @@ cheer()
 \description{
 Cheer when all tasks pass
 }
+\keyword{internal}
 

@@ -14,4 +14,5 @@ the testname and test information is returned. Otherwise similar to
 SummaryReporter.
 }
 \keyword{debugging}
+\keyword{internal}
 

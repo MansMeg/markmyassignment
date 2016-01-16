@@ -24,4 +24,5 @@ deparsed object.}
 \description{
 Test that an object with a given name exist in the environment.
 }
+\keyword{internal}
 

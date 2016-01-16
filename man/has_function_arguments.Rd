@@ -14,4 +14,5 @@ has_function_arguments(expected, label = NULL)
 \description{
 Test if a function has the given arguments
 }
+\keyword{internal}
 

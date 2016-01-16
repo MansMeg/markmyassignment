@@ -55,6 +55,8 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #' @param force_get_tests
 #'   Force download of test files before marking of assignments. Default is FALSE.
 #'   
+#' @keywords internal
+#'   
 #' @export
 mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FALSE){
   file_names <- dir(directory, pattern = "\\.[Rr]")
@@ -97,6 +99,8 @@ mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FAL
 #' @param force_get_tests
 #'   Force download/get test (ignore cached tests).
 #' 
+#' @keywords internal
+#' 
 get_tests <- function(tasks = NULL, force_get_tests = FALSE){
   assignment <- read_assignment_yml()
   dir.create(path = mark_my_test_dir(), recursive = TRUE, showWarnings = FALSE)
@@ -132,6 +136,8 @@ get_tests <- function(tasks = NULL, force_get_tests = FALSE){
 #' @return
 #'   character vector with cached assignments.
 #' 
+#' @keywords internal
+#' 
 cached_tasks <- function(){    
   files <- dir(mark_my_test_dir())
   unique(unlist(lapply(strsplit(files, split = "-"), FUN=function(X) X[2])))
@@ -157,6 +163,8 @@ cached_tasks <- function(){
 #'
 #' @return
 #'   test_suite results
+#'   
+#' @keywords internal
 #'   
 run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, reporter = "summary"){
   
@@ -195,14 +203,18 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
 #'  
 #' @name directories
 #' 
+#' @keywords internal
+#' 
 mark_my_base_dir <- function() paste0(tempdir(), "/markmyassignment")
 
 #' @rdname directories
 #' @param no assignment number
+#' @keywords internal
 mark_my_assignment_dir <- function(no = 1) paste0(mark_my_base_dir(), "/assignment", no)
 
 #' @rdname directories
 #' @param ... to send to \code{\link{mark_my_assignment_dir}}
+#' @keywords internal
 mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
 
 
@@ -212,6 +224,9 @@ mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
 #'  
 #' @description
 #' Cheer when all tasks pass
+#' 
+#' @keywords internal
+#' 
 cheer <- function() {
   cat(sample(x = c("Yay! All done!",
                    "Good work!",
@@ -227,6 +242,8 @@ cheer <- function() {
 #'  Get reporter from yml file
 #'  
 #'  Default reporter is 'summary'. 
+#'  
+#' @keywords internal
 #'  
 get_mark_my_reporter <-function(){
   assign_yml <- read_assignment_yml()
@@ -248,6 +265,9 @@ get_mark_my_reporter <-function(){
 #'  
 #' @return
 #'  Character vector of the possibly changed mark file
+#'  
+#' @keywords internal
+#' 
 delete_circular_calls <- function(mark_file){
   txt_in <- txt_out <- as.character(parse(mark_file))
   forbidden <- c(

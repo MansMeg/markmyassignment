@@ -21,4 +21,5 @@ mark_my_test_dir(...)
 \description{
 Functions to create directories
 }
+\keyword{internal}
 

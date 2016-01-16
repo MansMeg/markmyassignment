@@ -42,6 +42,8 @@ set_assignment <- function(path, auth_token = NULL){
 #'   Checks if markmyassignment folder exist in R temp directory.
 #'   If not, the folder is created.
 #'   
+#' @keywords internal
+#' 
 temp_folder_check_create <- function() {
   if(!"markmyassignment" %in% dir(tempdir())){
     dir.create(path = mark_my_base_dir())
@@ -58,6 +60,8 @@ temp_folder_check_create <- function() {
 #' 
 #' @return 
 #'   boolean 
+#'   
+#' @keywords internal
 #' 
 assignment_yml_ok <- function(path = NULL){
   assignment <- try(read_assignment_yml(path), silent = TRUE)
@@ -74,6 +78,8 @@ assignment_yml_ok <- function(path = NULL){
 #' 
 #' @return 
 #'   boolean 
+#'   
+#' @keywords internal
 #' 
 check_assignment_file <- function(assignment){
   # The yml contain at most 6 slots.
@@ -109,6 +115,8 @@ check_assignment_file <- function(assignment){
 #' 
 #' @return path type as character element c("path_local", "path_http", "path_error")
 #' 
+#' @keywords internal
+#' 
 path_type <- function(path){
   if(file.exists(path)){
     class(path) <- c("path_local", "character")
@@ -136,6 +144,7 @@ path_type <- function(path){
 #' @param ...
 #'   Further arguments to send to \code{httr::GET()}.
 #' 
+#' @keywords internal
 #' 
 get_file <- function(path, dest, ...){
   stopifnot(!inherits(path, "path_error"))
@@ -162,7 +171,8 @@ get_file.path_http <- function(path, dest, ...){
 #' 
 #' @return assignment object
 #' 
-
+#' @keywords internal
+#' 
 read_assignment_yml <- function(path = NULL){
   if(is.null(path)){
     assignment_file <- paste0(mark_my_assignment_dir(), "/assignment1.yml")
@@ -185,9 +195,11 @@ read_assignment_yml <- function(path = NULL){
 #'   Get the name of the tasks in the assignment.
 #'   
 #' @examples
+#' # We first set the assignment
 #' assignment_path <- 
 #'  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
-#'  set_assignment(assignment_path)
+#' set_assignment(assignment_path)
+#'  
 #' show_tasks()
 #' 
 #' @export
@@ -205,6 +217,8 @@ show_tasks <- function(){
 #'   If not, a warning message is printed.
 #' @param packages
 #'   Packages to check
+#'   
+#' @keywords internal
 #'   
 check_installed_packages <- function(packages) {
   

@@ -14,6 +14,8 @@
 #' @param info 
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
+#' @keywords internal
+#' 
 #' @export
 
 expect_self_contained <- function(object, info = NULL, label = NULL) {
@@ -31,6 +33,8 @@ expect_self_contained <- function(object, info = NULL, label = NULL) {
 #' 
 #' @param expected
 #'   Function to test if it is self contained.
+#' 
+#' @keywords internal
 #' 
 #' @export
 is_self_contained <- 
@@ -65,6 +69,8 @@ is_self_contained <-
 #' @param info 
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
+#' @keywords internal
+#' 
 #' @export
 expect_package <- function(object, info = NULL, label = NULL){
   if (is.null(label)) {
@@ -78,6 +84,8 @@ expect_package <- function(object, info = NULL, label = NULL){
 #' 
 #' @description
 #'    test if a packages is loaded.
+#' 
+#' @keywords internal
 #' 
 #' @export
 use_package <- 
@@ -109,6 +117,8 @@ use_package <-
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' @param expected.label Equivalent of \code{label} for shortcut form.
 #' 
+#' @keywords internal
+#' 
 #' @export
 expect_function_arguments <- 
   function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
@@ -131,6 +141,8 @@ expect_function_arguments <-
 #'   Arguments as text vector to test for.
 #' @param label
 #'   Expectation label used by \code{expect_function_arguments()}
+#' 
+#' @keywords internal
 #' 
 #' @export
 has_function_arguments <- 
@@ -167,6 +179,8 @@ has_function_arguments <-
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' @param expected.label Equivalent of \code{label} for shortcut form.
 #' 
+#' @keywords internal
+#' 
 #' @export
 expect_function_code <- 
   function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
@@ -189,6 +203,8 @@ expect_function_code <-
 #' @param label
 #'   Expectation label used by \code{expect_function_code()}
 #'   
+#' @keywords internal
+#'   
 #' @export
 function_code <- 
   function (expected, label = NULL) 
@@ -209,6 +225,8 @@ function_code <-
 #' @description
 #' Test that the format used in a function is tidy (see formatR)
 #' 
+#' @keywords internal
+#' 
 expect_tidy_code <- function(){}
 
 
@@ -221,6 +239,8 @@ expect_tidy_code <- function(){}
 #' 
 #' @param name See \code{testthat:::find_expr()}.
 #' @param env See \code{testthat:::find_expr()}.
+#' 
+#' @keywords internal
 #' 
 find_expr <- function(name, env = parent.frame()){
   subs <- do.call("substitute", list(as.name(name), env))

@@ -13,4 +13,5 @@ check_installed_packages(packages)
 Checks if the packages listed in assignment file are loaded and installed.
   If not, a warning message is printed.
 }
+\keyword{internal}
 

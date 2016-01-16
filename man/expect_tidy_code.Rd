@@ -9,4 +9,5 @@ expect_tidy_code()
 \description{
 Test that the format used in a function is tidy (see formatR)
 }
+\keyword{internal}
 

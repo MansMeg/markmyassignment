@@ -12,4 +12,5 @@ is_self_contained(expected)
 \description{
 Tests if a function is self contained (no global variables)
 }
+\keyword{internal}
 

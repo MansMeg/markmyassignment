@@ -14,4 +14,5 @@ function_code(expected, label = NULL)
 \description{
 Test if function code contains a given text string.
 }
+\keyword{internal}
 

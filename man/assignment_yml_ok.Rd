@@ -15,4 +15,5 @@ boolean
 \description{
 Check the yml file that it is correct and can be used. Otherwise warn.
 }
+\keyword{internal}
 
