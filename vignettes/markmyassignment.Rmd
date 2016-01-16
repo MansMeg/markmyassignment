@@ -1,5 +1,5 @@
 ---
-title: "A students introduction to markmyassignment"
+title: "A student's introduction to markmyassignment"
 author: "Mans Magnusson and Oscar Pettersson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -19,6 +19,13 @@ The easiest way to install the package in R is as follows:
 install.packages("markmyassignment")
 ```
 
+### How to get help
+
+All documentation of the package and the functionality can be found using:
+
+```{r, message=FALSE, eval=FALSE}
+help(package = "markmyassignment")
+```
 
 ### Usage
 
@@ -144,6 +151,12 @@ If we save our file now, we could even clean the global environment and run the 
 ```{r}
 mark_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
 mark_my_file(mark_file = mark_file, assignment_path = assignment_path)
+```
+
+It is also possible to just specify the assignment path and then choose the assignment file as follows:
+
+```{r, eval=FALSE}
+mark_my_file(assignment_path = assignment_path)
 ```
 
 We could also check individual tasks in our file, similar to before:
