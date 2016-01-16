@@ -1,5 +1,5 @@
 ---
-title: "markmyassignment"
+title: "A students introduction to markmyassignment"
 author: "Mans Magnusson and Oscar Pettersson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -9,11 +9,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The markmyassignment package is a tool to easily get automatic feedback on your lab assignment before turning them in.
+The markmyassignment package is a tool to get automatic feedback easily on your lab assignment before handing it in.
 
 ### Installing the package
 
-The package is easiest installed in R as follows:
+The easiest way to install the package in R is as follows:
 
 ```{r, message=FALSE, eval=FALSE}
 install.packages("markmyassignment")
@@ -22,13 +22,13 @@ install.packages("markmyassignment")
 
 ### Usage
 
-To use the package markmyassignment, it first needs to be loaded:
+To use the package markmyassignment, you must first load it into your R sesssion:
 
 ```{r, message=FALSE}
 library(markmyassignment)
 ```
 
-Then, use ```set_assignment()``` with the path provided by the teacher. Below is an example assignment that is part of the package. The assignment path depends on the local R installation path.
+Then, use ```set_assignment()``` with the path provided by the teacher. Below you will find an example assignment that is part of the ```markmyassignment``` package. The assignment path of this example assignment depends on the local R installation path.
 
 ```{r, message=FALSE}
 assignment_path <- 
@@ -36,7 +36,7 @@ assignment_path <-
 set_assignment(assignment_path)
 ```
 
-Let's look at the tasks included in our assignment. To check which task thats included we use ```show_tasks()```.
+Let us look at the tasks included in our example assignment. To check which task that is included we use the function ```show_tasks()```.
 
 ```{r}
 show_tasks()
@@ -54,7 +54,7 @@ In this example assignment there are two tasks and also a mandatory requirement.
 
 **task2:**
 
-*Create a function that takes a numeric vector as argument and returns the sum of the first and last element. Name the function* ```task2```*.*
+*Create a function that takes a numeric vector as the argument and returns the sum of the first and last element. Name the function* ```task2```*.*
 
 We start to solve this assignment by solving the first task. It seems to work as intended.
 
@@ -63,44 +63,44 @@ task1 <- c(pi, exp(1))
 print(task1)
 ```
 
-We now try to correct our lab using ```markmyassignment```:
+We now try to correct our lab assignment using ```markmyassignment```:
 
 ```{r}
 mark_my_assignment()
 ```
 
-That did not work too well. This is how it looks when something goes wrong when the ```markmyassignment``` package is used.
+That did not work very well. This is how it looks when something goes wrong when the ```markmyassignment``` package is used.
 
-The first part of the message contains the names of the tests that are run. The names should only be followed by dots, each dot is symbolising a test that passed (ie a correct part of the actual task). If there are numbers or letters, then there is some kind of problem.
+The first part of the message contains the names of the tests that are run. The names of each task should be followed by dots only. Each dot is symbolising a successful test (ie a correct part of the actual task). If you get any numbers or letters then there is some kind of problem with your proposed solution.
 
-The easiest way go through the error messages is to start with the errors in chronological order. Start with the first error and correct this error and run the ```mark_my_assignment()``` again. Lets look at the first error message:
+The easiest way to go through the error messages is to start in a chronological order. Start with the first error (error number 1) and correct this error and then run the ```mark_my_assignment()``` function again. Lets look at the first error message:
 
 ```
 1. Failure: Mandatory tests -------------------------------------------------------------------
 Variable my_name is missing
 ```
 
-We forgot to include our name. For this lab the teacher has decided that this is mandatory. Let's fix this problem.
+We forgot to include our name. The teacher has decided that this is mandatory in this lab assignment. Let us fix this problem.
 
 ```{r}
 my_name <- "Foo Bar"
 mark_my_assignment()
 ```
 
-Yay! The first problem has been solved! Now we can check the next problem in our assignment.
+Yay! The first problem has been solved! Now we can check the next problem of our assignment.
 
 ```
 1. Failure: Marking task2 ---------------------------------------------------------------------
 task2() does not exist.
 ```
 
-The second problem is that we tried to mark the second task, but we have not yet tried to solve this assignment. So lets only correct the first task by using the ```tasks``` argument in ```mark_my_assignment()```:
+The second problem is that we tried to mark the second task, but we have not yet tried to solve this task So let us correct only the first task, using the ```tasks``` argument in ```mark_my_assignment()```:
 
 ```{r}
 mark_my_assignment(tasks = "task1")
 ```
 
-That worked better - only dots! We have solved the first task. Let's solve the second problem.
+That worked better - only dots! We have solved the first task. Let us try to solve the second problem.
 
 ```{r}
 task2 <- function(vector){
@@ -109,19 +109,19 @@ task2 <- function(vector){
 task2(1:5)
 ```
 
-It seems to work well. Let's see what markmyassignment says.
+It seems to work well at a first glance. Let us see what markmyassignment says.
 
 ```{r}
 mark_my_assignment(tasks = "task2")
 ```
 
-Oh! It seems like there is an error in our function. What if we run our function with the same example as markmyassignment does?
+Oh! There seems to be an error in our function. What if we run our function with the same example as markmyassignment does?
 
 ```{r}
 task2(5:10)
 ```
 
-Ah, the problem seems to be that we assumed a fixed length vector argument. Lets correct that and check our task again.
+Ah, the problem seems to be that we assumed a fixed length vector argument. Let us correct that and check our task again.
 
 ```{r}
 task2 <- function(vector){
@@ -130,16 +130,16 @@ task2 <- function(vector){
 mark_my_assignment(tasks = "task2")
 ```
 
-It passed the tests! Now all tasks are done and to be sure, we can now use ```mark_my_assignment()``` to correct the whole lab. But it is important that ```my_name``` and all the objects are in the global environment. To check this, we can use ```ls()```.
+We succeeded this time! Now all tasks are completed and we can now use ```mark_my_assignment()``` to correct the whole lab assignment. Note that ```my_name```, ```task1``` and ```task2``` need to exist in the global environment. To check this, we can use ```ls()```.
 
 ```{r}
 ls()
 mark_my_assignment()
 ```
 
-Yay! We're done with the computer lab!
+Yay! We have completed the whole lab assignment!
 
-If we save our file now, we could even clean the global environment and run the tests on the file. This is also what the teacher will use when correcting the labs (but probably with some extra tests). We need both the file path and the same assignment path that we used to ```set_assignment()```:
+If we save our file now, we could even clean the global environment and run the tests on the assignment file we will turn in. This is also what the teacher will do when correcting the labs (but probably with some extra tests). We need both the file path to our file and the  assignment path that we used to ```set_assignment()```:
 
 ```{r}
 mark_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
@@ -152,5 +152,5 @@ We could also check individual tasks in our file, similar to before:
 mark_my_file(tasks = "task1", mark_file = mark_file, assignment_path = assignment_path)
 ```
 
-Good luck! If you have any suggestions, comments or ideas feel free to add an issue at  the package [webpage](https://github.com/MansMeg/markmyassignment).
+Good luck! If you have any suggestions, comments or ideas feel free to add an issue at  the package [webpage](https://github.com/MansMeg/markmyassignment)!
 
