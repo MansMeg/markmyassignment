@@ -13,10 +13,11 @@ install.packages("markmyassignment")
 ```
 
 ## Information for students
+[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```. For more information see the student page at the package [Wiki](https://github.com/MansMeg/markmyassignment/wiki/markmyassignment-for-students).
 
-[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```.
+## Information for teachers
+See the teacher information [here](https://github.com/MansMeg/markmyassignment/wiki/markmyassignment-for-teachers).
 
-## Comments, suggestions and ideas
-
-Please submit those to the package issue tracker [here](https://github.com/MansMeg/markmyassignment/issues).
+## Suggestions
+All suggestions, ideas and comments are welcome. Please submit those through the package issue tracker [here](https://github.com/MansMeg/markmyassignment/issues).
 
