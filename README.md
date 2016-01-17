@@ -5,19 +5,19 @@ markmyassignment
 
 A R package for automatic marking of R assignments/labs using the `testthat` package.
 
-## Installation
+### Installation
 To install the package just run the following code 
 
 ```r
 install.packages("markmyassignment")
 ```
 
-## Information for students
+### Information for students
 [Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```. For more information see the student page at the package [Wiki](https://github.com/MansMeg/markmyassignment/wiki/markmyassignment-for-students).
 
-## Information for teachers
+### Information for teachers
 See the teacher information [here](https://github.com/MansMeg/markmyassignment/wiki/markmyassignment-for-teachers).
 
-## Suggestions
+### Suggestions
 All suggestions, ideas and comments are welcome. Please submit those through the package issue tracker [here](https://github.com/MansMeg/markmyassignment/issues).
 
