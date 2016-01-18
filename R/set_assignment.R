@@ -225,13 +225,13 @@ check_installed_packages <- function(packages) {
   if(all(paste("package:", packages, sep="") %in% search())){
     # All packages are loaded and installed
   }else{
-    if(all(packages %in% rownames(installed.packages()))){
+    if(all(packages %in% rownames(utils::installed.packages()))){
       warning("The following packages need to be loaded:\n",
               paste(packages[!paste("package:", packages, sep="") %in% search()], collapse = ", "))
     }
     else{
       warning("The following packages need to be installed and then loaded:\n",
-              paste(packages[!packages %in% rownames(installed.packages())], collapse=", "))
+              paste(packages[!packages %in% rownames(utils::installed.packages())], collapse=", "))
     }
   }
 }
