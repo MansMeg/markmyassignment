@@ -6,6 +6,7 @@ test_that(desc="mark_my_file()",{
   assignment_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
   
   expect_is(mark_my_file(mark_file = source_file, assignment_path = assignment_file, quiet = TRUE), "testthat_results")
+  expect_is(mark_my_file(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")  
   expect_is(mark_my_file(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_circular.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")
   expect_is(mark_my_file(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_messy.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")
   expect_is(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file)), "character")
@@ -27,6 +28,7 @@ test_that(desc="Assertions on arguments in mark_my_file()",{
   expect_error(mark_my_file(quiet = "TRUE", mark_file = source_file, assignment_path = assignment_file))
   expect_error(mark_my_file(force_get_tests = "TRUE", mark_file = source_file, assignment_path = assignment_file))
   expect_error(mark_my_file(reporter = StudentReporter, mark_file = source_file, assignment_path = assignment_file))
+  expect_error(mark_my_file(mark_file = "~/no such directory/no such file.R"))
 })
 
 

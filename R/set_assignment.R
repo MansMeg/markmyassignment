@@ -121,7 +121,7 @@ path_type <- function(path){
   if(file.exists(path)){
     class(path) <- c("path_local", "character")
   } else {
-    try_http <- try(httr::url_ok(path), silent = TRUE)
+    try_http <- try(identical(httr::status_code(httr::HEAD(path)), 200L), silent = TRUE)
     if (!is(try_http, "try-error") && try_http){
       class(path) <- c("path_http", "character")
     } else {
