@@ -2,13 +2,13 @@
 context("mark_my_file")
 
 test_that(desc="mark_my_file()",{
-  source_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
-  assignment_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+  source_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
+  assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
   
   expect_is(mark_my_file(mark_file = source_file, assignment_path = assignment_file, quiet = TRUE), "testthat_results")
-  expect_is(mark_my_file(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")  
-  expect_is(mark_my_file(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_circular.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")
-  expect_is(mark_my_file(mark_file = paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file_messy.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")
+  expect_is(mark_my_file(mark_file = file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")  
+  expect_is(mark_my_file(mark_file = file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file_circular.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")
+  expect_is(mark_my_file(mark_file = file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file_messy.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")
   expect_is(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file)), "character")
   expect_equal(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file))[1], "Marking assignment...")
   expect_true(sum(grepl(x = capture.output(mark_my_file(tasks = "task1", mark_file = source_file, assignment_path = assignment_file)), pattern = "Marking assignment..."))==1)
@@ -19,8 +19,8 @@ test_that(desc="mark_my_file()",{
 })
 
 test_that(desc="Assertions on arguments in mark_my_file()",{
-  source_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
-  assignment_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+  source_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
+  assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
   
   expect_warning(mark_my_file(tasks = "no such task", mark_file = source_file, assignment_path = assignment_file, quiet = TRUE))
   expect_error(mark_my_file(mark_file = source_file, assignment_path = assignment_file, tasks = task2, quiet = TRUE))
@@ -33,11 +33,11 @@ test_that(desc="Assertions on arguments in mark_my_file()",{
 
 
 test_that(desc="Load packages before running mark_my_file()",{
-  source_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
-  assignment_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment08_bad_pkgs.yml")
+  source_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
+  assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment08_bad_pkgs.yml")
   expect_error(mark_my_file(mark_file = source_file, assignment_path = assignment_file), regexp = "The following packages need to be installed and then loaded")
   
-  assignment_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment07_pkgs.yml")
+  assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment07_pkgs.yml")
   if( all(c("ggplot2", "stringr") %in% installed.packages()) ){
     expect_error(mark_my_file(mark_file = source_file, assignment_path = assignment_file), regexp = "The following packages need to be loaded")
     library(ggplot2) ; library(stringr)
