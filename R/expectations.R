@@ -17,40 +17,25 @@
 #' @keywords internal
 #' 
 #' @export
+expect_function_self_contained <- function(object, info = NULL, label = NULL) {
+  lab <- testthat:::make_label(object, label)
 
-expect_self_contained <- function(object, info = NULL, label = NULL) {
-  if (is.null(label)) {
-    label <- find_expr("object")
-  }
-  expect_that(object, is_self_contained() , info = info, label = label)
+  global_vars <- codetools::findGlobals(object, merge = F)$variables
+
+  testthat:::expect(
+    identical(length(global_vars) == 0, TRUE), # TRUE/FALSE
+    sprintf("%s contain global variable(s): %s.", lab, paste(global_vars, collapse = " ")), # Text
+    info = info
+  )
+  invisible(object)
 }
 
-#' @title
-#' Function is self contained test
-#' 
-#' @description
-#' Tests if a function is self contained (no global variables)
-#' 
-#' @param expected
-#'   Function to test if it is self contained.
-#' 
 #' @keywords internal
-#' 
 #' @export
-is_self_contained <- 
-  function (expected) 
-  {
-    function(actual) {
-      self <- list()
-      self$global_vars <- codetools::findGlobals(actual, merge = F)$variables
-      self$self_contained <- length(self$global_vars) == 0
-      expectation(self$self_contained, 
-                  paste0("contains global variable(s): ", 
-                         paste(self$global_vars, collapse = ", ")), 
-                  "is self contained.")
-    }
-  }
-
+expect_self_contained <- function(object, info = NULL, label = NULL){
+  .Deprecated("expect_function_self_contained")
+  expect_function_self_contained(object, info, label)
+}
 
 
 #' @title

@@ -5,9 +5,8 @@ test_that(desc="expect_self_contained()",{
   h <- "1"
   f <- function() h
   g <- function() h <- 1; h
-  res <- is_self_contained()(f)
-  expect_that(res$passed, is_false())
-  expect_self_contained(g)  
+  expect_failure(expect_function_self_contained(object = f))
+  expect_success(expect_function_self_contained(object = g))
 })
 
 
