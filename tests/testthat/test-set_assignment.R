@@ -42,11 +42,8 @@ test_that(desc="check_installed_packages()",{
   assgn_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment08_bad_pkgs.yml")
   expect_warning(set_assignment(path = assgn_path), regexp = "The following packages need to be installed and then loaded")
   assgn_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment07_pkgs.yml")
-  if( all(c("ggplot2", "stringr") %in% installed.packages()) ){
-    expect_warning(set_assignment(path = assgn_path), regexp = "The following packages need to be loaded")
-    library(ggplot2) ; library(stringr)
-    expect_is(suppressMessages(set_assignment(assgn_path)), "character")
-    detach(name = "package:ggplot2")
-    detach(name = "package:stringr")
-  }
+  expect_warning(set_assignment(path = assgn_path), regexp = "The following packages need to be loaded")
+  library(codetools)
+  expect_is(suppressMessages(set_assignment(assgn_path)), "character")
+  detach(name = "package:codetools")
 })

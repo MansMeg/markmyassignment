@@ -7,9 +7,8 @@ test_that(desc="mark_my_assignment()",{
   source(file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R"))
   
   expect_is(capture.output(mark_my_assignment()), "character")
-  expect_equal(capture.output(mark_my_assignment())[1], "Marking assignment...")
+  expect_error(capture.output(mark_my_assignment(reporter = "non_existing_reporter")))
   expect_is(mark_my_assignment(quiet = TRUE), "testthat_results")
-  expect_true(sum(grepl(x = capture.output(mark_my_assignment(tasks = "task1")), pattern = "Marking assignment..."))==1)
   expect_is(mark_my_assignment(tasks = "task1", quiet = TRUE), "testthat_results")
   expect_equal(length(mark_my_assignment(tasks = "task1", quiet = TRUE)), 2)
   expect_is(mark_my_assignment(tasks = c("task1", "task2"), quiet = TRUE), "testthat_results")
@@ -29,7 +28,6 @@ test_that(desc="Assertions on arguments in mark_my_assignment()",{
   expect_error(mark_my_assignment(tasks = task2, quiet = TRUE))
   expect_error(mark_my_assignment(quiet = "TRUE"))
   expect_error(mark_my_assignment(force_get_tests = "TRUE"))
-  expect_error(mark_my_assignment(reporter = StudentReporter))
   
 })
 
@@ -37,7 +35,7 @@ test_that(desc="Assertions on arguments in mark_my_assignment()",{
 test_that(desc="mark_my_dir()",{
   test_assgn_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
   test_dir <- file.path(system.file(package = "markmyassignment"), "extdata/example_dir")
-  res_mark <- mark_my_dir(directory = test_dir, lab_file = test_assgn_file)
+  capture_output(res_mark <- mark_my_dir(directory = test_dir, lab_file = test_assgn_file))
   expect_is(res_mark, class = "list")
   expect_equal(length(res_mark), 2)
   expect_is(res_mark[[1]], class = "testthat_results")
