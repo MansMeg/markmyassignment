@@ -32,7 +32,10 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
   invisible(object)
 }
 
-#' Depricated
+#' @title Depricated function: expect_self_contained
+#' 
+#' @details Function has been depricated and will be removed. Please use \link{\code{expect_function_self_contained}} instead.
+#' 
 #' @keywords internal
 #' @export
 expect_self_contained <- function(object, info = NULL, label = NULL){
@@ -67,7 +70,10 @@ expect_attached_package <- function(object, info = NULL){
   invisible(object)
 }
 
-#' Depricated
+#' @title Depricated function: expect_package
+#' 
+#' @details Function has been depricated and will be removed. Please use \link{\code{expect_attached_package}} instead.
+#' 
 #' @keywords internal
 #' @export
 expect_package <- function(object, info = NULL, label = NULL){
