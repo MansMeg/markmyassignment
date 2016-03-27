@@ -10,10 +10,9 @@ test_that(desc="expect_self_contained()",{
 })
 
 
-test_that(desc="expect_package()",{
-  expect_package("base")
-  res <- use_package()("fake_package_name")
-  expect_that(res$passed, is_false())
+test_that(desc="expect_attached_package()",{
+  expect_success(expect_attached_package("base"))
+  expect_failure(expect_attached_package("advfsda"))
 })
 
 

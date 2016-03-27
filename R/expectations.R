@@ -46,41 +46,28 @@ expect_self_contained <- function(object, info = NULL, label = NULL){
 #' 
 #' @param object
 #'   Package to check for.
-#' @param label
-#'   For full form, label of expected object used in error messages. 
-#'   Useful to override default (deparsed expected expression) when doing 
-#'   tests in a loop. For short cut form, object label. When NULL, computed from 
-#'   deparsed object.
 #' @param info 
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
 #' @keywords internal
 #' 
 #' @export
-expect_package <- function(object, info = NULL, label = NULL){
-  if (is.null(label)) {
-    label <- find_expr("object")
-  }
-  expect_that(object, use_package() , info = info, label = label)
+expect_attached_package <- function(object, info = NULL){
+  testthat:::expect(
+    any(grepl(object, search())), # TRUE/FALSE
+    sprintf("%s is not used.", object), # Text
+    info = info
+  )
+  invisible(object)
 }
 
-#' @title
-#' Package is used test
-#' 
-#' @description
-#'    test if a packages is loaded.
-#' 
-#' @keywords internal
-#' 
 #' @export
-use_package <- 
-  function(){
-    function(pkg) {
-      expectation(any(grepl(pkg, search())), 
-                  paste0("package '", pkg,"' is not used"), 
-                  paste0("package '", pkg,"' is used"))
-    }
-  }
+expect_package <- function(object, info = NULL, label = NULL){
+  .Deprecated("expect_attached_package")
+  expect_loaded_package(object, info)
+}
+
+
 
 
 #' @title
