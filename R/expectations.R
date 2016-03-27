@@ -32,6 +32,7 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
   invisible(object)
 }
 
+#' Depricated
 #' @keywords internal
 #' @export
 expect_self_contained <- function(object, info = NULL, label = NULL){
@@ -66,10 +67,12 @@ expect_attached_package <- function(object, info = NULL){
   invisible(object)
 }
 
+#' Depricated
+#' @keywords internal
 #' @export
 expect_package <- function(object, info = NULL, label = NULL){
   .Deprecated("expect_attached_package")
-  expect_loaded_package(object, info)
+  expect_attached_package(object, info)
 }
 
 

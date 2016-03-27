@@ -1,8 +1,8 @@
 Package: markmyassignment
 Type: Package
 Title: Automatic Marking of R Assignments
-Version: 0.5.0
-Date: 2016-03-16
+Version: 0.6.0
+Date: 2016-03-27
 Author: Mans Magnusson, Oscar Pettersson
 Maintainer: Mans Magnusson <mons.magnusson@gmail.com>
 Description: Automatic marking of R assignments for students and teachers based
@@ -15,7 +15,8 @@ Depends:
     testthat (> 0.11),
     httr (>= 1.0.0)
 Imports:
-    codetools
+    codetools,
+    lazyeval
 RoxygenNote: 5.0.1
 Suggests:
     knitr,
