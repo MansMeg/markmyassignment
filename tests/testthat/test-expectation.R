@@ -17,12 +17,12 @@ test_that(desc="expect_attached_package()",{
 
 
 test_that(desc="expect_function_arguments()",{
-  f <- function(x) x^2
-  expect_function_arguments(f, "x")
-  res <- has_function_arguments(c("x", "y"))(f)
-  expect_that(res$passed, is_false())
-  res <- has_function_arguments(c("X"))(f)
-  expect_that(res$passed, is_false())
+  f <- function(x, y) x^2
+  g <- function() 3
+  expect_failure(expect_function_arguments(f, "x"))
+  expect_success(expect_function_arguments(f, c("x", "y")))
+  expect_failure(expect_function_arguments(f, c("x", "y", "z")))
+  expect_success(expect_function_arguments(g, NULL))
 })
 
 

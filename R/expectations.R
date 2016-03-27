@@ -74,7 +74,7 @@ expect_package <- function(object, info = NULL, label = NULL){
 #' Expect function arguments
 #' 
 #' @description
-#'  Test that an object with a given name exist in the environment.
+#'  Test that an function object has a function with given arguments.
 #' 
 #' @param object
 #'   Function to check the arguments of.
@@ -92,15 +92,25 @@ expect_package <- function(object, info = NULL, label = NULL){
 #' @keywords internal
 #' 
 #' @export
-expect_function_arguments <- 
-  function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
-{
-  if (is.null(label)) {
-    label <- find_expr("object")
-  }
-  expect_that(object, 
-              has_function_arguments(expected, label = expected.label), 
-              info = info, label = label)
+expect_function_arguments <- function(object, expected, info = NULL, label = NULL, expected.label = NULL) {
+  
+  lab_obj <- testthat:::make_label(object, label)
+  lab_exp <- testthat:::make_label(expected, expected.label)
+  
+  function_arguments <- names(formals(object))
+  missing_arguments <- !function_arguments %in% expected
+  extra_arguments <- !expected %in% function_arguments
+  
+  testthat:::expect(
+    !(any(missing_arguments) | any(extra_arguments)), 
+    sprintf("%s contain arguments: %s, not %s", 
+            lab_obj, 
+            paste(function_arguments, collapse = " "), 
+            lab_exp), 
+    info = info
+  )
+  
+  invisible(object)
 }
 
 #' @title
