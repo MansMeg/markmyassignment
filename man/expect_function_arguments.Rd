@@ -22,7 +22,7 @@ deparsed object.}
 \item{expected.label}{Equivalent of \code{label} for shortcut form.}
 }
 \description{
-Test that an object with a given name exist in the environment.
+Test that an function object has a function with given arguments.
 }
 \keyword{internal}
 

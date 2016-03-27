@@ -8,7 +8,7 @@ expect_function_code(object, expected, info = NULL, label = NULL,
   expected.label = NULL)
 }
 \arguments{
-\item{object}{Function to check the body}
+\item{object}{Function to check for mandatory code}
 
 \item{expected}{Expected arguments in function.}
 
