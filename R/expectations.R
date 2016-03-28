@@ -34,7 +34,7 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
 
 #' @title Depricated function: expect_self_contained
 #' 
-#' @details Function has been depricated and will be removed. Please use \link{\code{expect_function_self_contained}} instead.
+#' @description Function has been depricated and will be removed. Please use \code{\link{expect_function_self_contained}} instead.
 #' 
 #' @keywords internal
 #' @export
@@ -72,7 +72,7 @@ expect_attached_package <- function(object, info = NULL){
 
 #' @title Depricated function: expect_package
 #' 
-#' @details Function has been depricated and will be removed. Please use \link{\code{expect_attached_package}} instead.
+#' @description Function has been depricated and will be removed. Please use \code{\link{expect_attached_package}} instead.
 #' 
 #' @keywords internal
 #' @export

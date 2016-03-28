@@ -6,8 +6,8 @@
 \usage{
 expect_self_contained(object, info = NULL, label = NULL)
 }
-\details{
-Function has been depricated and will be removed. Please use \link{\code{expect_function_self_contained}} instead.
+\description{
+Function has been depricated and will be removed. Please use \code{\link{expect_function_self_contained}} instead.
 }
 \keyword{internal}
 

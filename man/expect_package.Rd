@@ -6,8 +6,8 @@
 \usage{
 expect_package(object, info = NULL, label = NULL)
 }
-\details{
-Function has been depricated and will be removed. Please use \link{\code{expect_attached_package}} instead.
+\description{
+Function has been depricated and will be removed. Please use \code{\link{expect_attached_package}} instead.
 }
 \keyword{internal}
 
