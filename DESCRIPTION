@@ -2,7 +2,7 @@ Package: markmyassignment
 Type: Package
 Title: Automatic Marking of R Assignments
 Version: 0.6.0
-Date: 2016-03-27
+Date: 2016-04-15
 Author: Mans Magnusson, Oscar Pettersson
 Maintainer: Mans Magnusson <mons.magnusson@gmail.com>
 Description: Automatic marking of R assignments for students and teachers based
@@ -12,7 +12,7 @@ Depends:
     R (>= 3.2.0),
     methods,
     yaml,
-    testthat (> 0.11),
+    testthat (>= 1.0.0),
     httr (>= 1.0.0)
 Imports:
     codetools,
