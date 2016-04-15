@@ -11,7 +11,6 @@ warnings_are_errors: true
 
 r_github_packages:
   -  jimhester/covr
-  -  hadley/testthat
 
 after_success:
   - Rscript -e 'covr::coveralls()'
