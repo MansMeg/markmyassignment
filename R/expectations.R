@@ -17,40 +17,31 @@
 #' @keywords internal
 #' 
 #' @export
+expect_function_self_contained <- function(object, info = NULL, label = NULL) {
+  lab <- make_label(object, label)
 
-expect_self_contained <- function(object, info = NULL, label = NULL) {
-  if (is.null(label)) {
-    label <- find_expr("object")
+  global_vars <- codetools::findGlobals(object, merge = F)$variables
+
+  if(length(global_vars)==0){
+    testthat::succeed()
+  } else {
+    msg <- sprintf("%s contain global variable(s): %s.", lab, paste(global_vars, collapse = " "))
+    testthat::fail(paste0(msg, info))
   }
-  expect_that(object, is_self_contained() , info = info, label = label)
+
+  invisible(object)
 }
 
-#' @title
-#' Function is self contained test
+#' @title Depricated function: expect_self_contained
 #' 
-#' @description
-#' Tests if a function is self contained (no global variables)
-#' 
-#' @param expected
-#'   Function to test if it is self contained.
+#' @description Function has been depricated and will be removed. Please use \code{\link{expect_function_self_contained}} instead.
 #' 
 #' @keywords internal
-#' 
 #' @export
-is_self_contained <- 
-  function (expected) 
-  {
-    function(actual) {
-      self <- list()
-      self$global_vars <- codetools::findGlobals(actual, merge = F)$variables
-      self$self_contained <- length(self$global_vars) == 0
-      expectation(self$self_contained, 
-                  paste0("contains global variable(s): ", 
-                         paste(self$global_vars, collapse = ", ")), 
-                  "is self contained.")
-    }
-  }
-
+expect_self_contained <- function(object, info = NULL, label = NULL){
+  .Deprecated("expect_function_self_contained")
+  expect_function_self_contained(object, info, label)
+}
 
 
 #' @title
@@ -61,48 +52,43 @@ is_self_contained <-
 #' 
 #' @param object
 #'   Package to check for.
-#' @param label
-#'   For full form, label of expected object used in error messages. 
-#'   Useful to override default (deparsed expected expression) when doing 
-#'   tests in a loop. For short cut form, object label. When NULL, computed from 
-#'   deparsed object.
 #' @param info 
 #'   Extra information to be included in the message (useful when writing tests in loops).
 #' 
 #' @keywords internal
 #' 
 #' @export
-expect_package <- function(object, info = NULL, label = NULL){
-  if (is.null(label)) {
-    label <- find_expr("object")
+expect_attached_package <- function(object, info = NULL){
+  
+  if(any(grepl(object, search()))){
+    testthat::succeed()
+  } else {
+    msg <- sprintf("%s is not used.", object)
+    testthat::fail(paste0(msg, info))
   }
-  expect_that(object, use_package() , info = info, label = label)
+  
+  invisible(object)
 }
 
-#' @title
-#' Package is used test
+#' @title Depricated function: expect_package
 #' 
-#' @description
-#'    test if a packages is loaded.
+#' @description Function has been depricated and will be removed. Please use \code{\link{expect_attached_package}} instead.
 #' 
 #' @keywords internal
-#' 
 #' @export
-use_package <- 
-  function(){
-    function(pkg) {
-      expectation(any(grepl(pkg, search())), 
-                  paste0("package '", pkg,"' is not used"), 
-                  paste0("package '", pkg,"' is used"))
-    }
-  }
+expect_package <- function(object, info = NULL, label = NULL){
+  .Deprecated("expect_attached_package")
+  expect_attached_package(object, info)
+}
+
+
 
 
 #' @title
 #' Expect function arguments
 #' 
 #' @description
-#'  Test that an object with a given name exist in the environment.
+#'  Test that an function object has a function with given arguments.
 #' 
 #' @param object
 #'   Function to check the arguments of.
@@ -120,44 +106,27 @@ use_package <-
 #' @keywords internal
 #' 
 #' @export
-expect_function_arguments <- 
-  function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
-{
-  if (is.null(label)) {
-    label <- find_expr("object")
+expect_function_arguments <- function(object, expected, info = NULL, label = NULL, expected.label = NULL) {
+  
+  lab_obj <- make_label(object, label)
+  lab_exp <- make_label(expected, expected.label)
+  
+  function_arguments <- names(formals(object))
+  missing_arguments <- !function_arguments %in% expected
+  extra_arguments <- !expected %in% function_arguments
+  
+  if(!(any(missing_arguments) | any(extra_arguments))){
+    testthat::succeed()
+  } else {
+    msg <- sprintf("%s contain arguments: %s, not %s", 
+                   lab_obj, 
+                   paste(function_arguments, collapse = " "), 
+                   lab_exp)
+    testthat::fail(paste0(msg, info))
   }
-  expect_that(object, 
-              has_function_arguments(expected, label = expected.label), 
-              info = info, label = label)
+  
+  invisible(object)
 }
-
-#' @title
-#' Function has argument test
-#' 
-#' @description
-#'  Test if a function has the given arguments
-#' 
-#' @param expected
-#'   Arguments as text vector to test for.
-#' @param label
-#'   Expectation label used by \code{expect_function_arguments()}
-#' 
-#' @keywords internal
-#' 
-#' @export
-has_function_arguments <- 
-  function (expected, label = NULL) 
-  {
-    function(actual) {
-      self <- list()
-      self$formals <- names(formals(actual))
-      self$missing <- !self$formals %in% expected
-      expectation(all(expected %in% self$formals),
-                  failure_msg = paste0(paste(expected[self$missing], collapse = ", "), 
-                                       " is missing"),
-                  success_msg = "all arguments exist")
-    }
-  }
 
 
 #' @title
@@ -167,7 +136,7 @@ has_function_arguments <-
 #'  Test that a given code code exists in function
 #' 
 #' @param object
-#'   Function to check the body
+#'   Function to check for mandatory code
 #' @param expected
 #'   Expected arguments in function.
 #' @param label
@@ -185,64 +154,48 @@ has_function_arguments <-
 expect_function_code <- 
   function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
   {
-    if (is.null(label)) {
-      label <- find_expr("object")
+    
+    lab_obj <- make_label(object, label)
+    lab_exp <- make_label(expected, expected.label)
+    
+    body <- as.character(body(object))
+    
+    if(any(grepl(x = body, pattern = expected))){
+      testthat::succeed()
+    } else {
+      paste0("'", expected, "' not found in function body.")
+      msg <- sprintf("%s not found in the body of %s", 
+                     lab_exp, 
+                     lab_obj)
+      testthat::fail(paste0(msg, info))
     }
-    expect_that(object, 
-                function_code(expected, label = expected.label), 
-                info = info, label = label)
-  }
-
-#' @title
-#' Function contain code test
-#' 
-#' @description
-#'    Test if function code contains a given text string.
-#' @param expected
-#'   Pattern to test for in function code.
-#' @param label
-#'   Expectation label used by \code{expect_function_code()}
-#'   
-#' @keywords internal
-#'   
-#' @export
-function_code <- 
-  function (expected, label = NULL) 
-  {
-    function(actual) {
-      self <- list()
-      self$body <- as.character(body(actual))
-      expectation(any(grepl(x = self$body, pattern = expected)),
-                  failure_msg = paste0("'", expected, "' not found in function body."),
-                  success_msg = paste0("'", expected, "' in function body."))
-    }
+    
+    invisible(object)
   }
 
 
-#' @title
-#' Expect tidy format (to be constructed)
-#' 
-#' @description
-#' Test that the format used in a function is tidy (see formatR)
-#' 
-#' @keywords internal
-#' 
-expect_tidy_code <- function(){}
+# Functions taken from testthat package (that is not exported)
 
-
-
-#' @title
-#' Internal function (taken from testthat)
-#' 
-#' @description
-#' Internal function (taken from testthat)
-#' 
-#' @param name See \code{testthat:::find_expr()}.
-#' @param env See \code{testthat:::find_expr()}.
-#' 
-#' @keywords internal
-#' 
-find_expr <- function(name, env = parent.frame()){
-  subs <- do.call("substitute", list(as.name(name), env))
-  paste0(deparse(subs, width.cutoff = 500), collapse = "\n")
+make_label <- function(object, label = NULL) {
+  label %||% label(object)
 }
+
+label <- function(obj) {
+  x <- lazyeval::lazy(obj)$expr
+  
+  if (is.character(x)) {
+    encodeString(x, quote = '"')
+  } else if (is.atomic(x)) {
+    format(x)
+  } else if (is.name(x)) {
+    paste0("`", as.character(x), "`")
+  } else {
+    chr <- deparse(x)
+    if (length(chr) > 1) {
+      chr <- paste(deparse(as.call(list(x[[1]], quote(...)))), collapse = "\n")
+    }
+    chr
+  }
+}
+
+`%||%` <- function(a, b) if (is.null(a)) b else a

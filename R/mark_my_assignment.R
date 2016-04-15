@@ -249,6 +249,13 @@ get_mark_my_reporter <-function(){
   assign_yml <- read_assignment_yml()
   if("reporter" %in% names(assign_yml)){
     reporter <- assign_yml$reporter
+    output <- capture_output(
+      check_reporter <- try(test_file(path = file.path(system.file(package = "markmyassignment"), "extdata/test_reporter_file.R"), reporter = reporter), silent = TRUE)
+    )
+    if(inherits(check_reporter, what = "try-error")) {
+      warning("Reporter '", reporter, "' not found. Summary reporter is used.")
+      reporter <- "summary"
+      }
   } else {
     reporter <- "summary"
   }

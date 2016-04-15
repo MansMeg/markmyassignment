@@ -2,22 +2,12 @@
 % Please edit documentation in R/expectations.R
 \name{expect_self_contained}
 \alias{expect_self_contained}
-\title{Expect that the tested function is self-contained}
+\title{Depricated function: expect_self_contained}
 \usage{
 expect_self_contained(object, info = NULL, label = NULL)
 }
-\arguments{
-\item{object}{Function to test if it is self-contained.}
-
-\item{info}{Extra information to be included in the message (useful when writing tests in loops).}
-
-\item{label}{For full form, label of expected object used in error messages. 
-Useful to override default (deparsed expected expression) when doing 
-tests in a loop. For short cut form, object label. When NULL, computed from 
-deparsed object.}
-}
 \description{
-Tests if a fuction is self-contained (i.e. do not use any global variables).
+Function has been depricated and will be removed. Please use \code{\link{expect_function_self_contained}} instead.
 }
 \keyword{internal}
 

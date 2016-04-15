@@ -2,22 +2,12 @@
 % Please edit documentation in R/expectations.R
 \name{expect_package}
 \alias{expect_package}
-\title{Expect that a given package is used}
+\title{Depricated function: expect_package}
 \usage{
 expect_package(object, info = NULL, label = NULL)
 }
-\arguments{
-\item{object}{Package to check for.}
-
-\item{info}{Extra information to be included in the message (useful when writing tests in loops).}
-
-\item{label}{For full form, label of expected object used in error messages. 
-Useful to override default (deparsed expected expression) when doing 
-tests in a loop. For short cut form, object label. When NULL, computed from 
-deparsed object.}
-}
 \description{
-Tests that the following packages is used.
+Function has been depricated and will be removed. Please use \code{\link{expect_attached_package}} instead.
 }
 \keyword{internal}
 

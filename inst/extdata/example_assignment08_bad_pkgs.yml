@@ -1,6 +1,6 @@
 name  : Test assignment 01
-description : An example of how an assignment requiring packages can be constructed.
-reporter : student
+description : An example of how an assignment with erroneous package.
+reporter : summary
 tasks:
   task1:
     url: 
