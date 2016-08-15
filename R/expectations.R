@@ -176,26 +176,10 @@ expect_function_code <-
 
 # Functions taken from testthat package (that is not exported)
 
-make_label <- function(object, label = NULL) {
-  label %||% label(object)
-}
+make_label <- testthat:::make_label
 
-label <- function(obj) {
-  x <- lazyeval::lazy(obj)$expr
-  
-  if (is.character(x)) {
-    encodeString(x, quote = '"')
-  } else if (is.atomic(x)) {
-    format(x)
-  } else if (is.name(x)) {
-    paste0("`", as.character(x), "`")
-  } else {
-    chr <- deparse(x)
-    if (length(chr) > 1) {
-      chr <- paste(deparse(as.call(list(x[[1]], quote(...)))), collapse = "\n")
-    }
-    chr
-  }
-}
+find_label <- testthat:::find_label
 
-`%||%` <- function(a, b) if (is.null(a)) b else a
+label <- testthat:::label
+
+`%||%` <- testthat:::`%||%`
