@@ -18,29 +18,18 @@
 #' 
 #' @export
 expect_function_self_contained <- function(object, info = NULL, label = NULL) {
-  lab <- make_label(object, label)
-
-  global_vars <- codetools::findGlobals(object, merge = F)$variables
-
-  if(length(global_vars)==0){
-    testthat::succeed()
-  } else {
-    msg <- sprintf("%s contain global variable(s): %s.", lab, paste(global_vars, collapse = " "))
-    testthat::fail(paste0(msg, info))
-  }
-
-  invisible(object)
-}
-
-#' @title Depricated function: expect_self_contained
-#' 
-#' @description Function has been depricated and will be removed. Please use \code{\link{expect_function_self_contained}} instead.
-#' 
-#' @keywords internal
-#' @export
-expect_self_contained <- function(object, info = NULL, label = NULL){
-  .Deprecated("expect_function_self_contained")
-  expect_function_self_contained(object, info, label)
+  # 1. Capture object and label
+  act <- quasi_label(rlang::enquo(object))
+  
+  # 2. Call expect()
+  act$global_vars <- codetools::findGlobals(object, merge = F)$variables
+  expect(
+    length(global_vars) == 0,
+    sprintf("%s contain global variable(s): %s. %s %s", act$lab, paste(act$global_vars, collapse = " "), info, label)
+  )
+  
+  # 3. Invisibly return the value
+  invisible(act$val)
 }
 
 
@@ -59,30 +48,20 @@ expect_self_contained <- function(object, info = NULL, label = NULL){
 #' 
 #' @export
 expect_attached_package <- function(object, info = NULL){
+  checkmate::assert_string(object)
   
-  if(any(grepl(object, search()))){
-    testthat::succeed()
-  } else {
-    msg <- sprintf("%s is not used.", object)
-    testthat::fail(paste0(msg, info))
-  }
+  # 1. Capture object and label
+  act <- quasi_label(rlang::enquo(object))
   
-  invisible(object)
+  # 2. Call expect()
+  expect(
+    any(grepl(object, search())),
+    sprintf("%s is not used. %s", act$lab, info)
+  )
+  
+  # 3. Invisibly return the value
+  invisible(act$val)
 }
-
-#' @title Depricated function: expect_package
-#' 
-#' @description Function has been depricated and will be removed. Please use \code{\link{expect_attached_package}} instead.
-#' 
-#' @keywords internal
-#' @export
-expect_package <- function(object, info = NULL, label = NULL){
-  .Deprecated("expect_attached_package")
-  expect_attached_package(object, info)
-}
-
-
-
 
 #' @title
 #' Expect function arguments
@@ -107,25 +86,29 @@ expect_package <- function(object, info = NULL, label = NULL){
 #' 
 #' @export
 expect_function_arguments <- function(object, expected, info = NULL, label = NULL, expected.label = NULL) {
+  checkmate::assert_character(expected)
   
-  lab_obj <- make_label(object, label)
-  lab_exp <- make_label(expected, expected.label)
+  # 1. Capture object and label
+  act <- quasi_label(rlang::enquo(object))
   
-  function_arguments <- names(formals(object))
-  missing_arguments <- !function_arguments %in% expected
-  extra_arguments <- !expected %in% function_arguments
+  # 2. Call expect()
+  act$function_arguments <- names(formals(object))
+  act$missing_arguments <- !act$function_arguments %in% expected
+  act$extra_arguments <- !expected %in% act$function_arguments
   
-  if(!(any(missing_arguments) | any(extra_arguments))){
-    testthat::succeed()
-  } else {
-    msg <- sprintf("%s contain arguments: %s, not %s", 
-                   lab_obj, 
-                   paste(function_arguments, collapse = " "), 
-                   lab_exp)
-    testthat::fail(paste0(msg, info))
-  }
+  expect(
+    !(any(act$missing_arguments) | any(act$extra_arguments)),
+    sprintf("%s contain arguments: %s, not %s. %s %s % info", 
+            act$lab, 
+            paste(function_arguments, collapse = " "), 
+            paste(expected, collapse = " "), 
+            info,
+            label,
+            expected.label)
+  )
   
-  invisible(object)
+  # 3. Invisibly return the value
+  invisible(act$val)
 }
 
 
@@ -133,7 +116,7 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
 #' Expect function contain code
 #' 
 #' @description
-#'  Test that a given code code exists in function
+#'  Test that a given code string exists in function
 #' 
 #' @param object
 #'   Function to check for mandatory code
@@ -154,32 +137,22 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
 expect_function_code <- 
   function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
   {
+    checkmate::assert_string(expected)
     
-    lab_obj <- make_label(object, label)
-    lab_exp <- make_label(expected, expected.label)
+    # 1. Capture object and label
+    act <- quasi_label(rlang::enquo(object))
     
-    body <- as.character(body(object))
+    # 2. Call expect()
+    act$body <- as.character(body(object))
+
+    expect(
+      any(grepl(x = body, pattern = expected)),
+      sprintf("'%s' not found in the body of %s", 
+              expected, 
+              act$lab)
+    )
     
-    if(any(grepl(x = body, pattern = expected))){
-      testthat::succeed()
-    } else {
-      paste0("'", expected, "' not found in function body.")
-      msg <- sprintf("%s not found in the body of %s", 
-                     lab_exp, 
-                     lab_obj)
-      testthat::fail(paste0(msg, info))
-    }
+    # 3. Invisibly return the value
+    invisible(act$val)    
     
-    invisible(object)
   }
-
-
-# Functions taken from testthat package (that is not exported)
-
-make_label <- testthat:::make_label
-
-find_label <- testthat:::find_label
-
-label <- testthat:::label
-
-`%||%` <- testthat:::`%||%`
