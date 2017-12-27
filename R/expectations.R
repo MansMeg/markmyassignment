@@ -6,13 +6,8 @@
 #' 
 #' @param object 
 #'   Function to test if it is self-contained.
-#' @param label
-#'   For full form, label of expected object used in error messages. 
-#'   Useful to override default (deparsed expected expression) when doing 
-#'   tests in a loop. For short cut form, object label. When NULL, computed from 
-#'   deparsed object.
-#' @param info 
-#'   Extra information to be included in the message (useful when writing tests in loops).
+#' @param label Deprecated.
+#' @param info Deprecated.
 #' 
 #' @keywords internal
 #' 
@@ -20,7 +15,7 @@
 expect_function_self_contained <- function(object, info = NULL, label = NULL) {
   
   if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
-  if(!is.null(label)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
+  if(!is.null(label)) .Deprecated(msg = "argument label is deprecated with testthat 2.0")
   
   # 1. Capture object and label
   act <- quasi_label(rlang::enquo(object))
@@ -41,20 +36,20 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
 #' @description
 #'   Tests that the following packages is used.
 #' 
-#' @param string
+#' @param pkg
 #'   Package to check for.
-#' @param info 
-#'   Extra information to be included in the message (useful when writing tests in loops).
+#' @param info Deprecated.
 #' 
 #' @keywords internal
 #' 
 #' @export
-expect_attached_package <- function(string, info = NULL){
-  checkmate::assert_string(string)
+expect_attached_package <- function(pkg, info = NULL){
+  checkmate::assert_string(pkg)
+  if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
   
   # 2. Call expect()
-  msg <- sprintf("Package '%s' is not used (attached).", string)
-  expect(any(grepl(string, search())), msg)
+  msg <- sprintf("Package '%s' is not used (attached).", pkg)
+  expect(any(grepl(pkg, search())), msg)
   
   # 3. Invisibly return the value
   invisible(NULL)
@@ -70,20 +65,19 @@ expect_attached_package <- function(string, info = NULL){
 #'   Function to check the arguments of.
 #' @param expected
 #'   Expected arguments in function.
-#' @param label
-#'   For full form, label of expected object used in error messages. 
-#'   Useful to override default (deparsed expected expression) when doing 
-#'   tests in a loop. For short cut form, object label. When NULL, computed from 
-#'   deparsed object.
-#' @param info 
-#'   Extra information to be included in the message (useful when writing tests in loops).
-#' @param expected.label Equivalent of \code{label} for shortcut form.
+#' @param label Deprecated.
+#' @param info  Deprecated.
+#' @param expected.label Deprecated.
 #' 
 #' @keywords internal
 #' 
 #' @export
 expect_function_arguments <- function(object, expected, info = NULL, label = NULL, expected.label = NULL) {
   checkmate::assert_character(expected, null.ok = TRUE)
+  
+  if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
+  if(!is.null(label)) .Deprecated(msg = "argument label is deprecated with testthat 2.0")
+  if(!is.null(expected.label)) .Deprecated(msg = "argument expected.label is deprecated with testthat 2.0")
   
   # 1. Capture object and label
   act <- quasi_label(rlang::enquo(object))
@@ -115,14 +109,9 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
 #'   Function to check for mandatory code
 #' @param expected
 #'   Expected arguments in function.
-#' @param label
-#'   For full form, label of expected object used in error messages. 
-#'   Useful to override default (deparsed expected expression) when doing 
-#'   tests in a loop. For short cut form, object label. When NULL, computed from 
-#'   deparsed object.
-#' @param info 
-#'   Extra information to be included in the message (useful when writing tests in loops).
-#' @param expected.label Equivalent of \code{label} for shortcut form.
+#' @param label Deprecated.
+#' @param info Deprecated.
+#' @param expected.label Deprecated.
 #' 
 #' @keywords internal
 #' 
@@ -131,6 +120,9 @@ expect_function_code <-
   function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
   {
     checkmate::assert_string(expected)
+    if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
+    if(!is.null(label)) .Deprecated(msg = "argument label is deprecated with testthat 2.0")
+    if(!is.null(expected.label)) .Deprecated(msg = "argument expected.label is deprecated with testthat 2.0")
     
     # 1. Capture object and label
     act <- quasi_label(rlang::enquo(object))
