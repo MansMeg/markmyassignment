@@ -170,11 +170,12 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   
   test_directory <- mark_my_test_dir()
   
-  if(caller == "mark_my_assignment" & is.null(mark_file))
+  if(caller == "mark_my_assignment" & is.null(mark_file)){
     mark_my_env <- new.env(parent = .GlobalEnv)
-  else
+  } else {
     mark_my_env <- new.env(parent = parent.env(env = .GlobalEnv))
-  
+  }
+    
   if(!is.null(mark_file)){
     mark_file <- delete_circular_calls(mark_file)
     tf_path <- tempfile(pattern = "mark_file", fileext = ".txt")
