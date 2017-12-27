@@ -254,11 +254,11 @@ get_mark_my_reporter <-function(){
       check_reporter <- try(test_file(path = file.path(system.file(package = "markmyassignment"), "extdata/test_reporter_file.R"), reporter = reporter), silent = TRUE)
     )
     if(inherits(check_reporter, what = "try-error")) {
-      warning("Reporter '", reporter, "' not found. Summary reporter is used.")
-      reporter <- "summary"
+      warning("Reporter '", reporter, "' not found. Default reporter is used.")
+      reporter <- "ReporterProgress"
       }
   } else {
-    reporter <- "summary"
+    reporter <- "ReporterProgress"
   }
   reporter
 }
