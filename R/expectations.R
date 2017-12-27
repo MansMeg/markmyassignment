@@ -156,3 +156,27 @@ expect_function_code <-
     invisible(act$val)    
     
   }
+
+
+#' @title Depricated function: expect_self_contained
+#' 
+#' @description Function has been depricated and will be removed. Please use \code{\link{expect_function_self_contained}} instead.
+#' 
+#' @keywords internal
+#' @export
+expect_self_contained <- function(object, info = NULL, label = NULL){
+  .Deprecated("expect_function_self_contained")
+  expect_function_self_contained(object, info, label)
+}
+
+
+#' @title Depricated function: expect_package
+#' 
+#' @description Function has been depricated and will be removed. Please use \code{\link{expect_attached_package}} instead.
+#' 
+#' @keywords internal
+#' @export
+expect_package <- function(object, info = NULL, label = NULL){
+  .Deprecated("expect_attached_package")
+  expect_attached_package(object, info)
+}
