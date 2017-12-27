@@ -9,15 +9,11 @@ expect_function_self_contained(object, info = NULL, label = NULL)
 \arguments{
 \item{object}{Function to test if it is self-contained.}
 
-\item{info}{Extra information to be included in the message (useful when writing tests in loops).}
+\item{info}{Deprecated.}
 
-\item{label}{For full form, label of expected object used in error messages. 
-Useful to override default (deparsed expected expression) when doing 
-tests in a loop. For short cut form, object label. When NULL, computed from 
-deparsed object.}
+\item{label}{Deprecated.}
 }
 \description{
 Tests if a fuction is self-contained (i.e. do not use any global variables).
 }
 \keyword{internal}
-

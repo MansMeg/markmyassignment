@@ -16,4 +16,3 @@ Character vector of the possibly changed mark file
 Checks and deletes circular calls
 }
 \keyword{internal}
-

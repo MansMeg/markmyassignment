@@ -4,8 +4,7 @@
 \alias{run_test_suite}
 \title{Run test suite}
 \usage{
-run_test_suite(caller, tasks = NULL, mark_file = NULL, quiet = FALSE,
-  reporter = "summary")
+run_test_suite(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, ...)
 }
 \arguments{
 \item{caller}{Either "mark_my_assignment" or "mark_my_file"}
@@ -16,7 +15,7 @@ run_test_suite(caller, tasks = NULL, mark_file = NULL, quiet = FALSE,
 
 \item{quiet}{Should the output be supressed (only returning test results)}
 
-\item{reporter}{Reporter to use. Standard is student.}
+\item{...}{further arguments sent to \code{test_dir()}.}
 }
 \value{
 test_suite results
@@ -25,4 +24,3 @@ test_suite results
 Runs test on the tasks. Always run mandatory tests.
 }
 \keyword{internal}
-

@@ -10,4 +10,3 @@ expect_package(object, info = NULL, label = NULL)
 Function has been depricated and will be removed. Please use \code{\link{expect_attached_package}} instead.
 }
 \keyword{internal}
-

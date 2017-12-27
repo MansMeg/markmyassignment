@@ -10,4 +10,3 @@ expect_self_contained(object, info = NULL, label = NULL)
 Function has been depricated and will be removed. Please use \code{\link{expect_function_self_contained}} instead.
 }
 \keyword{internal}
-

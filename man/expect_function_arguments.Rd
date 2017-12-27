@@ -12,17 +12,13 @@ expect_function_arguments(object, expected, info = NULL, label = NULL,
 
 \item{expected}{Expected arguments in function.}
 
-\item{info}{Extra information to be included in the message (useful when writing tests in loops).}
+\item{info}{Deprecated.}
 
-\item{label}{For full form, label of expected object used in error messages. 
-Useful to override default (deparsed expected expression) when doing 
-tests in a loop. For short cut form, object label. When NULL, computed from 
-deparsed object.}
+\item{label}{Deprecated.}
 
-\item{expected.label}{Equivalent of \code{label} for shortcut form.}
+\item{expected.label}{Deprecated.}
 }
 \description{
 Test that an function object has a function with given arguments.
 }
 \keyword{internal}
-

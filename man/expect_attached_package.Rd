@@ -4,15 +4,14 @@
 \alias{expect_attached_package}
 \title{Expect that a given package is used}
 \usage{
-expect_attached_package(object, info = NULL)
+expect_attached_package(pkg, info = NULL)
 }
 \arguments{
-\item{object}{Package to check for.}
+\item{pkg}{Package to check for.}
 
-\item{info}{Extra information to be included in the message (useful when writing tests in loops).}
+\item{info}{Deprecated.}
 }
 \description{
 Tests that the following packages is used.
 }
 \keyword{internal}
-

@@ -1,8 +1,8 @@
 Package: markmyassignment
 Type: Package
 Title: Automatic Marking of R Assignments
-Version: 0.6.1
-Date: 2016-08-15
+Version: 0.7.0
+Date: 2017-12-23
 Author: Mans Magnusson, Oscar Pettersson
 Maintainer: Mans Magnusson <mons.magnusson@gmail.com>
 Description: Automatic marking of R assignments for students and teachers based
@@ -12,20 +12,16 @@ Depends:
     R (>= 3.2.0),
     methods,
     yaml,
-    testthat (>= 1.0.0),
-    httr (>= 1.0.0)
+    testthat (>= 2.0.0),
+    httr (>= 1.0.0),
+    checkmate (>= 1.0.0)
 Imports:
     codetools,
-    lazyeval
-RoxygenNote: 5.0.1
+    lazyeval,
+    rlang
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-Collate:
-    'assertion_funcions.R'
-    'expectations.R'
-    'mark_my_assignment.R'
-    'mark_my_file.R'
-    'markmyassignment.R'
-    'set_assignment.R'
+

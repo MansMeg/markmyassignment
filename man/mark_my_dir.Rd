@@ -20,4 +20,3 @@ Default is all. To see the different task, see \code{\link{show_tasks}}.}
 Marks assignments in a directory. Stores the results.
 }
 \keyword{internal}
-

@@ -5,7 +5,7 @@
 \title{Mark assignment in global environment}
 \usage{
 mark_my_assignment(tasks = NULL, mark_file = NULL,
-  force_get_tests = FALSE, quiet = FALSE, reporter = NULL)
+  force_get_tests = FALSE, quiet = FALSE, ...)
 }
 \arguments{
 \item{tasks}{Which task should be corrected (if more than one). Default is all. 
@@ -17,7 +17,7 @@ To see the different task, see \code{\link{show_tasks}}.}
 
 \item{quiet}{Should test be run without output?}
 
-\item{reporter}{to use. Default is the 'summary' or specified in assignment yml file.}
+\item{...}{further arguments sent to \code{test_dir()}.}
 }
 \description{
 Mark assignment in global environment.
@@ -30,4 +30,3 @@ source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_f
 mark_my_assignment()
 
 }
-

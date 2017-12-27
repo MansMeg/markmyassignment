@@ -18,4 +18,3 @@ A warning message or nothing.
 Checks that tasks that are inputted in mark_my_assignment exists. If not, a warning is produced.
 }
 \keyword{internal}
-
