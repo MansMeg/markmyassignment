@@ -31,3 +31,9 @@ test_that(desc="expect_function_code()",{
   expect_failure(expect_function_code(object = base::mean, expected = "markmyassignment"), message = "'markmyassignment' not found in the body of base::mean")
 })
 
+
+test_that(desc="expect_no_forbidden_function_code()",{
+  expect_failure(expect_no_forbidden_function_code(object = base::mean, forbidden = "UseMethod"), message = "Forbidden code 'UseMethod' is found in the body of base::mean")
+  expect_success(expect_no_forbidden_function_code(object = base::mean, forbidden = "markmyassignment"))
+})
+
