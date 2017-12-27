@@ -56,6 +56,29 @@ expect_attached_package <- function(pkg, info = NULL){
 }
 
 #' @title
+#' Expect that a forbidden package is not used/attached
+#' 
+#' @description
+#'   Tests that the following packages is not used.
+#' 
+#' @param pkg Package to check for.
+#' 
+#' @keywords internal
+#' 
+#' @export
+expect_no_attached_forbidden_package <- function(pkg){
+  checkmate::assert_string(pkg)
+
+  # 2. Call expect()
+  msg <- sprintf("Package '%s' is forbidden.", pkg)
+  expect(!any(grepl(pkg, search())), msg)
+  
+  # 3. Invisibly return the value
+  invisible(NULL)
+}
+
+
+#' @title
 #' Expect function arguments
 #' 
 #' @description

@@ -15,6 +15,11 @@ test_that(desc="expect_attached_package()",{
   expect_failure(expect_attached_package("advfsda"), message = "Package \\'advfsda\\' is not used \\(attached\\)\\.")
 })
 
+test_that(desc="expect_no_attached_forbidden_package()",{
+  expect_failure(expect_no_attached_forbidden_package("base"), message = "Package 'base' is forbidden\\.")
+  expect_success(expect_no_attached_forbidden_package("advfsda"))
+})
+
 
 test_that(desc="expect_function_arguments()",{
   f <- function(x, y) x^2
