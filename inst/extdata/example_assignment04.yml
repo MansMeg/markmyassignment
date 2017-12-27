@@ -1,5 +1,5 @@
-name  : Test assignment 04
-description : An example of how an assignment can be constructed with multiple mandatory files.
+nam: Test assignment 04
+description: An example of how an assignment can be constructed with multiple mandatory files.
 tasks:
   task1:
     url: 

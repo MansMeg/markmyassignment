@@ -56,6 +56,29 @@ expect_attached_package <- function(pkg, info = NULL){
 }
 
 #' @title
+#' Expect that a forbidden package is not used/attached
+#' 
+#' @description
+#'   Tests that the following packages is not used.
+#' 
+#' @param pkg Package to check for.
+#' 
+#' @keywords internal
+#' 
+#' @export
+expect_no_attached_forbidden_package <- function(pkg){
+  checkmate::assert_string(pkg)
+
+  # 2. Call expect()
+  msg <- sprintf("Package '%s' is forbidden.", pkg)
+  expect(!any(grepl(pkg, search())), msg)
+  
+  # 3. Invisibly return the value
+  invisible(NULL)
+}
+
+
+#' @title
 #' Expect function arguments
 #' 
 #' @description
@@ -141,6 +164,45 @@ expect_function_code <-
     invisible(act$val)    
     
 }
+
+#' @title
+#' Expect no forbidden function code
+#' 
+#' @description
+#'  Test that a given code string does not exists in function.
+#' 
+#' @param object
+#'   Function to check for mandatory code
+#' @param forbidden
+#'   Code string that are forbidden to use.
+#' 
+#' @keywords internal
+#' 
+#' @export
+expect_no_forbidden_function_code <- 
+  function(object, forbidden) 
+  {
+    checkmate::assert_string(forbidden)
+
+    # 1. Capture object and label
+    act <- quasi_label(rlang::enquo(object))
+    
+    # 2. Call expect()
+    act$body <- as.character(body(object))
+    
+    expect(
+      !any(grepl(x = act$body, pattern = forbidden)),
+      sprintf("Forbidden code '%s' is found in the body of %s", 
+              forbidden, 
+              act$lab)
+    )
+    
+    # 3. Invisibly return the value
+    invisible(act$val)    
+    
+}
+
+
 
 
 #' @title Depricated function: expect_self_contained

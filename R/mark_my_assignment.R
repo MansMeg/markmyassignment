@@ -67,8 +67,14 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
 #'   
 #' @export
 mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FALSE){
+  checkmate::assert_directory_exists(directory)
+  checkmate::assert_file_exists(lab_file)
+  checkmate::assert_character(tasks, null.ok = TRUE)
+  checkmate::assert_flag(force_get_tests)
+  
   file_names <- dir(directory, pattern = "\\.[Rr]")
   if(length(file_names) == 0) stop("No files to mark.")
+  
   files_to_mark <- paste0(directory, "/", file_names)
   res_mark <- vector(mode = "list", length = length(files_to_mark))
   names(res_mark) <- file_names
