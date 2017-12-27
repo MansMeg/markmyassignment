@@ -20,4 +20,3 @@ deparsed object.}
 Tests if a fuction is self-contained (i.e. do not use any global variables).
 }
 \keyword{internal}
-

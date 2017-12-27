@@ -22,7 +22,6 @@ deparsed object.}
 \item{expected.label}{Equivalent of \code{label} for shortcut form.}
 }
 \description{
-Test that a given code code exists in function
+Test that a given code string exists in function
 }
 \keyword{internal}
-

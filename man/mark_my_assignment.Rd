@@ -30,4 +30,3 @@ source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_f
 mark_my_assignment()
 
 }
-

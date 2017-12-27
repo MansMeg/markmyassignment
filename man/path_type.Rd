@@ -16,4 +16,3 @@ path type as character element c("path_local", "path_http", "path_error")
 Check the path type.
 }
 \keyword{internal}
-

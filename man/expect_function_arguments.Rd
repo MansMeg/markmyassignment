@@ -25,4 +25,3 @@ deparsed object.}
 Test that an function object has a function with given arguments.
 }
 \keyword{internal}
-

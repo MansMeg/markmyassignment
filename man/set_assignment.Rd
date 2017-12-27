@@ -20,4 +20,3 @@ assignment_path <- path <-
 set_assignment(assignment_path)
 
 }
-

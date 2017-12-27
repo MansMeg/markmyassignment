@@ -2,8 +2,8 @@
 % Please edit documentation in R/mark_my_assignment.R
 \name{directories}
 \alias{directories}
-\alias{mark_my_assignment_dir}
 \alias{mark_my_base_dir}
+\alias{mark_my_assignment_dir}
 \alias{mark_my_test_dir}
 \title{Functions to create directories}
 \usage{
@@ -22,4 +22,3 @@ mark_my_test_dir(...)
 Functions to create directories
 }
 \keyword{internal}
-

@@ -27,4 +27,3 @@ If all inputs are OK, nothing. Otherwise the functions stop.
 Checks that the input arguments are of the correct type.
 }
 \keyword{internal}
-

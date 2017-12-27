@@ -31,4 +31,3 @@ file_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example
 mark_my_file(mark_file = file_path, assignment_path = assignment_path)
 
 }
-

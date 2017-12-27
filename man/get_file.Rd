@@ -17,4 +17,3 @@ get_file(path, dest, ...)
 Get/download the file from the path.
 }
 \keyword{internal}
-

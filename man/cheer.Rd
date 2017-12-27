@@ -10,4 +10,3 @@ cheer()
 Cheer when all tasks pass
 }
 \keyword{internal}
-

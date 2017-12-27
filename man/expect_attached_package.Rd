@@ -15,4 +15,3 @@ expect_attached_package(object, info = NULL)
 Tests that the following packages is used.
 }
 \keyword{internal}
-

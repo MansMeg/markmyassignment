@@ -13,4 +13,3 @@ character vector with cached assignments.
 Checks which assignments that are cached (ie already downloaded to temp dir).
 }
 \keyword{internal}
-

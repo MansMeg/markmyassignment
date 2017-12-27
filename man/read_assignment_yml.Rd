@@ -16,4 +16,3 @@ assignment object
 Check if there exist an assignmentfile and then load it.
 }
 \keyword{internal}
-
