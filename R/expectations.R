@@ -18,15 +18,17 @@
 #' 
 #' @export
 expect_function_self_contained <- function(object, info = NULL, label = NULL) {
+  
+  if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
+  if(!is.null(label)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
+  
   # 1. Capture object and label
   act <- quasi_label(rlang::enquo(object))
   
   # 2. Call expect()
   act$global_vars <- codetools::findGlobals(object, merge = F)$variables
-  expect(
-    length(global_vars) == 0,
-    sprintf("%s contain global variable(s): %s. %s %s", act$lab, paste(act$global_vars, collapse = " "), info, label)
-  )
+  msg <- sprintf("%s contain global variable(s): %s.", act$lab, paste(act$global_vars, collapse = " "))
+  expect(length(act$global_vars) == 0, msg)
   
   # 3. Invisibly return the value
   invisible(act$val)
@@ -39,7 +41,7 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
 #' @description
 #'   Tests that the following packages is used.
 #' 
-#' @param object
+#' @param string
 #'   Package to check for.
 #' @param info 
 #'   Extra information to be included in the message (useful when writing tests in loops).
@@ -47,20 +49,15 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
 #' @keywords internal
 #' 
 #' @export
-expect_attached_package <- function(object, info = NULL){
-  checkmate::assert_string(object)
-  
-  # 1. Capture object and label
-  act <- quasi_label(rlang::enquo(object))
+expect_attached_package <- function(string, info = NULL){
+  checkmate::assert_string(string)
   
   # 2. Call expect()
-  expect(
-    any(grepl(object, search())),
-    sprintf("%s is not used. %s", act$lab, info)
-  )
+  msg <- sprintf("Package '%s' is not used (attached).", string)
+  expect(any(grepl(string, search())), msg)
   
   # 3. Invisibly return the value
-  invisible(act$val)
+  invisible(NULL)
 }
 
 #' @title
@@ -86,7 +83,7 @@ expect_attached_package <- function(object, info = NULL){
 #' 
 #' @export
 expect_function_arguments <- function(object, expected, info = NULL, label = NULL, expected.label = NULL) {
-  checkmate::assert_character(expected)
+  checkmate::assert_character(expected, null.ok = TRUE)
   
   # 1. Capture object and label
   act <- quasi_label(rlang::enquo(object))
@@ -96,16 +93,12 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
   act$missing_arguments <- !act$function_arguments %in% expected
   act$extra_arguments <- !expected %in% act$function_arguments
   
-  expect(
-    !(any(act$missing_arguments) | any(act$extra_arguments)),
-    sprintf("%s contain arguments: %s, not %s. %s %s % info", 
-            act$lab, 
-            paste(function_arguments, collapse = " "), 
-            paste(expected, collapse = " "), 
-            info,
-            label,
-            expected.label)
-  )
+  msg <- sprintf("%s should contain arguments %s, not %s.", 
+                 act$lab, 
+                 paste(expected, collapse = " "),                 
+                 paste(act$function_arguments, collapse = " "))
+  expect(!(any(act$missing_arguments) | any(act$extra_arguments)), msg)
+    
   
   # 3. Invisibly return the value
   invisible(act$val)
@@ -146,7 +139,7 @@ expect_function_code <-
     act$body <- as.character(body(object))
 
     expect(
-      any(grepl(x = body, pattern = expected)),
+      any(grepl(x = act$body, pattern = expected)),
       sprintf("'%s' not found in the body of %s", 
               expected, 
               act$lab)
@@ -155,7 +148,7 @@ expect_function_code <-
     # 3. Invisibly return the value
     invisible(act$val)    
     
-  }
+}
 
 
 #' @title Depricated function: expect_self_contained
