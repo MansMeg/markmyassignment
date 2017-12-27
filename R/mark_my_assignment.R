@@ -13,7 +13,7 @@
 #'   Force download of test files before marking of assignments. Default is FALSE.
 #' @param quiet
 #'   Should test be run without output?
-#' @param reporter to use. Default is the 'summary' or specified in assignment yml file.
+#' @param ... further arguments sent to \code{test_dir()}.
 #' 
 #' @examples
 #' assignment_path <- 
@@ -23,19 +23,27 @@
 #' mark_my_assignment()
 #' 
 #' @export
-mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, reporter = NULL){
-  assert_function_arguments_in_API(
-    tasks = tasks, mark_file = mark_file, force_get_tests = force_get_tests,
-    quiet = quiet, reporter = reporter)
+mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests = FALSE, quiet = FALSE, ...){
+  checkmate::assert_character(tasks, null.ok = TRUE)
+  if(!is.null(mark_file)) checkmate::assert_file_exists(mark_file)
+  checkmate::assert_flag(force_get_tests)
+  checkmate::assert_flag(quiet)
+  
   if(!is.null(mark_file)){
     .Deprecated("mark_my_file", old = "mark_file")
   }
+  
+  # Get tests / download test suite to local storage
   get_tests(tasks = tasks, force_get_tests = force_get_tests)
-  if(is.null(reporter)) reporter <- get_mark_my_reporter()
-  test_results <- run_test_suite("mark_my_assignment", tasks, mark_file, quiet, reporter = reporter)
+
+  # Check 
+  test_results <- run_test_suite("mark_my_assignment", tasks, mark_file, quiet, ...)
+  
+  # Put together file for multiple checks
   test_results_df <- as.data.frame(test_results) 
   if(!any(test_results_df$error) & sum(test_results_df$failed) == 0 & is.null(tasks) & !quiet) cheer()
   check_existance_tasks(tasks = tasks)
+  
   return(invisible(test_results))
 }
 
@@ -158,15 +166,14 @@ cached_tasks <- function(){
 #'   Run tests on a R-file. Default is NULL means global environment.
 #' @param quiet
 #'   Should the output be supressed (only returning test results)
-#' @param reporter
-#'   Reporter to use. Standard is student.
+#' @param ... further arguments sent to \code{test_dir()}.
 #'
 #' @return
 #'   test_suite results
 #'   
 #' @keywords internal
 #'   
-run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, reporter = "summary"){
+run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, ...){
   
   test_directory <- mark_my_test_dir()
   
@@ -184,14 +191,13 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
     unlink(x = tf_path)
   } 
   
-  if(quiet) reporter <- "silent"
-  
   if(is.null(tasks)) tasks <- "all" else tasks <- paste(c("00mandatory", paste(tasks, collapse="|")), collapse="|")
   
   if(tasks == "all") tasks <- NULL
   test_res <- test_dir(path = test_directory, 
                        filter = tasks, 
-                       reporter = reporter, env = mark_my_env)
+                       env = mark_my_env,
+                       ...)
   test_res
 }
 
@@ -247,6 +253,7 @@ cheer <- function() {
 #' @keywords internal
 #'  
 get_mark_my_reporter <-function(){
+  .Deprecated(msg = "Reporters are now called directly using ellipsis.")
   assign_yml <- read_assignment_yml()
   if("reporter" %in% names(assign_yml)){
     reporter <- assign_yml$reporter
