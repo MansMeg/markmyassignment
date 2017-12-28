@@ -47,3 +47,91 @@ test_that(desc="check_installed_packages()",{
   expect_is(suppressMessages(set_assignment(assgn_path)), "character")
   detach(name = "package:codetools")
 })
+
+
+
+test_that(desc="path_type()",{
+  correct_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment01.yml"
+  correct_url2 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment02.yml"
+  wrong_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/file_that_do_not_exist.R"
+  wrong_url2 <- "XXX"
+  github_url1 <- "https://api.github.com/repos/octokit/octokit.rb/contents/README/README.md"
+  github_url2 <- "https://api.github.com/repos/octokit/octokit.rb/git/blobs/3d21ec53a331a6f037a91c368710b99387d012c1"
+  github_url3 <- "https://github.com/octokit/octokit.rb/blob/master/README/README.md"
+  github_url4 <- "https://raw.githubusercontent.com/octokit/octokit.rb/master/README.md"
+  correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
+  correct_local2 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment02.yml")
+  
+
+  expect_silent(pt <- path_type(correct_url1))
+  expect_class(pt, classes = c("path_http", "path_type"))
+  expect_names(names(pt), permutation.of = "path")
+  
+  expect_silent(pt <- path_type(correct_url2))
+  expect_class(pt, classes = c("path_http", "path_type"))
+  expect_names(names(pt), permutation.of = "path")
+  
+  expect_error(pt <- path_type(wrong_url1))
+  expect_error(pt <- path_type(wrong_url2))
+
+  expect_silent(pt <- path_type(github_url1))
+  expect_class(pt, classes = c("path_github", "path_type"))
+  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "subpath"))
+
+  expect_silent(pt <- path_type(github_url2))
+  expect_class(pt, classes = c("path_github", "path_type"))
+  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "subpath"))
+  
+  expect_silent(pt <- path_type(github_url3))
+  expect_class(pt, classes = c("path_github", "path_type"))
+  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "subpath"))
+
+  expect_silent(pt <- path_type(github_url4))
+  expect_class(pt, classes = c("path_http", "path_type"))
+  expect_names(names(pt), permutation.of = c("path"))
+  
+  expect_silent(pt <- path_type(correct_local1))
+  expect_class(pt, classes = c("path_local", "path_type"))
+  expect_names(names(pt), permutation.of = c("path"))
+
+  expect_silent(pt <- path_type(correct_local2))
+  expect_class(pt, classes = c("path_local", "path_type"))
+  expect_names(names(pt), permutation.of = c("path"))
+    
+})
+
+
+test_that(desc="get_assignment_full_subpath()",{
+  correct_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment01.yml"
+  correct_url1_path_type <- path_type(correct_url1)
+  correct_url2 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment02.yml"
+  correct_url2_path_type <- path_type(correct_url2)
+  
+  correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
+  correct_local1_path_type <- path_type(correct_local1)
+  correct_local2 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment02.yml")
+  correct_local2_path_type <- path_type(correct_local2)
+  
+  expect_error(get_assignment_full_subpath(sub_path = "test.R", correct_url1_path_type))
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = "example_assignment02.yml", correct_url1_path_type))
+  expect_equal(fp$path, correct_url2)
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = correct_url1, correct_url1_path_type))
+
+  expect_error(get_assignment_full_subpath(sub_path = "test.R", correct_url2_path_type))
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = "example_assignment01.yml", correct_url1_path_type))
+  expect_equal(fp$path, correct_url1)
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = correct_url2, correct_url2_path_type))
+
+  expect_error(get_assignment_full_subpath(sub_path = "test.R", correct_local1_path_type))
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = "example_assignment02.yml", correct_local1_path_type))
+  expect_equal(fp$path, correct_local2)
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = correct_local1, correct_local1_path_type))
+  
+  expect_error(get_assignment_full_subpath(sub_path = "test.R", correct_local2_path_type))
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = "example_assignment01.yml", correct_local2_path_type))
+  expect_equal(fp$path, correct_local1)
+  expect_silent(fp <- get_assignment_full_subpath(sub_path = correct_local2, correct_local2_path_type))
+  
+})
+
+
