@@ -36,6 +36,7 @@ get_github_path_info <- function(path){
     pos_domain <- which(grepl("^raw\\.githubusercontent\\.com$", split_path))
     path_info$owner <- split_path[pos_domain + 1]
     path_info$repo <- split_path[pos_domain + 2]
+    path_info$branch <- split_path[pos_domain + 3]
     path_info$path <- paste(split_path[(pos_domain + 4):length(split_path)], collapse = "/")
     return(path_info)
   }
@@ -44,6 +45,8 @@ get_github_path_info <- function(path){
     pos_domain <- which(grepl("^api\\.github\\.com$", split_path))
     path_info$owner <- split_path[pos_domain + 2]
     path_info$repo <- split_path[pos_domain + 3]
+    path_info$branch <- "master"
+    message("Assume master branch for ", path)
     path_info$path <- paste(split_path[(pos_domain + 5):length(split_path)], collapse = "/")
     return(path_info)
   }
@@ -52,15 +55,9 @@ get_github_path_info <- function(path){
     pos_domain <- which(grepl("^api\\.github\\.com$", split_path))
     path_info$owner <- split_path[pos_domain + 2]
     path_info$repo <- split_path[pos_domain + 3]
+    path_info$branch <- "master"
+    message("Assume master branch for ", path)
     path_info$path <- as.character(NA)
-    return(path_info)
-  }
-  
-  if(names(github_type) == "api_contents"){
-    pos_domain <- which(grepl("^api\\.github\\.com$", split_path))
-    path_info$owner <- split_path[pos_domain + 2]
-    path_info$repo <- split_path[pos_domain + 3]
-    path_info$path <- paste(split_path[(pos_domain + 5):length(split_path)], collapse = "/")
     return(path_info)
   }
   
@@ -68,6 +65,7 @@ get_github_path_info <- function(path){
     pos_domain <- which(grepl("^github\\.com$", split_path))
     path_info$owner <- split_path[pos_domain + 1]
     path_info$repo <- split_path[pos_domain + 2]
+    path_info$branch <- split_path[pos_domain + 4]
     path_info$path <- paste(split_path[(pos_domain + 5):length(split_path)], collapse = "/")
     return(path_info)
   }
