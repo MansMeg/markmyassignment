@@ -15,3 +15,63 @@ is_github_path <- function(path){
   if(is_github) names(is_github) <- c("raw", "http", "api_contents", "api_git")[c(is_raw, is_http, is_contents_api_path, is_git_api_path)]
   is_github
 }
+
+
+
+#' Get github information from a github path
+#'
+#' @param path a path to check
+#'
+#' @return a list 
+get_github_path_info <- function(path){
+  checkmate::assert_string(path)
+  github_type <- is_github_path(path)
+  is_github_url <- unname(github_type)
+  checkmate::assert_true(is_github_url)
+  path_info <- list()
+  class(path_info) <- c("github_path_info", "list")
+  split_path <- strsplit(path, "/")[[1]]
+  
+  if(names(github_type) == "raw"){
+    pos_domain <- which(grepl("^raw\\.githubusercontent\\.com$", split_path))
+    path_info$owner <- split_path[pos_domain + 1]
+    path_info$repo <- split_path[pos_domain + 2]
+    path_info$path <- paste(split_path[(pos_domain + 4):length(split_path)], collapse = "/")
+    return(path_info)
+  }
+  
+  if(names(github_type) == "api_contents"){
+    pos_domain <- which(grepl("^api\\.github\\.com$", split_path))
+    path_info$owner <- split_path[pos_domain + 2]
+    path_info$repo <- split_path[pos_domain + 3]
+    path_info$path <- paste(split_path[(pos_domain + 5):length(split_path)], collapse = "/")
+    return(path_info)
+  }
+  
+  if(names(github_type) == "api_git"){
+    pos_domain <- which(grepl("^api\\.github\\.com$", split_path))
+    path_info$owner <- split_path[pos_domain + 2]
+    path_info$repo <- split_path[pos_domain + 3]
+    path_info$path <- as.character(NA)
+    return(path_info)
+  }
+  
+  if(names(github_type) == "api_contents"){
+    pos_domain <- which(grepl("^api\\.github\\.com$", split_path))
+    path_info$owner <- split_path[pos_domain + 2]
+    path_info$repo <- split_path[pos_domain + 3]
+    path_info$path <- paste(split_path[(pos_domain + 5):length(split_path)], collapse = "/")
+    return(path_info)
+  }
+  
+  if(names(github_type) == "http"){
+    pos_domain <- which(grepl("^github\\.com$", split_path))
+    path_info$owner <- split_path[pos_domain + 1]
+    path_info$repo <- split_path[pos_domain + 2]
+    path_info$path <- paste(split_path[(pos_domain + 5):length(split_path)], collapse = "/")
+    return(path_info)
+  }
+  
+  stop(path, " is an incorrect github URL.")
+  
+}
