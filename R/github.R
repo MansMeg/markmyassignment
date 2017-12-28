@@ -73,3 +73,13 @@ get_github_path_info <- function(path){
   stop(path, " is an incorrect github URL.")
   
 }
+
+
+#' Create a github_download_url from a path_github object.
+#' 
+#' @param path a \code{path_github} object.
+#' 
+create_github_download_url <- function(path){
+  checkmate::assert_class(path, "path_github")
+  paste0("https://raw.githubusercontent.com/", path$owner, "/", path$repo, "/", path$branch, "/", path$subpath)
+}
