@@ -207,31 +207,6 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   test_res
 }
 
-
-#' @title
-#'  Functions to create directories
-#'  
-#' @description
-#'  Functions to create directories
-#'  
-#' @name directories
-#' 
-#' @keywords internal
-#' 
-mark_my_base_dir <- function() paste0(tempdir(), "/markmyassignment")
-
-#' @rdname directories
-#' @param no assignment number
-#' @keywords internal
-mark_my_assignment_dir <- function(no = 1) paste0(mark_my_base_dir(), "/assignment", no)
-
-#' @rdname directories
-#' @param ... to send to \code{\link{mark_my_assignment_dir}}
-#' @keywords internal
-mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
-
-
-
 #' @title
 #'  Cheer when all tasks pass
 #'  
@@ -246,34 +221,6 @@ cheer <- function() {
                    "You're a coding rockstar!",
                    "Keep up the good work!",
                    "Everything's correct!"), 1))
-}
-
-#' @title
-#'  Get reporter from yml file
-#'  
-#' @description
-#'  Get reporter from yml file
-#'  
-#'  Default reporter is 'summary'. 
-#'  
-#' @keywords internal
-#'  
-get_mark_my_reporter <-function(){
-  .Deprecated(msg = "Reporters are now called directly using ellipsis.")
-  assign_yml <- read_assignment_yml()
-  if("reporter" %in% names(assign_yml)){
-    reporter <- assign_yml$reporter
-    output <- capture_output(
-      check_reporter <- try(test_file(path = file.path(system.file(package = "markmyassignment"), "extdata/test_reporter_file.R"), reporter = reporter), silent = TRUE)
-    )
-    if(inherits(check_reporter, what = "try-error")) {
-      warning("Reporter '", reporter, "' not found. Default reporter is used.")
-      reporter <- "ReporterProgress"
-      }
-  } else {
-    reporter <- "ReporterProgress"
-  }
-  reporter
 }
 
 #' @title
