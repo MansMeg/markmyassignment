@@ -2,9 +2,18 @@
 % Please edit documentation in R/set_assignment.R
 \name{get_file}
 \alias{get_file}
+\alias{get_file.path_local}
+\alias{get_file.path_http}
+\alias{get_file.path_github}
 \title{Get the file from the path}
 \usage{
 get_file(path, dest, ...)
+
+\method{get_file}{path_local}(path, dest, ...)
+
+\method{get_file}{path_http}(path, dest, ...)
+
+\method{get_file}{path_github}(path, dest, ...)
 }
 \arguments{
 \item{path}{Path object}
