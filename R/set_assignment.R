@@ -80,22 +80,26 @@ download_assignment <- function(assignment, path){
   }
 
   # Download all mandatory test files
-  assignment$mandatory$local_tmp_path <- character(0)
-  for(i in seq_along(assignment$mandatory$url)){
-    dest <- paste0(mark_my_mandatory_dir(), "/test-mandatory-", i, ".R")
-    assignment$mandatory$local_tmp_path[i] <- dest
-    path <- path_type(assignment$mandatory$url[i]) 
-    get_file(path = path, dest = dest)
+  if("mandatory" %in% names(assignment)){
+    assignment$mandatory$local_tmp_path <- character(0)
+    for(i in seq_along(assignment$mandatory$url)){
+      dest <- paste0(mark_my_mandatory_dir(), "/test-mandatory-", i, ".R")
+      assignment$mandatory$local_tmp_path[i] <- dest
+      path <- path_type(assignment$mandatory$url[i]) 
+      get_file(path = path, dest = dest)
+    }
   }
   
   # Download all run_code files
-  for(j in seq_along(assignment$run_code)) {
-    assignment$run_code[[j]]$local_tmp_path <- character(0)
-    for(i in seq_along(assignment$run_code[[j]]$url)){
-      dest <- paste0(mark_my_run_code_dir(), "/test-", j, "-", i, ".R")
-      assignment$run_code[[j]]$local_tmp_path[i] <- dest
-      assignment_path <- get_assignment_full_subpath(assignment$run_code[[j]]$url[i], path)
-      get_file(path = assignment_path, dest = dest)
+  if("run_code" %in% names(assignment)){
+    for(j in seq_along(assignment$run_code)) {
+      assignment$run_code[[j]]$local_tmp_path <- character(0)
+      for(i in seq_along(assignment$run_code[[j]]$url)){
+        dest <- paste0(mark_my_run_code_dir(), "/test-", j, "-", i, ".R")
+        assignment$run_code[[j]]$local_tmp_path[i] <- dest
+        assignment_path <- get_assignment_full_subpath(assignment$run_code[[j]]$url[i], path)
+        get_file(path = assignment_path, dest = dest)
+      }
     }
   }
   
@@ -380,11 +384,11 @@ check_installed_packages <- function(assignment) {
   }else{
     if(all(packages %in% rownames(utils::installed.packages()))){
       warning("The following packages should be loaded:\n",
-              paste(packages[!paste("package:", packages, sep="") %in% search()], collapse = ", "))
+              paste(packages[!paste("package:", packages, sep="") %in% search()], collapse = ", "), call. = FALSE)
     }
     else{
       warning("The following packages need to be installed and then loaded:\n",
-              paste(packages[!packages %in% rownames(utils::installed.packages())], collapse=", "))
+              paste(packages[!packages %in% rownames(utils::installed.packages())], collapse=", "), call. = FALSE)
     }
   }
   

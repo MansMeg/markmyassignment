@@ -30,6 +30,10 @@ test_that(desc="set_assignment()",{
 })
 
 test_that(desc="show_tasks()",{
+  correct_url4 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment04.yml"
+  suppressMessages(set_assignment(correct_url4))
+  expect_equal(show_tasks(), c("task1"))
+  
   correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
   correct_local2 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment02.yml")
   suppressMessages(set_assignment(correct_local1))
@@ -40,16 +44,16 @@ test_that(desc="show_tasks()",{
 
 test_that(desc="check_installed_packages()",{
   assgn_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment08_bad_pkgs.yml")
-  expect_warning(set_assignment(path = assgn_path), regexp = "The following packages need to be installed and then loaded")
+  expect_warning(suppressMessages(set_assignment(path = assgn_path)))
   assgn_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment07_pkgs.yml")
-  expect_warning(set_assignment(path = assgn_path), regexp = "The following packages need to be loaded")
+  expect_warning(suppressMessages(set_assignment(path = assgn_path)))
   library(codetools)
   expect_is(suppressMessages(set_assignment(assgn_path)), "character")
   detach(name = "package:codetools")
 })
 
 
-
+# path_type <- markmyassignment:::path_type
 test_that(desc="path_type()",{
   correct_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment01.yml"
   correct_url2 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment02.yml"
@@ -74,17 +78,17 @@ test_that(desc="path_type()",{
   expect_error(pt <- path_type(wrong_url1))
   expect_error(pt <- path_type(wrong_url2))
 
-  expect_silent(pt <- path_type(github_url1))
+  expect_silent(suppressMessages(pt <- path_type(github_url1)))
   expect_class(pt, classes = c("path_github", "path_type"))
-  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "subpath"))
+  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
 
-  expect_silent(pt <- path_type(github_url2))
+  expect_silent(suppressMessages(pt <- path_type(github_url2)))
   expect_class(pt, classes = c("path_github", "path_type"))
-  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "subpath"))
+  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
   
   expect_silent(pt <- path_type(github_url3))
   expect_class(pt, classes = c("path_github", "path_type"))
-  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "subpath"))
+  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
 
   expect_silent(pt <- path_type(github_url4))
   expect_class(pt, classes = c("path_http", "path_type"))
@@ -100,7 +104,7 @@ test_that(desc="path_type()",{
     
 })
 
-
+# get_assignment_full_subpath <- markmyassignment:::get_assignment_full_subpath
 test_that(desc="get_assignment_full_subpath()",{
   correct_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment01.yml"
   correct_url1_path_type <- path_type(correct_url1)
