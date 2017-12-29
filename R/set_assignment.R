@@ -32,7 +32,7 @@ set_assignment <- function(path, auth = NULL){
   on.exit(unlink(temp_file))
   
   # Remove previous assignment (if exists)
-  if(file.exists(mark_my_assignment_dir())) unlink(mark_my_assignment_dir(), recursive = TRUE, force = TRUE)
+  if(file.exists(mark_my_assignment_dir())) remove_assignment()
   
   dir.create(mark_my_assignment_dir(), recursive = TRUE, showWarnings = FALSE)
   dest <- paste0(mark_my_assignment_dir(), "/assignment_config.yml")
@@ -52,7 +52,11 @@ set_assignment <- function(path, auth = NULL){
   invisible(dest)
 }
 
-
+#' @rdname set_assignment
+#' @export
+remove_assignment <- function() {
+  unlink(mark_my_assignment_dir(), recursive = TRUE, force = TRUE)
+}
 
 #' Download assignment and store in temporary folder
 #' 
