@@ -151,3 +151,10 @@ test_that(desc="remove_assignment()",{
 })
 
 
+
+test_that(desc="assignment_template",{
+  assignment_template_file <- file.path(system.file(package = "markmyassignment"), "extdata/assignment_template.yml")
+  expect_message(set_assignment(assignment_template_file), regexp = "Assignment template")
+  remove_assignment()
+})
+
