@@ -12,6 +12,8 @@
 #' @examples
 #' assignment_path <- path <- 
 #'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#' assignment_path <- path <- 
+#'   paste0(system.file(package = "markmyassignment"), "/extdata/assignment_template.yml")
 #' set_assignment(assignment_path)
 #' 
 #' @export
@@ -48,7 +50,7 @@ set_assignment <- function(path, auth = NULL){
   # Check that packages is installed
   check_installed_packages(assignment)
   
-  message("Assignment set:\n", assignment$name, " : ", assignment$description)
+  message(construct_assignment_description(assignment))
   invisible(dest)
 }
 
@@ -57,6 +59,44 @@ set_assignment <- function(path, auth = NULL){
 remove_assignment <- function() {
   unlink(mark_my_assignment_dir(), recursive = TRUE, force = TRUE)
 }
+
+#' @rdname set_assignment
+#' @export
+show_assignment <- function(){
+  cat(construct_assignment_description())
+}
+
+#' Construct assignment description
+#' 
+#' @param assignment an assignment to create description for.
+#' 
+#' @keywords internal
+construct_assignment_description <- function(assignment = NULL){
+  if(!is.null(assignment)) {
+    checkmate::assert_class(assignment, "assignment_config")
+  } else {
+    assignment <- read_assignment_yml()
+  }
+  
+  if(length(assignment$tasks) > 1){
+    task_contain <- paste0("The assignment contain the following (", length(assignment$tasks), ") tasks:\n")
+  } else {
+    task_contain <- paste0("The assignment contain the following task:\n")
+  }
+
+  task_descriptions <- paste0("- ", names(assignment$tasks))
+  for(i in seq_along(task_descriptions)){
+    desc <- as.character(assignment$tasks[[i]]$description)
+    if(length(desc) > 0) task_descriptions[i] <- paste0(task_descriptions[i], ": ", desc)
+  }
+  task_descriptions <- paste0(paste0(task_descriptions, "\n"), collapse = "")
+
+  paste0(paste0("Assignment set:\n", assignment$name, ": ", assignment$description, "\n"),
+         task_contain,
+         task_descriptions)
+
+}
+
 
 #' Download assignment and store in temporary folder
 #' 

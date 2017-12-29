@@ -3,11 +3,14 @@
 \name{set_assignment}
 \alias{set_assignment}
 \alias{remove_assignment}
+\alias{show_assignment}
 \title{Set and remove assignments}
 \usage{
 set_assignment(path, auth = NULL)
 
 remove_assignment()
+
+show_assignment()
 }
 \arguments{
 \item{path}{Path to the yml file}
@@ -20,6 +23,8 @@ Sets the assignment to mark and downloads necessary files.
 \examples{
 assignment_path <- path <- 
   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+assignment_path <- path <- 
+  paste0(system.file(package = "markmyassignment"), "/extdata/assignment_template.yml")
 set_assignment(assignment_path)
 
 }
