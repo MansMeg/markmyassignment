@@ -139,3 +139,15 @@ test_that(desc="get_assignment_full_subpath()",{
 })
 
 
+test_that(desc="remove_assignment()",{
+  correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
+
+  expect_is(suppressMessages(set_assignment(correct_local1)), "character")
+  expect_equal(show_tasks(), c("task1", "task2"))
+  
+  expect_silent(remove_assignment())
+  expect_error(show_tasks(), regexp = "No assignment has been set")
+  
+})
+
+

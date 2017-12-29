@@ -2,7 +2,7 @@
 context("mark_my_assignment")
 
 test_that(desc="mark_my_assignment()",{
-  suppressMessages(set_assignment(file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")))
+  suppressWarnings(suppressMessages(set_assignment(file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml"))))
   source(file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R"))
   
   expect_is(capture.output(mark_my_assignment()), "character")
@@ -39,18 +39,26 @@ test_that(desc="mark_my_assignment()",{
 })
 
 
-test_that(desc="Assertions on arguments in mark_my_assignment()",{
+
+
+test_that(desc="Assertions on arguments mark_my_assignment()",{
   
   suppressMessages(set_assignment(file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")))
-  source(file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R"))
+  lab_file_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
+  source(lab_file_path)
   
-  x <- capture.output(expect_warning(mark_my_assignment(tasks = "no such task", quiet = TRUE)))
-  x <- capture.output(expect_warning(mark_my_assignment(tasks = c("task1", "no such task", "task2"), quiet = TRUE)))
+  expect_error(capture.output(mark_my_assignment(tasks = "no such task")), regexp = "tasks")
+  expect_error(capture.output(mark_my_assignment(tasks = c("task1", "no such task", "task2"))), regexp = "tasks")
+  
   expect_error(mark_my_assignment(tasks = task2, quiet = TRUE))
   expect_error(mark_my_assignment(quiet = "TRUE"))
   expect_error(mark_my_assignment(force_get_tests = "TRUE"))
   
+  expect_warning(capture.output(mark_my_assignment(force_get_tests = TRUE)), regexp = "Deprecated")
+  expect_warning(capture.output(mark_my_assignment(mark_file = lab_file_path)), regexp = "Deprecated")
+  
 })
+
 
 
 test_that(desc="mark_my_dir()",{
