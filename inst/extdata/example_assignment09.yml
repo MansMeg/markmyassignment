@@ -1,4 +1,4 @@
-name: Test assignment 01
+name: Test assignment 09
 description: An example of how an assignment can be constructed.
 packages: [markmyassignment, checkmate]
 run_code: 

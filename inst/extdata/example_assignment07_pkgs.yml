@@ -1,6 +1,5 @@
 name  : Test assignment 07
 description : An example of how an assignment requiring packages can be constructed.
-reporter : minimal
 tasks:
   task1:
     url: 
