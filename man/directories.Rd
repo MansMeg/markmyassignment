@@ -4,30 +4,20 @@
 \alias{directories}
 \alias{mark_my_base_dir}
 \alias{mark_my_assignment_dir}
-\alias{mark_my_test_dir}
 \alias{mark_my_tasks_dir}
 \alias{mark_my_run_code_dir}
-\alias{mark_my_mandatory_dir}
 \title{Functions to create directories}
 \usage{
 mark_my_base_dir()
 
 mark_my_assignment_dir(no = 1)
 
-mark_my_test_dir(...)
-
 mark_my_tasks_dir(...)
 
 mark_my_run_code_dir(...)
-
-mark_my_mandatory_dir(...)
 }
 \arguments{
 \item{no}{assignment number}
-
-\item{...}{to send to \code{\link{mark_my_assignment_dir}}}
-
-\item{...}{to send to \code{\link{mark_my_assignment_dir}}}
 
 \item{...}{to send to \code{\link{mark_my_assignment_dir}}}
 

@@ -66,7 +66,7 @@ download_assignment <- function(assignment, path){
   checkmate::assert_class(path, "path_type")
 
   dir.create(path = mark_my_tasks_dir(), recursive = TRUE, showWarnings = FALSE)
-  dir.create(path = mark_my_mandatory_dir(), recursive = TRUE, showWarnings = FALSE)
+  dir.create(path = mark_my_run_code_dir(), recursive = TRUE, showWarnings = FALSE)
   
   # Download all task test files
   for(task in seq_along(assignment$tasks)) {
@@ -83,7 +83,7 @@ download_assignment <- function(assignment, path){
   if("mandatory" %in% names(assignment)){
     assignment$mandatory$local_tmp_path <- character(0)
     for(i in seq_along(assignment$mandatory$url)){
-      dest <- paste0(mark_my_mandatory_dir(), "/test-mandatory-", i, ".R")
+      dest <- paste0(mark_my_tasks_dir(), "/test-mandatory-", i, ".R")
       assignment$mandatory$local_tmp_path[i] <- dest
       path <- path_type(assignment$mandatory$url[i]) 
       get_file(path = path, dest = dest)
@@ -445,20 +445,10 @@ mark_my_assignment_dir <- function(no = 1) paste0(mark_my_base_dir(), "/assignme
 #' @rdname directories
 #' @param ... to send to \code{\link{mark_my_assignment_dir}}
 #' @keywords internal
-mark_my_test_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tests")
-
-#' @rdname directories
-#' @param ... to send to \code{\link{mark_my_assignment_dir}}
-#' @keywords internal
 mark_my_tasks_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tasks")
 
 #' @rdname directories
 #' @param ... to send to \code{\link{mark_my_assignment_dir}}
 #' @keywords internal
 mark_my_run_code_dir <- function(...) paste0(mark_my_assignment_dir(...), "/run_code")
-
-#' @rdname directories
-#' @param ... to send to \code{\link{mark_my_assignment_dir}}
-#' @keywords internal
-mark_my_mandatory_dir <- function(...) paste0(mark_my_assignment_dir(...), "/mandatory")
 
