@@ -90,8 +90,8 @@ download_assignment <- function(assignment, path){
     for(i in seq_along(assignment$mandatory$url)){
       dest <- paste0(mark_my_tasks_dir(), "/", assignment_path_df[assignment_path_df$i == i & assignment_path_df$class == "mandatory", "test_file"])
       assignment$mandatory$local_tmp_path[i] <- dest
-      path <- path_type(assignment$mandatory$url[i]) 
-      get_file(path = path, dest = dest)
+      assignment_path <- get_assignment_full_subpath(assignment$mandatory$url[i], path)
+      get_file(path = assignment_path, dest = dest)
     }
   }
   
@@ -144,6 +144,7 @@ temp_folder_check_create <- function() {
 #' 
 #' @keywords internal
 #' 
+
 path_type <- function(path, auth = NULL){
   checkmate::assert_string(path)
   if(!is.null(auth)){
@@ -151,6 +152,7 @@ path_type <- function(path, auth = NULL){
     checkmate::assert_names(names(auth$options), permutation.of = c("httpauth", "userpwd"))
   }
 
+  #path <- "example_mandatory.R"
   path_obj <- list(path = path)
   
   if(file.exists(path_obj$path)){
