@@ -346,6 +346,7 @@ assert_assignment_config <- function(assignment){
   }
   
   if("reporter" %in% names(assignment)) {
+    .Deprecated(old = "'reporter' in yml", new = "... in mark_my_assignment() or mark_my_file()")
     checkmate::assert_string(assignment$reporter)
   }
   

@@ -1,7 +1,6 @@
 name: Test assignment 01
 description: An example of how an assignment can be constructed.
 packages: [markmyassignment, checkmate]
-reporter: summary
 run_code: 
   before: 
     url:
