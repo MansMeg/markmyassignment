@@ -2,9 +2,12 @@
 % Please edit documentation in R/set_assignment.R
 \name{set_assignment}
 \alias{set_assignment}
+\alias{remove_assignment}
 \title{Set assignment to mark}
 \usage{
 set_assignment(path, auth = NULL)
+
+remove_assignment()
 }
 \arguments{
 \item{path}{Path to the yml file}
