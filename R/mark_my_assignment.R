@@ -210,7 +210,11 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   # tasks <- "task2"
   # translate_tasks_name_to_task_files <- markmyassignment:::translate_tasks_name_to_task_files
   tasks_fn <- translate_tasks_name_to_task_files(tasks)
-  if(!is.null(tasks)) tasks_filter <- paste(c("mandatory", paste(gsub("test-|\\.R", "", tasks_fn), collapse="|")), collapse="|")
+  if(!is.null(tasks)) {
+    tasks_filter <- paste(c("mandatory", paste(gsub("test-|\\.R", "", tasks_fn), collapse="|")), collapse="|")
+  } else {
+    tasks_filter <- NULL
+  }
   
   # Source in before code
   run_code_paths <- dir(mark_my_run_code_dir())
