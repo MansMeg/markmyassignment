@@ -23,7 +23,7 @@ set_assignment <- function(path, auth = NULL){
   }
   
   # Get path_type object 
-  # path <- markmyassignment:::path_type(path, auth)
+  # path <- markmyassignment:::path_type(path, auth = NULL)
   path <- path_type(path, auth)
   
   # Create a new temporary markmyassignment temp folder
@@ -64,17 +64,22 @@ set_assignment <- function(path, auth = NULL){
 download_assignment <- function(assignment, path){
   checkmate::assert_class(assignment, "assignment_config")
   checkmate::assert_class(path, "path_type")
-
+  
   dir.create(path = mark_my_tasks_dir(), recursive = TRUE, showWarnings = FALSE)
   dir.create(path = mark_my_run_code_dir(), recursive = TRUE, showWarnings = FALSE)
-  
+
+  # assignment <- markmyassignment:::read_assignment_yml("inst/extdata/example_assignment01.yml")
+  assignment_path_df <- assignment_paths_and_files(assignment)
+
   # Download all task test files
-  for(task in seq_along(assignment$tasks)) {
-    assignment$tasks[[task]]$local_tmp_path <- character(0)
-    for(i in seq_along(assignment$tasks[[task]]$url)){
-      dest <- paste0(mark_my_tasks_dir(), "/test-", task, "-", i, ".R")
-      assignment$tasks[[task]]$local_tmp_path[i] <- dest
-      assignment_path <- get_assignment_full_subpath(assignment$tasks[[task]]$url[i], path)
+  for(j in seq_along(assignment$tasks)) {
+    assignment$tasks[[j]]$local_tmp_path <- character(0)
+    for(i in seq_along(assignment$tasks[[j]]$url)){
+      dest <- paste0(mark_my_tasks_dir(), "/", assignment_path_df[assignment_path_df$i == i & 
+                                                                    assignment_path_df$j == j & 
+                                                                    assignment_path_df$class == "tasks", "test_file"])
+      assignment$tasks[[j]]$local_tmp_path[i] <- dest
+      assignment_path <- get_assignment_full_subpath(assignment$tasks[[j]]$url[i], path)
       get_file(path = assignment_path, dest = dest)
     }
   }
@@ -83,7 +88,7 @@ download_assignment <- function(assignment, path){
   if("mandatory" %in% names(assignment)){
     assignment$mandatory$local_tmp_path <- character(0)
     for(i in seq_along(assignment$mandatory$url)){
-      dest <- paste0(mark_my_tasks_dir(), "/test-mandatory-", i, ".R")
+      dest <- paste0(mark_my_tasks_dir(), "/", assignment_path_df[assignment_path_df$i == i & assignment_path_df$class == "mandatory", "test_file"])
       assignment$mandatory$local_tmp_path[i] <- dest
       path <- path_type(assignment$mandatory$url[i]) 
       get_file(path = path, dest = dest)
@@ -95,7 +100,7 @@ download_assignment <- function(assignment, path){
     for(j in seq_along(assignment$run_code)) {
       assignment$run_code[[j]]$local_tmp_path <- character(0)
       for(i in seq_along(assignment$run_code[[j]]$url)){
-        dest <- paste0(mark_my_run_code_dir(), "/test-", j, "-", i, ".R")
+        dest <- paste0(mark_my_run_code_dir(), "/", assignment_path_df[assignment_path_df$i == i &assignment_path_df$j == j & assignment_path_df$class == "run_code", "test_file"])
         assignment$run_code[[j]]$local_tmp_path[i] <- dest
         assignment_path <- get_assignment_full_subpath(assignment$run_code[[j]]$url[i], path)
         get_file(path = assignment_path, dest = dest)
@@ -332,6 +337,7 @@ assert_assignment_config <- function(assignment){
   
   if("run_code" %in% names(assignment)) {
     for(i in seq_along(assignment$run_code)){
+      checkmate::assert_names(names(assignment$run_code), subset.of = c("before", "after"))
       checkmate::assert_names(names(assignment$run_code[[i]]), must.include = "url", subset.of = c("url", "local_tmp_path"))
       checkmate::assert_character(assignment$run_code[[i]]$url)
     }
@@ -423,8 +429,6 @@ get_assignment_full_subpath <- function(sub_path, path){
   }
 }
 
-
-
 #' @title
 #'  Functions to create directories
 #'  
@@ -451,4 +455,60 @@ mark_my_tasks_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tasks")
 #' @param ... to send to \code{\link{mark_my_assignment_dir}}
 #' @keywords internal
 mark_my_run_code_dir <- function(...) paste0(mark_my_assignment_dir(...), "/run_code")
+
+
+
+#' Get assignment paths and files
+#'
+#' @param assignment a \code{assignment_config} object.
+#'
+assignment_paths_and_files <- function(assignment = NULL){
+  if(!is.null(assignment)){
+    checkmate::assert_class(assignment, "assignment_config")
+  } else {
+    # assignment <- markmyassignment:::read_assignment_yml("inst/extdata/example_assignment_full.yml")
+    assignment <- read_assignment_yml()
+  }
+  
+  task_name <- path_name <- test_file_name <- js <- is <- list()
+  for(j in seq_along(assignment[["tasks"]])) {
+    task_name[[j]] <- path_name[[j]] <- test_file_name[[j]] <- js[[j]] <- is[[j]] <- list()
+    for(i in seq_along(assignment[["tasks"]][[j]]$url)){
+      fn <- strsplit(assignment[["tasks"]][[j]]$url[i], "/")[[1]]
+      path_name[[j]][[i]] <- fn[length(fn)]
+      test_file_name[[j]][[i]] <- paste0("test-", j, "-", i, ".R")
+      task_name[[j]][[i]] <- names(assignment[["tasks"]])[j]
+      js[[j]][[i]] <- j
+      is[[j]][[i]] <- i
+    }
+  }
+  df <- data.frame(name = unlist(task_name), path_file = unlist(path_name), test_file = unlist(test_file_name), class = "tasks", j = unlist(js), i = unlist(is))
+  
+  task_name <- test_file_name <- class_name <- is <- list()
+  for(i in seq_along(assignment[["mandatory"]]$url)) {
+    fn <- strsplit(assignment[["mandatory"]]$url[i], "/")[[1]]
+    task_name[[i]] <- fn[length(fn)]
+    test_file_name[[i]] <- paste0("test-mandatory-", i, ".R")
+    class_name[[i]] <- "mandatory"
+    is[[i]] <- i
+  }
+  df <- rbind(df, data.frame(name = unlist(class_name), path_file = unlist(task_name), test_file = unlist(test_file_name), class = unlist(class_name), j = rep(NA, length(unlist(task_name))), i = unlist(is)))
+  
+  task_name <- path_name <- test_file_name <- js <- is <- list()
+  for(j in seq_along(assignment[["run_code"]])) {
+    task_name[[j]] <- path_name[[j]] <- test_file_name[[j]] <- js[[j]] <- is[[j]] <- list()
+    for(i in seq_along(assignment[["run_code"]][[j]]$url)){
+      fn <- strsplit(assignment[["run_code"]][[j]]$url[i], "/")[[1]]
+      path_name[[j]][[i]] <- fn[length(fn)]
+      task_name[[j]][[i]] <- names(assignment[["run_code"]])[j]
+      test_file_name[[j]][[i]] <- paste0("run_code-", task_name[[j]][[i]], "-", i, ".R")
+      js[[j]][[i]] <- j
+      is[[j]][[i]] <- i
+    }
+  }
+  df <- rbind(df, data.frame(name = unlist(task_name), path_file = unlist(path_name), test_file = unlist(test_file_name), class = rep("run_code", length(unlist(task_name))), j = unlist(js), i = unlist(is)))
+  
+  df
+}
+
 
