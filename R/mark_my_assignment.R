@@ -205,21 +205,48 @@ cheer <- function() {
 #' @keywords internal
 #' 
 delete_circular_calls <- function(mark_file){
+  checkmate::assert_file_exists(mark_file)
+  # mark_file <- "inst/extdata/example_lab_file_circular.R"
   txt_in <- txt_out <- as.character(parse(mark_file))
-  forbidden <- c(
-    "mark_my_assignment", "mark_my_dir", "set_assignment", "mark_my_file",
-    "install.packages", "utils::install.packages",
-    "devtools::install_github", "install_github", "data", "system")
+  forbidden <- forbidden_functions()
+  forbidden_string <- paste(forbidden, "()", sep = "")
   regex <- paste("(^|;| )", forbidden, "\\(.*\\)", sep = "")
-  for(pattern in regex){
-    txt_out <- gsub(pattern = pattern, replacement = "", x = txt_out)
-  }
-  if(!identical(txt_in, txt_out))
-    message("The following statements were ignored when running mark_my_file:\n",
-            paste(txt_in[txt_in != txt_out], collapse = "\n"))
+  msg_statement <- msg_forbidden <- character(0)
+  remove_row <- logical(length(txt_in))
+  forbidden_funs <- logical(length(regex))
   
+  for(i in seq_along(txt_in)){
+    for(j in seq_along(regex)){
+      forbidden_funs[j] <- grepl(pattern = regex[j], txt_out[i])
+    }
+    if(any(forbidden_funs)){
+      remove_row[i] <- TRUE
+      msg_statement <- c(msg_statement, txt_in[i])
+      msg_string <- paste(forbidden_string[forbidden_funs], collapse = ", ")
+      msg_forbidden <- c(msg_forbidden, msg_string)
+    }
+  }
+
+  warn_msg <- paste0("\n> ", msg_statement, "\ndue to: ", msg_forbidden, "\n")
+    
+  if(any(remove_row)){
+    warning("The following statement(s) were ignored/removed when running mark_my_file():\n",
+            warn_msg)
+    txt_out <- txt_in[!remove_row]
+  }
   return(txt_out)
 }
+
+#' Functions that are ignored
+#'  
+#' @keywords internal
+forbidden_functions <- function(){
+  ns <- ls(name = "package:markmyassignment")
+  forbidden <- c("install.packages", "utils::install.packages",
+  "devtools::install_github", "install_github", "data", "system")
+  c(forbidden, ns, paste0("markmyassignment::", ns))
+}
+
 
 
 #' Get task file name from task names

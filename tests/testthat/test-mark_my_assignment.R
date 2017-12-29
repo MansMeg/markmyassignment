@@ -91,3 +91,9 @@ test_that(desc="mark_my_dir()",{
   expect_equal(length(res_mark), 2)
   expect_is(res_mark[[1]], class = "testthat_results")
 })
+
+test_that(desc="delete_circular_calls()",{
+  expect_warning(delete_circular_calls("inst/extdata/example_lab_file_circular.R"))
+  expect_silent(delete_circular_calls("inst/extdata/example_lab_file.R"))
+})
+
