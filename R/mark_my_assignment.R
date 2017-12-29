@@ -37,7 +37,12 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
   }
   
   # Run test suites 
-  test_results <- run_test_suite(caller = "mark_my_assignment", tasks, mark_file, quiet, ...)
+  if(quiet){
+    capture_output(test_results <- suppressMessages(run_test_suite(caller = "mark_my_assignment", tasks, mark_file, quiet, ...)))
+  } else {
+    test_results <- run_test_suite(caller = "mark_my_assignment", tasks, mark_file, quiet, ...)
+  }
+
   
   # Put together file for multiple checks
   test_results_df <- as.data.frame(test_results) 
@@ -186,7 +191,7 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   checkmate::assert_flag(quiet)
   
   # mark_my_tasks_dir <- markmyassignment:::mark_my_tasks_dir
-  task_directory <- mark_my_tasks_dir()
+  test_directory <- mark_my_tasks_dir()
   
   if(caller == "mark_my_assignment" & is.null(mark_file)){
     mark_my_env <- new.env(parent = .GlobalEnv)
