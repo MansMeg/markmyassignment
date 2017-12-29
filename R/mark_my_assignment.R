@@ -32,12 +32,12 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
   if(!is.null(mark_file)){
     .Deprecated("mark_my_file", old = "mark_file")
   }
+  if(force_get_tests){
+    .Deprecated("set_assignment()", old = "force_get_tests")
+  }
   
-  # Get tests / download test suite to local storage
-  get_tests(tasks = tasks, force_get_tests = force_get_tests)
-
-  # Check 
-  test_results <- run_test_suite("mark_my_assignment", tasks, mark_file, quiet, ...)
+  # Run test suites 
+  test_results <- run_test_suite(caller = "mark_my_assignment", tasks, mark_file, quiet, ...)
   
   # Put together file for multiple checks
   test_results_df <- as.data.frame(test_results) 
@@ -180,8 +180,13 @@ cached_tasks <- function(){
 #' @keywords internal
 #'   
 run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, ...){
+  checkmate::assert_choice(caller, c("mark_my_assignment", "mark_my_file"))
+  checkmate::assert_character(tasks, null.ok = TRUE)
+  if(!is.null(mark_file)) checkmate::assert_file_exists(mark_file)
+  checkmate::assert_flag(quiet)
   
-  test_directory <- mark_my_test_dir()
+  # mark_my_tasks_dir <- markmyassignment:::mark_my_tasks_dir
+  task_directory <- mark_my_tasks_dir()
   
   if(caller == "mark_my_assignment" & is.null(mark_file)){
     mark_my_env <- new.env(parent = .GlobalEnv)
@@ -196,14 +201,25 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
     source(file = tf_path, local = mark_my_env)
     unlink(x = tf_path)
   } 
+
+  # tasks <- "task2"
+  tasks_fn <- translate_tasks_name_to_task_files(tasks)
+  if(!is.null(tasks)) tasks <- paste(c("mandatory", paste(gsub("test-", "", tasks_fn), collapse="|")), collapse="|")
   
-  if(is.null(tasks)) tasks <- "all" else tasks <- paste(c("00mandatory", paste(tasks, collapse="|")), collapse="|")
-  
-  if(tasks == "all") tasks <- NULL
+  # Source in before code
+  run_code_paths <- dir(mark_my_run_code_dir())
+  before_paths <- paste0(mark_my_run_code_dir(), "/", run_code_paths[grepl("before",run_code_paths)])
+  for(i in seq_along(before_paths)) source(file = before_paths[i], local = mark_my_env)
+    
   test_res <- test_dir(path = test_directory, 
                        filter = tasks, 
                        env = mark_my_env,
                        ...)
+  
+  # Source in after code
+  after_paths <- paste0(mark_my_run_code_dir(), "/", run_code_paths[grepl("after",run_code_paths)])
+  for(i in seq_along(after_paths)) source(file = after_paths[i], local = mark_my_env)
+  
   test_res
 }
 
@@ -250,10 +266,17 @@ delete_circular_calls <- function(mark_file){
     message("The following statements were ignored when running mark_my_file:\n",
             paste(txt_in[txt_in != txt_out], collapse = "\n"))
   
-  #   indices <- grep(pattern = "^data\\(.*\\)", x = txt_out, value = F)
-  #   txt_out[indices] <- gsub(pattern = "^data\\(", replacement = "markmyassignment:::data_mma\\(", x = txt[indices])
-  
   return(txt_out)
 }
 
 
+#' Get task file name from task names
+#' 
+#' @param tasks task names in assignment
+#' 
+translate_tasks_name_to_task_files <- function(tasks){
+  df <- assignment_paths_and_files()
+  tasks_in_assignment <- as.character(unique(df$name[df$class == "tasks"]))
+  checkmate::assert_subset(tasks, tasks_in_assignment)
+  as.character(df$test_file[df$name %in% tasks])
+}
