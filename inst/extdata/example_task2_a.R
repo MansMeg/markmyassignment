@@ -1,6 +1,6 @@
 ### Assignment : task2 ###
 
-context("task2")
+context("task2a")
 
 test_that("Marking task2", {
   expect_true(exists("task2"), info = "task2() does not exist.")
