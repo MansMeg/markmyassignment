@@ -15,3 +15,4 @@ a \code{bool} that is named \code{raw}, \code{http} or \code{api} if a github pa
 \description{
 Check if a path is from github
 }
+\keyword{internal}

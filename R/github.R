@@ -3,6 +3,7 @@
 #' @param path a path to check
 #'
 #' @return a \code{bool} that is named \code{raw}, \code{http} or \code{api} if a github path.
+#' @keywords internal
 is_github_path <- function(path){
   checkmate::assert_string(path)
   is_raw <- grepl("//raw\\.githubusercontent\\.com", path)
@@ -23,6 +24,7 @@ is_github_path <- function(path){
 #' @param path a path to check
 #'
 #' @return a list 
+#' @keywords internal 
 get_github_path_info <- function(path){
   checkmate::assert_string(path)
   github_type <- is_github_path(path)
@@ -78,7 +80,7 @@ get_github_path_info <- function(path){
 #' Create a github_download_url from a path_github object.
 #' 
 #' @param path a \code{path_github} object.
-#' 
+#' @keywords internal
 create_github_download_url <- function(path){
   checkmate::assert_class(path, "path_github")
   paste0("https://raw.githubusercontent.com/", path$owner, "/", path$repo, "/", path$branch, "/", path$subpath)

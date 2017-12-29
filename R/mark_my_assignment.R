@@ -225,7 +225,7 @@ delete_circular_calls <- function(mark_file){
 #' Get task file name from task names
 #' 
 #' @param tasks task names in assignment
-#' 
+#' @keywords internal
 translate_tasks_name_to_task_files <- function(tasks){
   df <- assignment_paths_and_files()
   tasks_in_assignment <- as.character(unique(df$name[df$class == "tasks"]))

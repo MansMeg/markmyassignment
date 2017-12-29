@@ -12,3 +12,4 @@ assignment_paths_and_files(assignment = NULL)
 \description{
 Get assignment paths and files
 }
+\keyword{internal}

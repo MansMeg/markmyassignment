@@ -3,7 +3,7 @@
 \name{set_assignment}
 \alias{set_assignment}
 \alias{remove_assignment}
-\title{Set assignment to mark}
+\title{Set and remove assignments}
 \usage{
 set_assignment(path, auth = NULL)
 

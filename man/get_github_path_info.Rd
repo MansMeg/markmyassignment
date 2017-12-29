@@ -15,3 +15,4 @@ a list
 \description{
 Get github information from a github path
 }
+\keyword{internal}

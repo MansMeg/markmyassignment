@@ -12,3 +12,4 @@ create_github_download_url(path)
 \description{
 Create a github_download_url from a path_github object.
 }
+\keyword{internal}

@@ -1,5 +1,5 @@
 #' @title
-#' Set assignment to mark
+#' Set and remove assignments
 #' 
 #' @description
 #' Sets the assignment to mark and downloads necessary files.
@@ -426,6 +426,7 @@ check_installed_packages <- function(assignment) {
 #' @param sub_path the url to compute the full path for.
 #' @param path the assignment \code{path_type}.
 #' 
+#' @keywords internal
 get_assignment_full_subpath <- function(sub_path, path){
   checkmate::assert_class(path, "path_type")
   checkmate::assert_string(sub_path)
@@ -475,7 +476,7 @@ mark_my_run_code_dir <- function(...) paste0(mark_my_assignment_dir(...), "/run_
 #' Get assignment paths and files
 #'
 #' @param assignment a \code{assignment_config} object.
-#'
+#' @keywords internal
 assignment_paths_and_files <- function(assignment = NULL){
   if(!is.null(assignment)){
     checkmate::assert_class(assignment, "assignment_config")

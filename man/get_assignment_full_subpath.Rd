@@ -15,3 +15,4 @@ get_assignment_full_subpath(sub_path, path)
 The individual paths of assignmentfiles etc can be specified both in full and relative to the assignment file.
 This function computes the full path.
 }
+\keyword{internal}
