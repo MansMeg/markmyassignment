@@ -2,9 +2,7 @@
 % Please edit documentation in R/set_assignment.R
 \name{assert_assignment_config}
 \alias{assert_assignment_config}
-\title{Assert a \code{assignment_config} object.
-
-Check assignment yml file that it is a correct assignment file}
+\title{Assert a \code{assignment_config} object.}
 \usage{
 assert_assignment_config(assignment)
 }
@@ -13,5 +11,8 @@ assert_assignment_config(assignment)
 }
 \value{
 a checked \code{assignment_config} object.
+}
+\description{
+Check assignment yml file that it is a correct assignment file.
 }
 \keyword{internal}

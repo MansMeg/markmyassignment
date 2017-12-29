@@ -10,6 +10,6 @@ assignment_config(x)
 \item{x}{a list to convert to a \code{assignment_config} object.}
 }
 \description{
-Constructor for \code{assignment_config} object
+Constructor for \code{assignment_config} object.
 }
 \keyword{internal}

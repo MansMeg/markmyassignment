@@ -289,10 +289,16 @@ write_assignment_yml <- function(assignment, yml_path){
 }
 
 
+#' @title 
 #' Constructor for \code{assignment_config} object
 #' 
+#' @description 
+#' Constructor for \code{assignment_config} object.
+#' 
 #' @param x a list to convert to a \code{assignment_config} object.
+#' 
 #' @keywords internal
+#' 
 assignment_config <- function(x){
   class(x) <- c("assignment_config", "list")
   assert_assignment_config(x)
@@ -303,7 +309,9 @@ assignment_config <- function(x){
 #' @title
 #' Assert a \code{assignment_config} object.
 #' 
-#' Check assignment yml file that it is a correct assignment file
+#' @description 
+#' Check assignment yml file that it is a correct assignment file.
+#' 
 #' @param assignment object to test.
 #' 
 #' @return a checked \code{assignment_config} object.
