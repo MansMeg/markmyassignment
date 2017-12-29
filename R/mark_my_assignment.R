@@ -10,7 +10,7 @@
 #' @param mark_file
 #'   Argument is deprecated, use mark_my_file instead.
 #' @param force_get_tests
-#'   Force download of test files before marking of assignments. Default is FALSE.
+#'   Argument is deprecated, use \code{set_assignment()} instead.
 #' @param quiet
 #'   Should test be run without output?
 #' @param ... further arguments sent to \code{test_dir()}.
@@ -104,47 +104,6 @@ mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FAL
   return(res_mark)
 }
 
-
-
-#' @title
-#' Get test files
-#' 
-#' @description
-#' Downloads the test files for the current assignment and save them to 
-#' temp directory.
-#' 
-#' @param tasks
-#'   Which task should be downloaded. Default is "all".
-#' @param force_get_tests
-#'   Force download/get test (ignore cached tests).
-#' 
-#' @keywords internal
-#' 
-get_tests <- function(tasks = NULL, force_get_tests = FALSE){
-  assignment <- read_assignment_yml()
-  dir.create(path = mark_my_test_dir(), recursive = TRUE, showWarnings = FALSE)
-  
-  tasks_to_get <- names(assignment$tasks)
-  if(!is.null(tasks)) tasks_to_get <- tasks_to_get[tasks_to_get %in% tasks]
-  if(!force_get_tests) tasks_to_get <- tasks_to_get[!tasks_to_get %in% cached_tasks()]
-  
-  for(task in tasks_to_get) {
-    for(i in seq_along(assignment$tasks[[task]]$url)){
-      dest <- paste0(mark_my_test_dir(), "/test-", task, "-", i, ".R")
-      path <- path_type(assignment$tasks[[task]]$url[i]) 
-      get_file(path = path, dest = dest)
-    }
-  }
-  
-  if(force_get_tests | !"00mandatory" %in% cached_tasks()){
-    for(i in seq_along(assignment$mandatory$url)){
-      dest <- paste0(mark_my_test_dir(), "/test-00mandatory-", i, ".R")
-      path <- path_type(assignment$mandatory$url[i]) 
-      get_file(path = path, dest = dest)
-    }
-  }
-  return(invisible(TRUE))
-}
 
 #' @title
 #' Cached tasks
