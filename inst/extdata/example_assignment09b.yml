@@ -1,0 +1,19 @@
+name: Test assignment 09
+description: An example of how an assignment can be constructed.
+packages: [markmyassignment, checkmate]
+run_code: 
+  before: 
+    url:
+      - example_run_before1.R
+      - example_run_before2.R
+tasks:
+  task1: 
+    url: example_task1.R
+    description: "example_task1 as a description."
+  task2:
+    url:
+      - example_task2_a.R
+      - example_task2_b.R
+mandatory:
+  url:
+    - example_mandatory.R

@@ -39,6 +39,28 @@ test_that(desc="mark_my_assignment()",{
 })
 
 
+test_that(desc="run_code",{
+  suppressWarnings(suppressMessages(set_assignment(file.path(system.file(package = "markmyassignment"), "extdata/example_assignment09.yml"))))
+  source(file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R"))
+  
+  expect_is(x <- capture.output(mark_my_assignment()), "character")
+  expect_true(any(grepl(x,  pattern = "This is run after")))
+  expect_true(any(grepl(x,  pattern = "This is run before 1")))
+  expect_true(any(grepl(x,  pattern = "This is run before 2")))
+  expect_lt(which(grepl(x,  pattern = "This is run before 1")), which(grepl(x,  pattern = "This is run after")))
+
+  suppressWarnings(suppressMessages(set_assignment(file.path(system.file(package = "markmyassignment"), "extdata/example_assignment09a.yml"))))
+  expect_is(x <- capture.output(mark_my_assignment()), "character")
+  expect_true(any(grepl(x,  pattern = "This is run after")))
+  expect_false(any(grepl(x,  pattern = "This is run before 1")))
+  
+  suppressWarnings(suppressMessages(set_assignment(file.path(system.file(package = "markmyassignment"), "extdata/example_assignment09b.yml"))))
+  expect_is(x <- capture.output(mark_my_assignment()), "character")
+  expect_false(any(grepl(x,  pattern = "This is run after")))
+  expect_true(any(grepl(x,  pattern = "This is run before 1")))
+
+})
+
 
 
 test_that(desc="Assertions on arguments mark_my_assignment()",{
