@@ -106,23 +106,6 @@ mark_my_dir <- function(directory, lab_file, tasks = NULL, force_get_tests = FAL
 
 
 #' @title
-#' Cached tasks
-#' 
-#' @description
-#'   Checks which assignments that are cached (ie already downloaded to temp dir).
-#' 
-#' @return
-#'   character vector with cached assignments.
-#' 
-#' @keywords internal
-#' 
-cached_tasks <- function(){    
-  files <- dir(mark_my_test_dir())
-  unique(unlist(lapply(strsplit(files, split = "-"), FUN=function(X) X[2])))
-}
-
-
-#' @title
 #'   Run test suite
 #' 
 #' @description
