@@ -237,7 +237,11 @@ delete_circular_calls <- function(mark_file){
   return(txt_out)
 }
 
-#' Functions that are ignored
+#' Forbidden functions for \code{mark_my_file()}
+#' 
+#' @description 
+#' Funcations that are removed prior to running \code{mark_my_file()}. 
+#' The purpose is to avoid reinstalling packages, doing system calls or similar when checking a file.
 #'  
 #' @keywords internal
 forbidden_functions <- function(){
