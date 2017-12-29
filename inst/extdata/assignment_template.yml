@@ -11,16 +11,18 @@ packages: [markmyassignment, checkmate]
 tasks:
   # This is the name of the first task
   task1: 
-    # If no full path is specified, the path relative to the assignment file is used.
-    # This is a testthat testsuite file.
-    url: example_task1.R 
+    # If no full path/url is specified, the path/url is relative to the assignment file is used.
+    # This is the same as: 
+    # https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task1.R
+    # if the assignment file is https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/assignment_template.yml
+    url: example_task1.R # This is a testthat testsuite file.
     # A short description of the task
     description: "example_task1 as a description."
   task2:
     url:
       # Multiple testthat testsuite files can be used for a task.
       - example_task2_a.R
-      # We can specify the full path to a file as well.
+      # We can specify the full path/url to a file as well.
       - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task2_b.R
 
 # Mandatory testthat testsuite files that are always run. (can be removed)
