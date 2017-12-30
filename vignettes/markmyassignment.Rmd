@@ -27,6 +27,8 @@ All documentation of the package and the functionality can be found using:
 help(package = "markmyassignment")
 ```
 
+You can also get troubleshooting or answers to common questions [here](https://github.com/MansMeg/markmyassignment/blob/master/FAQ.md).
+
 ### Usage
 
 To use the package markmyassignment, you must first load it into your R sesssion:
