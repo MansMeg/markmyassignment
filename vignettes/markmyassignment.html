@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mans Magnusson and Oscar Pettersson" />
 
-<meta name="date" content="2017-12-29" />
+<meta name="date" content="2017-12-30" />
 
 <title>A student’s introduction to markmyassignment</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">A student’s introduction to markmyassignment</h1>
 <h4 class="author"><em>Mans Magnusson and Oscar Pettersson</em></h4>
-<h4 class="date"><em>2017-12-29</em></h4>
+<h4 class="date"><em>2017-12-30</em></h4>
 
 
 
@@ -94,7 +94,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st"> </span><span class="kw">paste0</span>(<span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">&quot;markmyassignment&quot;</span>), <span class="st">&quot;/extdata/example_assignment01.yml&quot;</span>)
 <span class="kw">set_assignment</span>(assignment_path)</code></pre></div>
 <pre><code>## Assignment set:
-## Test assignment 01 : An example of an assignment.</code></pre>
+## Test assignment 01: An example of an assignment.
+## The assignment contain the following (2) tasks:
+## - task1
+## - task2</code></pre>
 <p>Let us look at the tasks included in our example assignment. To check which task that is included we use the function <code>show_tasks()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_tasks</span>()</code></pre></div>
 <pre><code>## [1] &quot;task1&quot; &quot;task2&quot;</code></pre>
@@ -131,7 +134,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ## test-2-1.R:7: error: Marking task2
 ## object 'task2' not found
-## 1: expect_is(task2, &quot;function&quot;, info = &quot;task2 is not a function.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpRyulmK/markmyassignment/assignment1/tasks/test-2-1.R:7
+## 1: expect_is(task2, &quot;function&quot;, info = &quot;task2 is not a function.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpnecED2/markmyassignment/assignment1/tasks/test-2-1.R:7
 ## 2: quasi_label(enquo(object), label)
 ## 3: eval_bare(get_expr(quo), get_env(quo))
 ## ─────────────────────────────────────────────────────────────────
@@ -142,7 +145,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## ─────────────────────────────────────────────────────────────────
 ## test-2-2.R:6: error: Mark even more on task2
 ## could not find function &quot;task2&quot;
-## 1: expect_is(task2(5:10), &quot;integer&quot;, info = &quot;task2 don't return an integer.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpRyulmK/markmyassignment/assignment1/tasks/test-2-2.R:6
+## 1: expect_is(task2(5:10), &quot;integer&quot;, info = &quot;task2 don't return an integer.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpnecED2/markmyassignment/assignment1/tasks/test-2-2.R:6
 ## 2: quasi_label(enquo(object), label)
 ## 3: eval_bare(get_expr(quo), get_env(quo))
 ## ─────────────────────────────────────────────────────────────────
@@ -192,9 +195,7 @@ task2() does not exist.</code></pre>
 ## OK:       3
 ## Failed:   1
 ## Warnings: 0
-## Skipped:  0
-## 
-## No-one gets it right on their first try</code></pre>
+## Skipped:  0</code></pre>
 <p>That worked better! But we still get an error:</p>
 <pre><code>test-mandatory-1.R:6: failure: Mandatory tests
 exists(&quot;my_name&quot;) isn't true.
@@ -239,7 +240,9 @@ Variable my_name is missing</code></pre>
 ## OK:       7
 ## Failed:   1
 ## Warnings: 0
-## Skipped:  0</code></pre>
+## Skipped:  0
+## 
+## No-one is perfect!</code></pre>
 <p>Oh! There seems to be an error in our function? Ah, the problem seems to be that we assumed a fixed length vector argument. Let us correct that and check our task again.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">task2 &lt;-<span class="st"> </span><span class="cf">function</span>(vector){
   vector[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>vector[<span class="kw">length</span>(vector)]
@@ -343,7 +346,7 @@ assignment_path &lt;-<span class="st"> </span>
 ## Failed:   0
 ## Warnings: 0
 ## Skipped:  0
-## Yay! All done!</code></pre>
+## Good work!</code></pre>
 <p>It is also possible to just specify the assignment path and then choose the assignment file as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mark_my_file</span>(<span class="dt">assignment_path =</span> assignment_path)</code></pre></div>
 <p>We could also check individual tasks in our file, similar to before:</p>
@@ -364,9 +367,7 @@ assignment_path &lt;-<span class="st"> </span>
 ## OK:       4
 ## Failed:   0
 ## Warnings: 0
-## Skipped:  0
-## 
-## Your tests are praiseworthy!</code></pre>
+## Skipped:  0</code></pre>
 <p>Good luck! If you have any suggestions, comments or ideas feel free to add an issue at the package <a href="https://github.com/MansMeg/markmyassignment">webpage</a>!</p>
 </div>
 
