@@ -84,6 +84,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3>How to get help</h3>
 <p>All documentation of the package and the functionality can be found using:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;markmyassignment&quot;</span>)</code></pre></div>
+<p>You can also get troubleshooting or answers to common questions <a href="https://github.com/MansMeg/markmyassignment/blob/master/FAQ.md">here</a>. Please add your own questions and solutions if you have any!</p>
 </div>
 <div id="usage" class="section level3">
 <h3>Usage</h3>
@@ -121,7 +122,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ⠋ |  1       | task1
 ⠙ |  2       | task1
 ⠹ |  3       | task1
-✔ |  3       | task1
+✔ |  3       | task1 [0.1 s]
 ## 
 ⠏ |  0       | task2
 ⠋ |  0 1     | task2
@@ -134,7 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 
 ## test-2-1.R:7: error: Marking task2
 ## object 'task2' not found
-## 1: expect_is(task2, &quot;function&quot;, info = &quot;task2 is not a function.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpnecED2/markmyassignment/assignment1/tasks/test-2-1.R:7
+## 1: expect_is(task2, &quot;function&quot;, info = &quot;task2 is not a function.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//Rtmpf6zQR7/markmyassignment/assignment1/tasks/test-2-1.R:7
 ## 2: quasi_label(enquo(object), label)
 ## 3: eval_bare(get_expr(quo), get_env(quo))
 ## ─────────────────────────────────────────────────────────────────
@@ -145,7 +146,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## ─────────────────────────────────────────────────────────────────
 ## test-2-2.R:6: error: Mark even more on task2
 ## could not find function &quot;task2&quot;
-## 1: expect_is(task2(5:10), &quot;integer&quot;, info = &quot;task2 don't return an integer.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpnecED2/markmyassignment/assignment1/tasks/test-2-2.R:6
+## 1: expect_is(task2(5:10), &quot;integer&quot;, info = &quot;task2 don't return an integer.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//Rtmpf6zQR7/markmyassignment/assignment1/tasks/test-2-2.R:6
 ## 2: quasi_label(enquo(object), label)
 ## 3: eval_bare(get_expr(quo), get_env(quo))
 ## ─────────────────────────────────────────────────────────────────
@@ -160,7 +161,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## ─────────────────────────────────────────────────────────────────
 ## 
 ## ══ Results ══════════════════════════════════════════════════════
-## Duration: 0.2 s
+## Duration: 0.3 s
 ## 
 ## OK:       3
 ## Failed:   4
@@ -242,7 +243,7 @@ Variable my_name is missing</code></pre>
 ## Warnings: 0
 ## Skipped:  0
 ## 
-## No-one is perfect!</code></pre>
+## Don't worry, you'll get it.</code></pre>
 <p>Oh! There seems to be an error in our function? Ah, the problem seems to be that we assumed a fixed length vector argument. Let us correct that and check our task again.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">task2 &lt;-<span class="st"> </span><span class="cf">function</span>(vector){
   vector[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>vector[<span class="kw">length</span>(vector)]
@@ -271,11 +272,13 @@ Variable my_name is missing</code></pre>
 ## OK:       8
 ## Failed:   0
 ## Warnings: 0
-## Skipped:  0</code></pre>
+## Skipped:  0
+## 
+## Woot!</code></pre>
 <p>We succeeded this time! Now all tasks are completed and we can now use <code>mark_my_assignment()</code> to correct the whole lab assignment. Note that <code>my_name</code>, <code>task1</code> and <code>task2</code> need to exist in the global environment. To check this, we can use <code>ls()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
 <pre><code>## [1] &quot;assignment_path&quot; &quot;my_name&quot;         &quot;oldLC&quot;           &quot;task1&quot;          
-## [5] &quot;task2&quot;</code></pre>
+## [5] &quot;task2&quot;           &quot;x&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mark_my_assignment</span>()</code></pre></div>
 <pre><code>## ✔ | OK F W S | Context
 ## 
@@ -307,7 +310,7 @@ Variable my_name is missing</code></pre>
 ## Failed:   0
 ## Warnings: 0
 ## Skipped:  0
-## Yay! All done!</code></pre>
+## Keep up the good work!</code></pre>
 <p>Yay! We have completed the whole lab assignment!</p>
 <p>If we save our file now, we could even clean the global environment and run the tests on the assignment file we will turn in. This is also what the teacher will do when correcting the labs (but probably with some extra tests). We need both the file path to our file and the assignment path that we used to <code>set_assignment()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mark_file &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">&quot;markmyassignment&quot;</span>), <span class="st">&quot;/extdata/example_lab_file.R&quot;</span>)
@@ -346,7 +349,7 @@ assignment_path &lt;-<span class="st"> </span>
 ## Failed:   0
 ## Warnings: 0
 ## Skipped:  0
-## Good work!</code></pre>
+## Keep up the good work!</code></pre>
 <p>It is also possible to just specify the assignment path and then choose the assignment file as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mark_my_file</span>(<span class="dt">assignment_path =</span> assignment_path)</code></pre></div>
 <p>We could also check individual tasks in our file, similar to before:</p>

@@ -89,9 +89,13 @@ All solutions from the students can be collected and marked automatically. The a
 
 In marking of student lab files there are som extra exceptions included in `markmyassignment` with the purpose of testing student assignment. The included expectations are:
 
+```{r, results='asis', echo=FALSE}
+suppressPackageStartupMessages(library(markmyassignment))
+x <- ls("package:markmyassignment")[grepl(ls("package:markmyassignment"),pattern = "expect")]
+cat(paste(paste0("- `", x, "`"), collapse = "\n"))
+```
 
-See the documentation for futher information.
-
+See the documentation for each function for futher information and usage.
 
 
 ### Using testthat functionality

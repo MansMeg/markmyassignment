@@ -13,6 +13,11 @@
 ## ---- message=FALSE, eval=FALSE------------------------------------------
 #  vignette("markmyassignment")
 
+## ---- results='asis', echo=FALSE-----------------------------------------
+suppressPackageStartupMessages(library(markmyassignment))
+x <- ls("package:markmyassignment")[grepl(ls("package:markmyassignment"),pattern = "expect")]
+cat(paste(paste0("- `", x, "`"), collapse = "\n"))
+
 ## ---- message=FALSE, eval=FALSE------------------------------------------
 #  mark_my_assignment(reporter = "summary")
 
