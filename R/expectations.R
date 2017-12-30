@@ -14,7 +14,6 @@
 #' @export
 expect_function_self_contained <- function(object, info = NULL, label = NULL) {
   
-  if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
   if(!is.null(label)) .Deprecated(msg = "argument label is deprecated with testthat 2.0")
   
   # 1. Capture object and label
@@ -45,8 +44,7 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
 #' @export
 expect_attached_package <- function(pkg, info = NULL){
   checkmate::assert_string(pkg)
-  if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
-  
+
   # 2. Call expect()
   msg <- sprintf("Package '%s' is not used (attached).", pkg)
   expect(any(grepl(pkg, search())), msg)
