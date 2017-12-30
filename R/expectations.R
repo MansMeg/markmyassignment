@@ -6,7 +6,7 @@
 #' 
 #' @param object 
 #'   Function to test if it is self-contained.
-#' @param label Deprecated.
+#' @param label Additional information.
 #' @param info Deprecated.
 #' 
 #' @keywords internal
@@ -23,7 +23,7 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
   # 2. Call expect()
   act$global_vars <- codetools::findGlobals(object, merge = F)$variables
   msg <- sprintf("%s contain global variable(s): %s.", act$lab, paste(act$global_vars, collapse = " "))
-  expect(length(act$global_vars) == 0, msg)
+  expect(length(act$global_vars) == 0, msg, info)
   
   # 3. Invisibly return the value
   invisible(act$val)
@@ -88,7 +88,7 @@ expect_no_attached_forbidden_package <- function(pkg){
 #'   Function to check the arguments of.
 #' @param expected
 #'   Expected arguments in function.
-#' @param label Deprecated.
+#' @param label Additional information.
 #' @param info  Deprecated.
 #' @param expected.label Deprecated.
 #' 
@@ -98,7 +98,6 @@ expect_no_attached_forbidden_package <- function(pkg){
 expect_function_arguments <- function(object, expected, info = NULL, label = NULL, expected.label = NULL) {
   checkmate::assert_character(expected, null.ok = TRUE)
   
-  if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
   if(!is.null(label)) .Deprecated(msg = "argument label is deprecated with testthat 2.0")
   if(!is.null(expected.label)) .Deprecated(msg = "argument expected.label is deprecated with testthat 2.0")
   
@@ -114,7 +113,7 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
                  act$lab, 
                  paste(expected, collapse = " "),                 
                  paste(act$function_arguments, collapse = " "))
-  expect(!(any(act$missing_arguments) | any(act$extra_arguments)), msg)
+  expect(!(any(act$missing_arguments) | any(act$extra_arguments)), msg, info)
     
   
   # 3. Invisibly return the value
@@ -132,7 +131,7 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
 #'   Function to check for mandatory code
 #' @param expected
 #'   Expected arguments in function.
-#' @param label Deprecated.
+#' @param label Additional information.
 #' @param info Deprecated.
 #' @param expected.label Deprecated.
 #' 
@@ -143,7 +142,6 @@ expect_function_code <-
   function(object, expected, info = NULL, label = NULL, expected.label = NULL) 
   {
     checkmate::assert_string(expected)
-    if(!is.null(info)) .Deprecated(msg = "argument info is deprecated with testthat 2.0")
     if(!is.null(label)) .Deprecated(msg = "argument label is deprecated with testthat 2.0")
     if(!is.null(expected.label)) .Deprecated(msg = "argument expected.label is deprecated with testthat 2.0")
     
@@ -157,7 +155,8 @@ expect_function_code <-
       any(grepl(x = act$body, pattern = expected)),
       sprintf("'%s' not found in the body of %s", 
               expected, 
-              act$lab)
+              act$lab),
+      info
     )
     
     # 3. Invisibly return the value
