@@ -312,7 +312,6 @@ read_assignment_yml <- function(yml_path = NULL){
     return(res)
   } else {
     stop("No assignment has been set. Please use set_assignment().", call. = FALSE)
-    return(invisible(NULL))
   }
 }
 
