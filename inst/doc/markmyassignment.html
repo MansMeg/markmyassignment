@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mans Magnusson and Oscar Pettersson" />
 
-<meta name="date" content="2017-12-30" />
+<meta name="date" content="2017-12-31" />
 
 <title>A student’s introduction to markmyassignment</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">A student’s introduction to markmyassignment</h1>
 <h4 class="author"><em>Mans Magnusson and Oscar Pettersson</em></h4>
-<h4 class="date"><em>2017-12-30</em></h4>
+<h4 class="date"><em>2017-12-31</em></h4>
 
 
 
@@ -88,7 +88,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="usage" class="section level3">
 <h3>Usage</h3>
-<p>To use the package markmyassignment, you must first load it into your R sesssion:</p>
+<p>To use the package markmyassignment, you must first load it into your R session:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(markmyassignment)</code></pre></div>
 <p>Then, use <code>set_assignment()</code> with the path provided by the teacher. Below you will find an example assignment that is part of the <code>markmyassignment</code> package. The assignment path of this example assignment depends on the local R installation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">assignment_path &lt;-<span class="st"> </span>
@@ -102,7 +102,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Let us look at the tasks included in our example assignment. To check which task that is included we use the function <code>show_tasks()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">show_tasks</span>()</code></pre></div>
 <pre><code>## [1] &quot;task1&quot; &quot;task2&quot;</code></pre>
-<p>In this example assignment there are two tasks and also a mandatory requirement.</p>
+<p>In this example assignment, there are two tasks and also a mandatory requirement.</p>
 <p><strong>Mandatory requirement: </strong></p>
 <p><em>Store your name in the variable</em> <code>my_name</code><em>.</em></p>
 <p><strong>task1:</strong></p>
@@ -122,54 +122,54 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ⠋ |  1       | task1
 ⠙ |  2       | task1
 ⠹ |  3       | task1
-✔ |  3       | task1 [0.1 s]
+✔ |  3       | task1
 ## 
 ⠏ |  0       | task2
 ⠋ |  0 1     | task2
 ⠙ |  0 2     | task2
 ✖ |  0 2     | task2
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## test-2-1.R:6: failure: Marking task2
 ## exists(&quot;task2&quot;) isn't true.
 ## task2() does not exist.
 ## 
 ## test-2-1.R:7: error: Marking task2
 ## object 'task2' not found
-## 1: expect_is(task2, &quot;function&quot;, info = &quot;task2 is not a function.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//Rtmpf6zQR7/markmyassignment/assignment1/tasks/test-2-1.R:7
+## 1: expect_is(task2, &quot;function&quot;, info = &quot;task2 is not a function.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpXNnLjK/markmyassignment/assignment1/tasks/test-2-1.R:7
 ## 2: quasi_label(enquo(object), label)
 ## 3: eval_bare(get_expr(quo), get_env(quo))
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ⠏ |  0       | task2
 ⠋ |  0 1     | task2
 ✖ |  0 1     | task2
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## test-2-2.R:6: error: Mark even more on task2
 ## could not find function &quot;task2&quot;
-## 1: expect_is(task2(5:10), &quot;integer&quot;, info = &quot;task2 don't return an integer.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//Rtmpf6zQR7/markmyassignment/assignment1/tasks/test-2-2.R:6
+## 1: expect_is(task2(5:10), &quot;integer&quot;, info = &quot;task2 don't return an integer.&quot;) at /var/folders/9h/yf354vb917z6gr6mz7bfb1d40000gn/T//RtmpXNnLjK/markmyassignment/assignment1/tasks/test-2-2.R:6
 ## 2: quasi_label(enquo(object), label)
 ## 3: eval_bare(get_expr(quo), get_env(quo))
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ⠏ |  0       | Mandatory tests
 ⠋ |  0 1     | Mandatory tests
 ✖ |  0 1     | Mandatory tests
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## test-mandatory-1.R:6: failure: Mandatory tests
 ## exists(&quot;my_name&quot;) isn't true.
 ## Variable my_name is missing
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## 
-## ══ Results ══════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════
 ## Duration: 0.3 s
 ## 
 ## OK:       3
 ## Failed:   4
 ## Warnings: 0
 ## Skipped:  0</code></pre>
-<p>That did not work very well. This is how it looks when something goes wrong when the <code>markmyassignment</code> package is used. It looks very daunting in this vignette, but using the function in R will results in less output.</p>
+<p>That did not work very well. This is how it looks when something goes wrong when the <code>markmyassignment</code> package is used. It looks very daunting in this vignette, but using the function in R will result in less output.</p>
 <p>The first part of the message contains the names of the tests that are run and the number of OK, F(ailures) and W(arnings). You do not want any Failures and Warnings may be something wrong and should be checked.</p>
-<p>The easiest way to go through the error messages is to start in a chronological order. Start with the first error (error number 1) and correct this error and then run the <code>mark_my_assignment()</code> function again. Lets look at the first error message:</p>
+<p>The easiest way to go through the error messages is to start in a chronological order. Start with the first error (error number 1) and correct this error and then run the <code>mark_my_assignment()</code> function again. Let’s look at the first error message:</p>
 <pre><code>test-2-1.R:6: failure: Marking task2
 exists(&quot;task2&quot;) isn't true.
 task2() does not exist.</code></pre>
@@ -186,22 +186,24 @@ task2() does not exist.</code></pre>
 ⠏ |  0       | Mandatory tests
 ⠋ |  0 1     | Mandatory tests
 ✖ |  0 1     | Mandatory tests
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## test-mandatory-1.R:6: failure: Mandatory tests
 ## exists(&quot;my_name&quot;) isn't true.
 ## Variable my_name is missing
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## 
-## ══ Results ══════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════
 ## OK:       3
 ## Failed:   1
 ## Warnings: 0
-## Skipped:  0</code></pre>
+## Skipped:  0
+## 
+## Don't worry, you'll get it.</code></pre>
 <p>That worked better! But we still get an error:</p>
 <pre><code>test-mandatory-1.R:6: failure: Mandatory tests
 exists(&quot;my_name&quot;) isn't true.
 Variable my_name is missing</code></pre>
-<p>We forgot to add the mandatory name. Lets do that now:</p>
+<p>We forgot to add the mandatory name. Let’s do that now:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_name &lt;-<span class="st"> &quot;SkyNet&quot;</span></code></pre></div>
 <p>Now it worked out! We have solved the first task. Let us try to solve the second task.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">task2 &lt;-<span class="st"> </span><span class="cf">function</span>(vector){
@@ -225,25 +227,23 @@ Variable my_name is missing</code></pre>
 ⠹ |  2 1     | task2
 ⠸ |  3 1     | task2
 ✖ |  3 1     | task2
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## test-2-2.R:8: failure: Mark even more on task2
 ## task2(vector = 5:10) not equal to 15.
 ## 1/1 mismatches
 ## [1] 14 - 15 == -1
 ## task2(vector=5:10) don't return 15
-## ─────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ⠏ |  0       | Mandatory tests
 ⠋ |  1       | Mandatory tests
 ✔ |  1       | Mandatory tests
 ## 
-## ══ Results ══════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════
 ## OK:       7
 ## Failed:   1
 ## Warnings: 0
-## Skipped:  0
-## 
-## Don't worry, you'll get it.</code></pre>
+## Skipped:  0</code></pre>
 <p>Oh! There seems to be an error in our function? Ah, the problem seems to be that we assumed a fixed length vector argument. Let us correct that and check our task again.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">task2 &lt;-<span class="st"> </span><span class="cf">function</span>(vector){
   vector[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>vector[<span class="kw">length</span>(vector)]
@@ -268,17 +268,22 @@ Variable my_name is missing</code></pre>
 ⠋ |  1       | Mandatory tests
 ✔ |  1       | Mandatory tests
 ## 
-## ══ Results ══════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════
 ## OK:       8
 ## Failed:   0
 ## Warnings: 0
-## Skipped:  0
-## 
-## Woot!</code></pre>
+## Skipped:  0</code></pre>
 <p>We succeeded this time! Now all tasks are completed and we can now use <code>mark_my_assignment()</code> to correct the whole lab assignment. Note that <code>my_name</code>, <code>task1</code> and <code>task2</code> need to exist in the global environment. To check this, we can use <code>ls()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
-<pre><code>## [1] &quot;assignment_path&quot; &quot;my_name&quot;         &quot;oldLC&quot;           &quot;task1&quot;          
-## [5] &quot;task2&quot;           &quot;x&quot;</code></pre>
+<pre><code>##  [1] &quot;assignment&quot;               &quot;assignment_path&quot;         
+##  [3] &quot;assignment_template_file&quot; &quot;desc&quot;                    
+##  [5] &quot;github_url1&quot;              &quot;github_url2&quot;             
+##  [7] &quot;i&quot;                        &quot;my_name&quot;                 
+##  [9] &quot;path&quot;                     &quot;task_contain&quot;            
+## [11] &quot;task_desc&quot;                &quot;task_descriptions&quot;       
+## [13] &quot;task1&quot;                    &quot;task2&quot;                   
+## [15] &quot;test_assgn_file&quot;          &quot;test_dir&quot;                
+## [17] &quot;x&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mark_my_assignment</span>()</code></pre></div>
 <pre><code>## ✔ | OK F W S | Context
 ## 
@@ -305,12 +310,12 @@ Variable my_name is missing</code></pre>
 ⠋ |  1       | Mandatory tests
 ✔ |  1       | Mandatory tests
 ## 
-## ══ Results ══════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════
 ## OK:       11
 ## Failed:   0
 ## Warnings: 0
 ## Skipped:  0
-## Keep up the good work!</code></pre>
+## Yay! All done!</code></pre>
 <p>Yay! We have completed the whole lab assignment!</p>
 <p>If we save our file now, we could even clean the global environment and run the tests on the assignment file we will turn in. This is also what the teacher will do when correcting the labs (but probably with some extra tests). We need both the file path to our file and the assignment path that we used to <code>set_assignment()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mark_file &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">&quot;markmyassignment&quot;</span>), <span class="st">&quot;/extdata/example_lab_file.R&quot;</span>)
@@ -344,7 +349,7 @@ assignment_path &lt;-<span class="st"> </span>
 ⠋ |  1       | Mandatory tests
 ✔ |  1       | Mandatory tests
 ## 
-## ══ Results ══════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════
 ## OK:       11
 ## Failed:   0
 ## Warnings: 0
@@ -366,7 +371,7 @@ assignment_path &lt;-<span class="st"> </span>
 ⠋ |  1       | Mandatory tests
 ✔ |  1       | Mandatory tests
 ## 
-## ══ Results ══════════════════════════════════════════════════════
+## ══ Results ═══════════════════════════════════════════════════════════════════════════════
 ## OK:       4
 ## Failed:   0
 ## Warnings: 0
