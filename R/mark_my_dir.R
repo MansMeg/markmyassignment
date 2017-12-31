@@ -55,13 +55,12 @@ mark_my_dir <- function(directory, tasks = NULL, assignment_path = NULL, force_g
                    force_get_tests = FALSE, 
                    quiet = quiet, ...), silent=TRUE)
 
-    if(class(res_mark_temp) == "try-error") {
-      message(res_mark_temp[1])
-      message(file_names[i], " could not be marked.")
+    if(inherits(res_mark_temp, "try-error")) {
+      if(!quiet) message(file_names[i], " could not be marked.")
       res_mark[[i]] <- as.character(res_mark_temp[1])
     } else {
       res_mark[[i]] <- res_mark_temp
-      print(paste(file_names[i], "was marked."))
+      if(!quiet) message(paste(file_names[i], "was marked."))
     }
   }
   return(res_mark)
