@@ -5,6 +5,7 @@ test_that(desc="mark_my_file()",{
   source_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
   assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
 
+  remove_assignment()
   expect_error(x <- capture.output(y <- mark_my_assignment()))
   
   x <- capture.output(y <- mark_my_file(mark_file = source_file, assignment_path = assignment_file, quiet = TRUE))
