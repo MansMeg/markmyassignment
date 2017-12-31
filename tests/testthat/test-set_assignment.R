@@ -27,6 +27,14 @@ test_that(desc="set_assignment()",{
   expect_error(set_assignment(wrong_local1))
   expect_error(set_assignment(wrong_local2))
   expect_error(set_assignment(super_wrong_path))
+  
+  
+  github_url1 <- "https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_assignment01.yml"
+  github_url2 <- "https://api.github.com/repos/MansMeg/markmyassignment/contents/inst/extdata/example_assignment01.yml"
+  
+  expect_is(suppressMessages(set_assignment(github_url1)), "character")
+  expect_is(suppressMessages(set_assignment(github_url2)), "character")
+  
 })
 
 test_that(desc="show_tasks()",{
