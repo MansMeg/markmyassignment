@@ -15,7 +15,7 @@ To see the different task, see \code{\link{show_tasks}}.}
 
 \item{assignment_path}{Assignment file to set before marking the assignment (url or local path).}
 
-\item{force_get_tests}{Force download of test files before marking of assignments. Default is FALSE.}
+\item{force_get_tests}{Argument is deprecated, use \code{set_assignment()} instead.}
 
 \item{quiet}{Should test be run without output?}
 

@@ -1,6 +1,5 @@
-name  : Test assignment 01
+name  : Test assignment 08
 description : An example of how an assignment with erroneous package.
-reporter : summary
 tasks:
   task1:
     url: 

@@ -1,6 +1,6 @@
 ### Assignment : task2 ###
 
-context("task2")
+context("task2b")
 
 test_that("Mark even more on task2", {
   expect_is(task2(5:10), "integer", info = "task2 don't return an integer.")

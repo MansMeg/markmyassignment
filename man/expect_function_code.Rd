@@ -14,7 +14,7 @@ expect_function_code(object, expected, info = NULL, label = NULL,
 
 \item{info}{Deprecated.}
 
-\item{label}{Deprecated.}
+\item{label}{Additional information.}
 
 \item{expected.label}{Deprecated.}
 }

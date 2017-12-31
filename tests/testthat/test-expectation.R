@@ -7,12 +7,16 @@ test_that(desc="expect_function_self_contained()",{
   g <- function() h <- 1; h
   expect_failure(expect_function_self_contained(object = f), message = "`f` contain global variable\\(s\\): h\\.")
   expect_success(expect_function_self_contained(object = g))
+  
+  expect_warning(expect_self_contained(object = g), "Deprecated")
 })
 
 
 test_that(desc="expect_attached_package()",{
   expect_success(expect_attached_package("base"))
   expect_failure(expect_attached_package("advfsda"), message = "Package \\'advfsda\\' is not used \\(attached\\)\\.")
+  
+  expect_warning(expect_package("base"), "Deprecated")
 })
 
 test_that(desc="expect_no_attached_forbidden_package()",{

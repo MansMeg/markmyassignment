@@ -4,3 +4,4 @@ R/old/*
 ^\.travis\.yml$
 ^travis-tool\.sh$
 README.md
+FAQ.md

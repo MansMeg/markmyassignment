@@ -1,0 +1,117 @@
+---
+title: "A teachers's introduction to markmyassignment"
+author: "Mans Magnusson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{markmyassignment-teacher}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The `markmyassignment` package is a tool to for teachers to set up testthat test suites for R programming labs or exams. 
+
+The package is a wrapper for `testthat` test suites and a single assignment yml file online govern a lab or an exam. Students set the assignment they want to work with using `set_assignment()`. Then all test suites and assignment information are downloaded and stored in the `tempdir()` folder of the current R session. The students can then easily test their assignments with the function `mark_my_assignment()` or `mark_my_file()`.
+
+`markmyassignment` makes it easy for students to get automatic feedback on their lab assignments (or exams) with very limited overhead. The only thing the students need are:
+- an URL to the assignment yml file online or locally, 
+- internet connection and 
+- `markmyassignment` installed on their local computer.
+
+The main purpose of the package is two-fold. First, making it possible for students to test their own assignments improve the learning since a good test suite guides the students toward problems in their code. The package also considerably speeds up the time it takes to correct labs for teachers.
+
+The package has been used at Linkoping University, Sweden, since 2013 in multiple R courses (advanced and beginners courses). The package has been very popular among students.
+
+
+### Installing the package
+
+The easiest way to install the package in R is as follows:
+
+```{r, message=FALSE, eval=FALSE}
+install.packages("markmyassignment")
+```
+
+### How to get help
+
+All documentation of the package and the functionality can be found using:
+
+```{r, message=FALSE, eval=FALSE}
+help(package = "markmyassignment")
+```
+
+### Students' usage
+
+See the students vignette for markmyassignment [here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) or in R:
+
+```{r, message=FALSE, eval=FALSE}
+vignette("markmyassignment")
+```
+
+### Teachers' usage
+
+To use `markmyassignment` in a course, the following steps are needed. 
+
+#### 1. Create a lab and unit test files using `testthat` for tasks in the lab
+
+The first step is to create a lab. =) Then produce unit tests using the `testthat` package for the assignments the students should turn in. 
+
+If the task is to create a numeric vector with the values `pi` and `e` an example test file can be found [here](https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_task1.R).
+
+In a similar way, one or more mandatory test files can be used for testing of the overall lab file. One example is that there can be mandatory for students to supply a character element `name` the students name. An example test file can be found [here](https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_mandatory.R).
+
+
+#### 2. Create an assignment yml file
+
+The next step is to put all tasks together to a full assignment. This is a collection of test files and mandatory test files. The assignment files is in [yaml](http://www.yaml.org/) format and consists of the root nodes `name` (assignment name), `description` (assignment description), `tasks` (tasks in assignments as separate nodes) and `mandatory` (optional, with URLs to mandatory test). 
+
+A working template with descriptions of each part can be found [here](https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/assignment_template.yml). The assignment can be set with:
+
+```{r, message=FALSE, eval=FALSE}
+set_assignment("https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/assignment_template.yml")
+```
+
+Give the URL to the assignment file to the students.
+
+#### 3. The students work with their assignment
+
+See the students vignette for markmyassignment [here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) or in R:
+
+```{r, message=FALSE, eval=FALSE}
+vignette("markmyassignment")
+```
+
+#### 4. Mark all student solutions
+
+All solutions from the students can be collected and marked automatically. The assignment to test needs to be set with `set_assignment()`. The `mark_my_dir()` function can then be used for the directory with the student solutions. The function returns a `data.frame` with one row per unit test file and lab file. In this way, multiple files can be marked at the same time. Of course, some manual check is needed as well.
+
+
+### Additional testthat expectations
+
+In marking of student lab files there are some extra exceptions included in `markmyassignment` with the purpose of testing student assignment. The included expectations are:
+
+```{r, results='asis', echo=FALSE}
+suppressPackageStartupMessages(library(markmyassignment))
+x <- ls("package:markmyassignment")[grepl(ls("package:markmyassignment"),pattern = "expect")]
+cat(paste(paste0("- `", x, "`"), collapse = "\n"))
+```
+
+See the documentation for each function for further information and usage.
+
+
+### Using testthat functionality
+
+Since `markmyassignment` is in essence just a wrapper for `testthat`, it is simple to choose your own argument for `test_dir()` using `...` in `mark_my_assignment()`. As an example, to use the testthat summary reporter in testing the student assignment, just write:
+
+```{r, message=FALSE, eval=FALSE}
+mark_my_assignment(reporter = "summary")
+```
+
+
+### Using private URLs
+
+It is possible to use basic authentication to access private http URLs (for example to test assignments without making them public). This is done by simply adding a `httr` authentication to the `set_assignment()` function. Here is an example of how to use a private repo on github:
+
+```{r, message=FALSE, eval=FALSE}
+set_assignment("<github private repo url>", httr::authenticate("<Github_Personal_Access_Token>", ""))
+```
+

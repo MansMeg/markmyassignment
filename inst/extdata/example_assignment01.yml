@@ -1,6 +1,5 @@
 name : Test assignment 01
-description : An example of how an assignment can be constructed.
-reporter : summary
+description : An example of an assignment.
 tasks:
   task1:
     url: 

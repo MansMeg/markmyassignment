@@ -2,9 +2,9 @@
 % Please edit documentation in R/set_assignment.R
 \name{read_assignment_yml}
 \alias{read_assignment_yml}
-\title{Load assignment information}
+\title{Read assignment information}
 \usage{
-read_assignment_yml(path = NULL)
+read_assignment_yml(yml_path = NULL)
 }
 \arguments{
 \item{path}{\code{path object} from \code{\link{path_type}}}

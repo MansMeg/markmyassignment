@@ -11,7 +11,7 @@ expect_function_self_contained(object, info = NULL, label = NULL)
 
 \item{info}{Deprecated.}
 
-\item{label}{Deprecated.}
+\item{label}{Additional information.}
 }
 \description{
 Tests if a fuction is self-contained (i.e. do not use any global variables).
