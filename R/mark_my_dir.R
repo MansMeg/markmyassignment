@@ -24,7 +24,6 @@
 #' @export
 mark_my_dir <- function(directory, tasks = NULL, assignment_path = NULL, force_get_tests = FALSE, quiet = FALSE, ...){
   checkmate::assert_directory_exists(directory)
-  checkmate::assert_file_exists(lab_file)
   checkmate::assert_character(tasks, null.ok = TRUE)
   checkmate::assert_string(assignment_path, null.ok = TRUE)
   checkmate::assert_flag(force_get_tests)

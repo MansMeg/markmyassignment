@@ -82,16 +82,6 @@ test_that(desc="Assertions on arguments mark_my_assignment()",{
 })
 
 
-
-test_that(desc="mark_my_dir()",{
-  test_assgn_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
-  test_dir <- file.path(system.file(package = "markmyassignment"), "extdata/example_dir")
-  x <- capture_output(res_mark <- mark_my_dir(directory = test_dir, lab_file = test_assgn_file))
-  expect_is(res_mark, class = "list")
-  expect_equal(length(res_mark), 2)
-  expect_is(res_mark[[1]], class = "testthat_results")
-})
-
 test_that(desc="delete_circular_calls()",{
   expect_warning(delete_circular_calls(file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file_circular.R")))
   expect_silent(delete_circular_calls(file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")))
