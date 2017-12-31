@@ -11,5 +11,3 @@ test_that(desc="mark_my_dir()",{
   expect_is(res_mark[[1]], class = "testthat_results")
 })
 
-
-

@@ -51,8 +51,7 @@ mark_my_file <- function(tasks = NULL, mark_file=file.choose(), assignment_path 
 
   test_results_df <- as.data.frame(test_results)
   if(!any(test_results_df$error) & sum(test_results_df$failed) == 0 & is.null(tasks) & !quiet) cheer()
-  check_existance_tasks(tasks = tasks)
-  
+
   if(!is.null(assignment_path)) remove_assignment()
   
   return(invisible(test_results))

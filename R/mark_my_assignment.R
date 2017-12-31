@@ -47,8 +47,7 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
   # Put together file for multiple checks
   test_results_df <- as.data.frame(test_results) 
   if(!any(test_results_df$error) & sum(test_results_df$failed) == 0 & is.null(tasks) & !quiet) cheer()
-  check_existance_tasks(tasks = tasks)
-  
+
   return(invisible(test_results))
 }
 
