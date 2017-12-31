@@ -27,7 +27,7 @@
 mark_my_file <- function(tasks = NULL, mark_file=file.choose(), assignment_path = NULL, force_get_tests = FALSE, quiet = FALSE, ...){
   checkmate::assert_character(tasks, null.ok = TRUE)
   checkmate::assert_file_exists(mark_file)
-  if(!is.null(assignment_path)) checkmate::assert_file_exists(assignment_path)
+  checkmate::assert_string(assignment_path, null.ok = TRUE)
   checkmate::assert_flag(force_get_tests)
   checkmate::assert_flag(quiet)
   
