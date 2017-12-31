@@ -50,6 +50,14 @@ test_that(desc="show_tasks()",{
   expect_equal(show_tasks(), c("task1","task2"))
 })
 
+test_that(desc="show_assignment()",{
+  correct_url4 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment04.yml"
+  suppressMessages(set_assignment(correct_url4))
+  expect_output(show_assignment(), "Test assignment 04")
+  expect_output(show_assignment(), "task1")
+})
+
+
 test_that(desc="check_installed_packages()",{
   assgn_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment08_bad_pkgs.yml")
   expect_warning(suppressMessages(set_assignment(path = assgn_path)))
