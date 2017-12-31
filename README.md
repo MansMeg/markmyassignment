@@ -20,7 +20,7 @@ The tutorial is also included as a vignette accessible from R with `vignette("ma
 
 
 ### Information for teachers
-[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/inst/doc/markmyassignment-teacher.html) is a students tutorial on how to use ```markmyassignment```. 
+[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/inst/doc/markmyassignment-teacher.html) is a introduction on how to use ```markmyassignment``` as a teacher. 
 
 The tutorial is also included as a vignette accessible from R with `vignette("markmyassignment-teacher")`.
 
