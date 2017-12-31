@@ -3,12 +3,15 @@
 \name{set_assignment}
 \alias{set_assignment}
 \alias{remove_assignment}
+\alias{is_assignment_set}
 \alias{show_assignment}
 \title{Set and remove assignments}
 \usage{
 set_assignment(path, auth = NULL)
 
 remove_assignment()
+
+is_assignment_set()
 
 show_assignment()
 }

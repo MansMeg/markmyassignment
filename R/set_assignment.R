@@ -33,8 +33,8 @@ set_assignment <- function(path, auth = NULL){
   temp_file <- tempfile()
   on.exit(unlink(temp_file))
   
-  # Remove previous assignment (if exists)
-  if(file.exists(mark_my_assignment_dir())) remove_assignment()
+  # Remove previous assignment (if set)
+  if(is_assignment_set()) remove_assignment()
   
   dir.create(mark_my_assignment_dir(), recursive = TRUE, showWarnings = FALSE)
   dest <- paste0(mark_my_assignment_dir(), "/assignment_config.yml")
@@ -58,6 +58,12 @@ set_assignment <- function(path, auth = NULL){
 #' @export
 remove_assignment <- function() {
   unlink(mark_my_assignment_dir(), recursive = TRUE, force = TRUE)
+}
+
+#' @rdname set_assignment
+#' @export
+is_assignment_set <- function(){
+  file.exists(mark_my_assignment_dir())
 }
 
 #' @rdname set_assignment
