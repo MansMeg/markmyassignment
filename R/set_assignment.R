@@ -500,22 +500,22 @@ get_assignment_full_subpath <- function(sub_path, path){
 #' 
 #' @keywords internal
 #' 
-mark_my_base_dir <- function() paste0(tempdir(), "/markmyassignment")
+mark_my_base_dir <- function() file.path(tempdir(), "markmyassignment")
 
 #' @rdname directories
 #' @param no assignment number
 #' @keywords internal
-mark_my_assignment_dir <- function(no = 1) paste0(mark_my_base_dir(), "/assignment", no)
+mark_my_assignment_dir <- function(no = 1) file.path(mark_my_base_dir(), paste0("assignment", no))
 
 #' @rdname directories
 #' @param ... to send to \code{\link{mark_my_assignment_dir}}
 #' @keywords internal
-mark_my_tasks_dir <- function(...) paste0(mark_my_assignment_dir(...), "/tasks")
+mark_my_tasks_dir <- function(...) file.path(mark_my_assignment_dir(...), "tasks")
 
 #' @rdname directories
 #' @param ... to send to \code{\link{mark_my_assignment_dir}}
 #' @keywords internal
-mark_my_run_code_dir <- function(...) paste0(mark_my_assignment_dir(...), "/run_code")
+mark_my_run_code_dir <- function(...) file.path(mark_my_assignment_dir(...), "run_code")
 
 
 

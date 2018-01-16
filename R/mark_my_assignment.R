@@ -17,9 +17,9 @@
 #' 
 #' @examples
 #' assignment_path <- 
-#'  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#'   file.path(system.file(package = "markmyassignment"), "extdata", "example_assignment01.yml")
 #' set_assignment(assignment_path)
-#' source(paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R"))
+#' source(file.path(system.file(package = "markmyassignment"), "extdata", "example_lab_file.R"))
 #' mark_my_assignment()
 #' 
 #' @export
