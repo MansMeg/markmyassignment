@@ -11,9 +11,10 @@
 #' 
 #' @examples
 #' assignment_path <- path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#'   file.path(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#' set_assignment(assignment_path)
 #' assignment_path <- path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/assignment_template.yml")
+#'   file.path(system.file(package = "markmyassignment"), "/extdata/assignment_template.yml")
 #' set_assignment(assignment_path)
 #' 
 #' @export
@@ -302,7 +303,7 @@ get_file.path_github <- function(path, dest, ...){
 #' 
 read_assignment_yml <- function(yml_path = NULL){
   if(is.null(yml_path)){
-    assignment_file <- paste0(mark_my_assignment_dir(), "/assignment_config.yml")
+    assignment_file <- file.path(mark_my_assignment_dir(), "assignment_config.yml")
   } else {
     assignment_file <- yml_path
   }
@@ -416,7 +417,7 @@ assert_assignment_config <- function(assignment){
 #' @examples
 #' # We first set the assignment
 #' assignment_path <- 
-#'  paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+#'  file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
 #' set_assignment(assignment_path)
 #'  
 #' show_tasks()
@@ -479,12 +480,12 @@ get_assignment_full_subpath <- function(sub_path, path){
   
   # Compute base path (that the other is relative to)
   base_path <- strsplit(path$path, "/")[[1]]
-  base_path <- paste(base_path[-length(base_path)], collapse = "/")
+  base_path <- file.path(paste(base_path[-length(base_path)], collapse = "/"))
   
   # test that is of same path_type and file exist -> otherwise assume a relative path to original path
   sub_path_type <- try(path_type(sub_path), silent = TRUE)
   if(is(sub_path_type, "try-error")) {
-    return(path_type(paste0(base_path, "/", sub_path)))
+    return(path_type(file.path(base_path, sub_path)))
   } else {
     return(sub_path_type)
   }

@@ -80,6 +80,7 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   checkmate::assert_flag(quiet)
   
   # mark_my_tasks_dir <- markmyassignment:::mark_my_tasks_dir
+  # test_directory <- "C:/Users/appveyor/AppData/Local/Temp/"
   test_directory <- mark_my_tasks_dir()
   
   if(caller == "mark_my_assignment" & is.null(mark_file)){
@@ -106,8 +107,9 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   }
   
   # Source in before code
+  # mark_my_run_code_dir <- markmyassignment:::mark_my_run_code_dir
   run_code_paths <- dir(mark_my_run_code_dir())
-  before_paths <- paste0(mark_my_run_code_dir(), "/", run_code_paths[grepl("before",run_code_paths)])
+  before_paths <- file.path(mark_my_run_code_dir(), run_code_paths[grepl("before",run_code_paths)])
   for(i in seq_along(before_paths)) source(file = before_paths[i], local = mark_my_env)
     
   test_res <- test_dir(path = test_directory, 
@@ -116,7 +118,7 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
                        ...)
   
   # Source in after code
-  after_paths <- paste0(mark_my_run_code_dir(), "/", run_code_paths[grepl("after",run_code_paths)])
+  after_paths <- file.path(mark_my_run_code_dir(), run_code_paths[grepl("after",run_code_paths)])
   for(i in seq_along(after_paths)) source(file = after_paths[i], local = mark_my_env)
   
   test_res

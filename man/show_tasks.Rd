@@ -12,7 +12,7 @@ Get the name of the tasks in the assignment.
 \examples{
 # We first set the assignment
 assignment_path <- 
- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+ file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
 set_assignment(assignment_path)
  
 show_tasks()

@@ -16,10 +16,10 @@ test_that(desc="set_assignment()",{
   wrong_local2 <- file.path(system.file(package = "markmyassignment"), "file_that_do_not_exist.R")
   
   expect_is(suppressMessages(set_assignment(correct_url1)), "character")
-  expect_is(suppressMessages(set_assignment(path = correct_url2)), "character")
+  expect_warning(suppressMessages(set_assignment(path = correct_url2)))
   expect_is(suppressMessages(set_assignment(path = correct_url4)), "character")
   expect_is(suppressMessages(set_assignment(correct_local1)), "character")
-  expect_is(suppressMessages(set_assignment(correct_local2)), "character")
+  expect_warning(suppressMessages(set_assignment(correct_local2)))
   expect_error(set_assignment(path = correct_url3))
   expect_error(set_assignment(path = correct_url5))
   expect_error(set_assignment(path = wrong_url1))
@@ -46,8 +46,8 @@ test_that(desc="show_tasks()",{
   correct_local2 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment02.yml")
   suppressMessages(set_assignment(correct_local1))
   expect_equal(show_tasks(), c("task1","task2"))
-  suppressMessages(set_assignment(correct_local2))
-  expect_equal(show_tasks(), c("task1","task2"))
+  expect_warning(suppressMessages(set_assignment(correct_local2)))
+  expect_equal(suppressWarnings(show_tasks()), c("task1","task2"))
 })
 
 test_that(desc="show_assignment()",{

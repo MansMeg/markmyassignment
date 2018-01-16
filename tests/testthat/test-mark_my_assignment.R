@@ -2,7 +2,7 @@
 context("mark_my_assignment")
 
 test_that(desc="mark_my_assignment()",{
-  suppressWarnings(suppressMessages(set_assignment(file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml"))))
+  suppressWarnings(suppressMessages(set_assignment(path = file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml"))))
   source(file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R"))
   
   expect_is(capture.output(mark_my_assignment()), "character")
