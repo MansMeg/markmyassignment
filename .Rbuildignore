@@ -5,3 +5,4 @@ R/old/*
 ^travis-tool\.sh$
 README.md
 FAQ.md
+^appveyor\.yml$
