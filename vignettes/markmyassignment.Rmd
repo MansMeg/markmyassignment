@@ -41,7 +41,7 @@ Then, use ```set_assignment()``` with the path provided by the teacher. Below yo
 
 ```{r, message=TRUE}
 assignment_path <- 
- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+ file.path(system.file(package = "markmyassignment"), "extdata", "example_assignment01.yml")
 set_assignment(assignment_path)
 ```
 
@@ -148,10 +148,10 @@ Yay! We have completed the whole lab assignment!
 If we save our file now, we could even clean the global environment and run the tests on the assignment file we will turn in. This is also what the teacher will do when correcting the labs (but probably with some extra tests). We need both the file path to our file and the assignment path that we used to ```set_assignment()```:
 
 ```{r}
-mark_file <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
+mark_file <- file.path(system.file(package = "markmyassignment"), "extdata", "example_lab_file.R")
 
 assignment_path <- 
- paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+ file.path(system.file(package = "markmyassignment"), "extdata", "example_assignment01.yml")
 
 mark_my_file(mark_file = mark_file, assignment_path = assignment_path)
 ```
