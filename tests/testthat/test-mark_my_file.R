@@ -14,7 +14,7 @@ test_that(desc="mark_my_file()",{
   x <- capture.output(y <- mark_my_file(mark_file = file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R"), assignment_path = assignment_file, quiet = TRUE))
   expect_is(y, "testthat_results")
   
-  expect_warning(x <- capture_output(expect_is(mark_my_file(mark_file = file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file_messy.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")))
+  expect_warning(x <- testthat::capture_output(expect_is(mark_my_file(mark_file = file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file_messy.R"), assignment_path = assignment_file, quiet = TRUE), "testthat_results")))
   expect_is(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file)), "character")
 
   x <- capture.output(y <- mark_my_file(tasks = "task1", mark_file = source_file, assignment_path = assignment_file, quiet = TRUE))

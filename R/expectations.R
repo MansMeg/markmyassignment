@@ -17,12 +17,12 @@ expect_function_self_contained <- function(object, info = NULL, label = NULL) {
   if(!is.null(label)) .Deprecated(msg = "argument label is deprecated with testthat 2.0")
   
   # 1. Capture object and label
-  act <- quasi_label(rlang::enquo(object))
+  act <- testthat::quasi_label(rlang::enquo(object))
   
   # 2. Call expect()
   act$global_vars <- codetools::findGlobals(object, merge = F)$variables
   msg <- sprintf("%s contain global variable(s): %s.", act$lab, paste(act$global_vars, collapse = " "))
-  expect(length(act$global_vars) == 0, msg, info)
+  testthat::expect(length(act$global_vars) == 0, msg, info)
   
   # 3. Invisibly return the value
   invisible(act$val)
@@ -47,7 +47,7 @@ expect_attached_package <- function(pkg, info = NULL){
 
   # 2. Call expect()
   msg <- sprintf("Package '%s' is not used (attached).", pkg)
-  expect(any(grepl(pkg, search())), msg)
+  testthat::expect(any(grepl(pkg, search())), msg)
   
   # 3. Invisibly return the value
   invisible(NULL)
@@ -69,7 +69,7 @@ expect_no_attached_forbidden_package <- function(pkg){
 
   # 2. Call expect()
   msg <- sprintf("Package '%s' is forbidden.", pkg)
-  expect(!any(grepl(pkg, search())), msg)
+  testthat::expect(!any(grepl(pkg, search())), msg)
   
   # 3. Invisibly return the value
   invisible(NULL)
@@ -100,7 +100,7 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
   if(!is.null(expected.label)) .Deprecated(msg = "argument expected.label is deprecated with testthat 2.0")
   
   # 1. Capture object and label
-  act <- quasi_label(rlang::enquo(object))
+  act <- testthat::quasi_label(rlang::enquo(object))
   
   # 2. Call expect()
   act$function_arguments <- names(formals(object))
@@ -111,7 +111,7 @@ expect_function_arguments <- function(object, expected, info = NULL, label = NUL
                  act$lab, 
                  paste(expected, collapse = " "),                 
                  paste(act$function_arguments, collapse = " "))
-  expect(!(any(act$missing_arguments) | any(act$extra_arguments)), msg, info)
+  testthat::expect(!(any(act$missing_arguments) | any(act$extra_arguments)), msg, info)
     
   
   # 3. Invisibly return the value
@@ -144,12 +144,12 @@ expect_function_code <-
     if(!is.null(expected.label)) .Deprecated(msg = "argument expected.label is deprecated with testthat 2.0")
     
     # 1. Capture object and label
-    act <- quasi_label(rlang::enquo(object))
+    act <- testthat::quasi_label(rlang::enquo(object))
     
     # 2. Call expect()
     act$body <- as.character(body(object))
 
-    expect(
+    testthat::expect(
       any(grepl(x = act$body, pattern = expected)),
       sprintf("'%s' not found in the body of %s", 
               expected, 
@@ -182,12 +182,12 @@ expect_no_forbidden_function_code <-
     checkmate::assert_string(forbidden)
 
     # 1. Capture object and label
-    act <- quasi_label(rlang::enquo(object))
+    act <- testthat::quasi_label(rlang::enquo(object))
     
     # 2. Call expect()
     act$body <- as.character(body(object))
     
-    expect(
+    testthat::expect(
       !any(grepl(x = act$body, pattern = forbidden)),
       sprintf("Forbidden code '%s' is found in the body of %s", 
               forbidden, 

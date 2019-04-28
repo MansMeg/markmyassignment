@@ -227,7 +227,7 @@ path_type <- function(path, auth = NULL){
   }
   
   try_http <- try(identical(httr::status_code(httr::HEAD(path_obj$path)), 200L), silent = TRUE)
-  if (!is(try_http, "try-error") && try_http){
+  if (!methods::is(try_http, "try-error") && try_http){
     path_obj$auth <- auth
     class(path_obj) <- c("path_http", "path_type", "list")
     return(path_obj)
@@ -484,7 +484,7 @@ get_assignment_full_subpath <- function(sub_path, path){
   
   # test that is of same path_type and file exist -> otherwise assume a relative path to original path
   sub_path_type <- try(path_type(sub_path), silent = TRUE)
-  if(is(sub_path_type, "try-error")) {
+  if(methods::is(sub_path_type, "try-error")) {
     return(path_type(file.path(base_path, sub_path)))
   } else {
     return(sub_path_type)

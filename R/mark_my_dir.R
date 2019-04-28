@@ -36,7 +36,7 @@ mark_my_dir <- function(directory, tasks = NULL, assignment_path = NULL, force_g
     old_warn_opt <- options(warn = 2)
     set_assgn_result <- try(suppressMessages(set_assignment(assignment_path)), silent = TRUE)
     options(warn = old_warn_opt$warn)
-    if(is(set_assgn_result, "try-error"))
+    if(methods::is(set_assgn_result, "try-error"))
       stop(set_assgn_result[1])
   }
   

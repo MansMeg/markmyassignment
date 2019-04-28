@@ -18,11 +18,12 @@
 #' @param ... further arguments sent to \code{test_dir()}.
 #' 
 #' @examples
+#' \dontrun{
 #' assignment_path <- 
-#'   paste0(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
-#' file_path <- paste0(system.file(package = "markmyassignment"), "/extdata/example_lab_file.R")
+#'   file.path(system.file(package = "markmyassignment"), "extdata", "example_assignment01.yml")
+#' file_path <- file.path(system.file(package = "markmyassignment"), "extdata", "example_lab_file.R")
 #' mark_my_file(mark_file = file_path, assignment_path = assignment_path)
-#' 
+#' }
 #' @export
 mark_my_file <- function(tasks = NULL, mark_file=file.choose(), assignment_path = NULL, force_get_tests = FALSE, quiet = FALSE, ...){
   checkmate::assert_character(tasks, null.ok = TRUE)
@@ -39,12 +40,12 @@ mark_my_file <- function(tasks = NULL, mark_file=file.choose(), assignment_path 
     old_warn_opt <- options(warn = 2)
     set_assgn_result <- try(suppressMessages(set_assignment(assignment_path)), silent = TRUE)
     options(warn = old_warn_opt$warn)
-    if(is(set_assgn_result, "try-error"))
+    if(methods::is(set_assgn_result, "try-error"))
       stop(set_assgn_result[1])
   }
   
   if(quiet){
-    capture_output(test_results <- suppressMessages(run_test_suite(caller = "mark_my_file", tasks, mark_file, quiet, ...)))
+    testthat::capture_output(test_results <- suppressMessages(run_test_suite(caller = "mark_my_file", tasks, mark_file, quiet, ...)))
   } else {
     test_results <- run_test_suite(caller = "mark_my_file", tasks, mark_file, quiet, ...)
   }

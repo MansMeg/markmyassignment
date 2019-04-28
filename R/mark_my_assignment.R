@@ -38,7 +38,7 @@ mark_my_assignment <- function(tasks = NULL, mark_file = NULL, force_get_tests =
   
   # Run test suites 
   if(quiet){
-    capture_output(test_results <- suppressMessages(run_test_suite(caller = "mark_my_assignment", tasks, mark_file, quiet, ...)))
+    testthat::capture_output(test_results <- suppressMessages(run_test_suite(caller = "mark_my_assignment", tasks, mark_file, quiet, ...)))
   } else {
     test_results <- run_test_suite(caller = "mark_my_assignment", tasks, mark_file, quiet, ...)
   }
