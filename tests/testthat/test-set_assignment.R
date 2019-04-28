@@ -64,8 +64,10 @@ test_that(desc="check_installed_packages()",{
   assgn_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment07_pkgs.yml")
   expect_warning(suppressMessages(set_assignment(path = assgn_path)))
   library(codetools)
+  library(yaml)
   expect_is(suppressMessages(set_assignment(assgn_path)), "character")
   detach(name = "package:codetools")
+  detach(name = "package:yaml")
 })
 
 
@@ -84,39 +86,39 @@ test_that(desc="path_type()",{
   
 
   expect_silent(pt <- path_type(correct_url1))
-  expect_class(pt, classes = c("path_http", "path_type"))
-  expect_names(names(pt), permutation.of = "path")
+  checkmate::expect_class(pt, classes = c("path_http", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = "path")
   
   expect_silent(pt <- path_type(correct_url2))
-  expect_class(pt, classes = c("path_http", "path_type"))
-  expect_names(names(pt), permutation.of = "path")
+  checkmate::expect_class(pt, classes = c("path_http", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = "path")
   
   expect_error(pt <- path_type(wrong_url1))
   expect_error(pt <- path_type(wrong_url2))
 
   expect_silent(suppressMessages(pt <- path_type(github_url1)))
-  expect_class(pt, classes = c("path_github", "path_type"))
-  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
+  checkmate::expect_class(pt, classes = c("path_github", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
 
   expect_silent(suppressMessages(pt <- path_type(github_url2)))
-  expect_class(pt, classes = c("path_github", "path_type"))
-  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
+  checkmate::expect_class(pt, classes = c("path_github", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
   
   expect_silent(pt <- path_type(github_url3))
-  expect_class(pt, classes = c("path_github", "path_type"))
-  expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
+  checkmate::expect_class(pt, classes = c("path_github", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = c("path", "owner", "repo", "branch", "subpath"))
 
   expect_silent(pt <- path_type(github_url4))
-  expect_class(pt, classes = c("path_http", "path_type"))
-  expect_names(names(pt), permutation.of = c("path"))
+  checkmate::expect_class(pt, classes = c("path_http", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = c("path"))
   
   expect_silent(pt <- path_type(correct_local1))
-  expect_class(pt, classes = c("path_local", "path_type"))
-  expect_names(names(pt), permutation.of = c("path"))
+  checkmate::expect_class(pt, classes = c("path_local", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = c("path"))
 
   expect_silent(pt <- path_type(correct_local2))
-  expect_class(pt, classes = c("path_local", "path_type"))
-  expect_names(names(pt), permutation.of = c("path"))
+  checkmate::expect_class(pt, classes = c("path_local", "path_type"))
+  checkmate::expect_names(names(pt), permutation.of = c("path"))
     
 })
 
@@ -170,7 +172,9 @@ test_that(desc="remove_assignment()",{
 
 test_that(desc="assignment_template",{
   assignment_template_file <- file.path(system.file(package = "markmyassignment"), "extdata/assignment_template.yml")
+  library(checkmate)
   expect_message(set_assignment(assignment_template_file), regexp = "Assignment template")
+  detach(name = "package:checkmate")
   remove_assignment()
 })
 

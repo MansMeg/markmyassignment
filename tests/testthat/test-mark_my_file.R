@@ -44,21 +44,23 @@ test_that(desc="Assertions on arguments in mark_my_file()",{
 
 
 test_that(desc="Load packages before",{
-  source_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
-  assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment08_bad_pkgs.yml")
+  source_file <- file.path(system.file(package = "markmyassignment"), "extdata", "example_lab_file.R")
+  assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata", "example_assignment08_bad_pkgs.yml")
   expect_warning(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file)), regexp = "The following packages need to be installed and then loaded")
 
   assignment_file <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment07_pkgs.yml")
   expect_warning(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file)), regexp = "The following packages should be loaded")
   library(codetools)
+  library(yaml)
   expect_silent(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file)))
   detach(name = "package:codetools")
+  detach(name = "package:yaml")
   expect_warning(capture.output(mark_my_file(mark_file = source_file, assignment_path = assignment_file)), regexp = "The following packages should be loaded")
   }
 )
 
 test_that(desc="additional tests",{
-  assignment_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
+  assignment_path <- file.path(system.file(package = "markmyassignment"), "extdata", "example_assignment01.yml")
   suppressMessages(set_assignment(assignment_path))
   lab_file_path <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
   
