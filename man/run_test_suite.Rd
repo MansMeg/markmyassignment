@@ -4,7 +4,8 @@
 \alias{run_test_suite}
 \title{Run test suite}
 \usage{
-run_test_suite(caller, tasks = NULL, mark_file = NULL, quiet = FALSE, ...)
+run_test_suite(caller, tasks = NULL, mark_file = NULL, quiet = FALSE,
+  ...)
 }
 \arguments{
 \item{caller}{Either "mark_my_assignment" or "mark_my_file"}

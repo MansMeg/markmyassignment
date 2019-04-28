@@ -5,7 +5,8 @@
 \title{Mark assignment file}
 \usage{
 mark_my_file(tasks = NULL, mark_file = file.choose(),
-  assignment_path = NULL, force_get_tests = FALSE, quiet = FALSE, ...)
+  assignment_path = NULL, force_get_tests = FALSE, quiet = FALSE,
+  ...)
 }
 \arguments{
 \item{tasks}{Which task should be corrected (if more than one). Default is all. 
