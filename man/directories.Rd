@@ -20,8 +20,6 @@ mark_my_run_code_dir(...)
 \item{no}{assignment number}
 
 \item{...}{to send to \code{\link{mark_my_assignment_dir}}}
-
-\item{...}{to send to \code{\link{mark_my_assignment_dir}}}
 }
 \description{
 Functions to create directories

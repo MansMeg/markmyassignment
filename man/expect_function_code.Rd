@@ -4,8 +4,13 @@
 \alias{expect_function_code}
 \title{Expect function contain code}
 \usage{
-expect_function_code(object, expected, info = NULL, label = NULL,
-  expected.label = NULL)
+expect_function_code(
+  object,
+  expected,
+  info = NULL,
+  label = NULL,
+  expected.label = NULL
+)
 }
 \arguments{
 \item{object}{Function to check for mandatory code}

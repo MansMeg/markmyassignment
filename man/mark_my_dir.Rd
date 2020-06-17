@@ -4,8 +4,14 @@
 \alias{mark_my_dir}
 \title{Mark assignments in a directory}
 \usage{
-mark_my_dir(directory, tasks = NULL, assignment_path = NULL,
-  force_get_tests = FALSE, quiet = FALSE, ...)
+mark_my_dir(
+  directory,
+  tasks = NULL,
+  assignment_path = NULL,
+  force_get_tests = FALSE,
+  quiet = FALSE,
+  ...
+)
 }
 \arguments{
 \item{directory}{Directory with assignments files.}

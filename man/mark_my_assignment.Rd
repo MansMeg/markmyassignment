@@ -4,8 +4,13 @@
 \alias{mark_my_assignment}
 \title{Mark assignment in global environment}
 \usage{
-mark_my_assignment(tasks = NULL, mark_file = NULL,
-  force_get_tests = FALSE, quiet = FALSE, ...)
+mark_my_assignment(
+  tasks = NULL,
+  mark_file = NULL,
+  force_get_tests = FALSE,
+  quiet = FALSE,
+  ...
+)
 }
 \arguments{
 \item{tasks}{Which task should be corrected (if more than one). Default is all. 

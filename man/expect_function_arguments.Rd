@@ -4,8 +4,13 @@
 \alias{expect_function_arguments}
 \title{Expect function arguments}
 \usage{
-expect_function_arguments(object, expected, info = NULL, label = NULL,
-  expected.label = NULL)
+expect_function_arguments(
+  object,
+  expected,
+  info = NULL,
+  label = NULL,
+  expected.label = NULL
+)
 }
 \arguments{
 \item{object}{Function to check the arguments of.}
