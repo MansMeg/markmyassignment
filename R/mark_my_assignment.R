@@ -115,6 +115,7 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   test_res <- testthat::test_dir(path = test_directory, 
                                  filter = tasks_filter, 
                                  env = mark_my_env,
+                                 stop_on_failure = FALSE,
                                  ...)
   
   # Source in after code
