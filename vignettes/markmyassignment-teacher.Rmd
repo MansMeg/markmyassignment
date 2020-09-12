@@ -62,7 +62,7 @@ In a similar way, one or more mandatory test files can be used for testing of th
 
 #### 2. Create an assignment yml file
 
-The next step is to put all tasks together to a full assignment. This is a collection of test files and mandatory test files. The assignment files is in [yaml](http://www.yaml.org/) format and consists of the root nodes `name` (assignment name), `description` (assignment description), `tasks` (tasks in assignments as separate nodes) and `mandatory` (optional, with URLs to mandatory test). 
+The next step is to put all tasks together to a full assignment. This is a collection of test files and mandatory test files. The assignment files is in [yaml](https://yaml.org) format and consists of the root nodes `name` (assignment name), `description` (assignment description), `tasks` (tasks in assignments as separate nodes) and `mandatory` (optional, with URLs to mandatory test). 
 
 A working template with descriptions of each part can be found [here](https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/assignment_template.yml). The assignment can be set with:
 
