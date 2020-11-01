@@ -6,3 +6,4 @@ R/old/*
 README.md
 FAQ.md
 ^appveyor\.yml$
+sandbox/*
