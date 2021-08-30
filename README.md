@@ -1,4 +1,4 @@
-[![R-CMD-check](https://github.com/MansMeg/markmyassignment/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/MansMeg/markmyassignment/actions/workflows/check-standard.yaml) [![Coverage Status](https://coveralls.io/repos/MansMeg/markmyassignment/badge.svg?branch=master&service=github)](https://coveralls.io/github/MansMeg/markmyassignment?branch=master) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/markmyassignment)](https://github.com/metacran/cranlogs.app)
+[![R-CMD-check](https://github.com/MansMeg/markmyassignment/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/MansMeg/markmyassignment/actions/workflows/check-standard.yaml) [![Codecov test coverage](https://codecov.io/gh/MansMeg/markmyassignment/branch/master/graph/badge.svg)](https://codecov.io/gh/MansMeg/markmyassignment?branch=master) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/markmyassignment)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/markmyassignment)](http://cran.rstudio.com/web/packages/markmyassignment)
 
 markmyassignment
