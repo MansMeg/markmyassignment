@@ -61,9 +61,3 @@ jobs:
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check
-          
-      - name: Coveralls GitHub Action
-        if: matrix.config.os == 'ubuntu-latest' && matrix.config.r == 'release'
-        uses: coverallsapp/github-action@v1.1.2
-        with:
-          github-token: ${{ github.token }}
