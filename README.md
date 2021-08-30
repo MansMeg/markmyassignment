@@ -14,13 +14,13 @@ install.packages("markmyassignment")
 ```
 
 ### Information for students
-[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/inst/doc/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```. 
+[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```. 
 
 The tutorial is also included as a vignette accessible from R with `vignette("markmyassignment")`.
 
 
 ### Information for teachers
-[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/inst/doc/markmyassignment-teacher.html) is a introduction on how to use ```markmyassignment``` as a teacher. 
+[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment-teacher.html) is a introduction on how to use ```markmyassignment``` as a teacher. 
 
 The tutorial is also included as a vignette accessible from R with `vignette("markmyassignment-teacher")`.
 
