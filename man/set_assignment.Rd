@@ -24,11 +24,13 @@ show_assignment()
 Sets the assignment to mark and downloads necessary files.
 }
 \examples{
-assignment_path <- path <- 
-  file.path(system.file(package = "markmyassignment"), "/extdata/example_assignment01.yml")
+assignment_path <- 
+  file.path(system.file(package = "markmyassignment"), 
+            "/extdata/example_assignment01.yml")
 set_assignment(assignment_path)
-assignment_path <- path <- 
-  file.path(system.file(package = "markmyassignment"), "/extdata/assignment_template.yml")
+assignment_path <- 
+  file.path(system.file(package = "markmyassignment"), 
+            "/extdata/assignment_template.yml")
 set_assignment(assignment_path)
 
 }

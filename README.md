@@ -13,6 +13,13 @@ To install the package just run the following code
 install.packages("markmyassignment")
 ```
 
+Sometimes a more recent version can be found on github. To install the latest stable release, just run the following code:
+
+```r
+install.packages("remotes")
+remotes::install_github("MansMeg/markmyassignment")
+```
+
 ### Information for students
 [Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```. 
 
