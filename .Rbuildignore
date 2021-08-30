@@ -7,3 +7,4 @@ README.md
 FAQ.md
 ^appveyor\.yml$
 sandbox/*
+^\.github$
