@@ -18,7 +18,6 @@ Imports:
     httr (>= 1.0.0),
     checkmate (>= 1.0.0),
     codetools,
-    lazyeval,
     rlang
 RoxygenNote: 7.1.1
 Suggests:
