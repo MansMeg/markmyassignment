@@ -2,7 +2,6 @@ Package: markmyassignment
 Type: Package
 Title: Automatic Marking of R Assignments
 Version: 0.8.4
-Date: 2020-09-11
 Author: Mans Magnusson, Oscar Pettersson
 Maintainer: Mans Magnusson <mons.magnusson@gmail.com>
 Description: Automatic marking of R assignments for students and teachers based
