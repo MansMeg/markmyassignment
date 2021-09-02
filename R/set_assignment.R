@@ -14,10 +14,6 @@
 #'   file.path(system.file(package = "markmyassignment"), 
 #'             "/extdata/example_assignment01.yml")
 #' set_assignment(assignment_path)
-#' assignment_path <- 
-#'   file.path(system.file(package = "markmyassignment"), 
-#'             "/extdata/assignment_template.yml")
-#' set_assignment(assignment_path)
 #' 
 #' @export
 set_assignment <- function(path, auth = NULL){
