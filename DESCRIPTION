@@ -18,7 +18,7 @@ Imports:
     checkmate (>= 1.0.0),
     codetools,
     rlang
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Suggests:
     knitr,
     rmarkdown,
