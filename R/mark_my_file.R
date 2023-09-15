@@ -50,7 +50,7 @@ mark_my_file <- function(tasks = NULL, mark_file=file.choose(), assignment_path 
     test_results <- run_test_suite(caller = "mark_my_file", tasks, mark_file, quiet, ...)
   }
 
-  test_results_df <- as.data.frame(test_results$test_res)
+  test_results_df <- as.data.frame(test_results)
   if(!any(test_results_df$error) & sum(test_results_df$failed) == 0 & is.null(tasks) & !quiet) cheer()
 
   if(!is.null(assignment_path)) remove_assignment()
