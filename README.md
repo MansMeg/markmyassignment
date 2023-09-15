@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/MansMeg/markmyassignment.svg?branch=master)](https://travis-ci.org/MansMeg/markmyassignment) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/MansMeg/markmyassignment?branch=master&svg=true)](https://ci.appveyor.com/project/MansMeg/markmyassignment) [![Coverage Status](https://coveralls.io/repos/MansMeg/markmyassignment/badge.svg?branch=master&service=github)](https://coveralls.io/github/MansMeg/markmyassignment?branch=master) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/markmyassignment)](https://github.com/metacran/cranlogs.app)
+[![R-CMD-check](https://github.com/MansMeg/markmyassignment/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/MansMeg/markmyassignment/actions/workflows/check-standard.yaml) [![Codecov test coverage](https://codecov.io/gh/MansMeg/markmyassignment/branch/master/graph/badge.svg)](https://codecov.io/gh/MansMeg/markmyassignment?branch=master) [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/markmyassignment)](https://github.com/metacran/cranlogs.app)
 [![cran version](http://www.r-pkg.org/badges/version/markmyassignment)](http://cran.rstudio.com/web/packages/markmyassignment)
 
 markmyassignment
@@ -13,14 +13,21 @@ To install the package just run the following code
 install.packages("markmyassignment")
 ```
 
+Sometimes a more recent version can be found on github. To install the latest stable release, just run the following code:
+
+```r
+install.packages("remotes")
+remotes::install_github("MansMeg/markmyassignment")
+```
+
 ### Information for students
-[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/inst/doc/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```. 
+[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html) is a students tutorial on how to use ```markmyassignment```. 
 
 The tutorial is also included as a vignette accessible from R with `vignette("markmyassignment")`.
 
 
 ### Information for teachers
-[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/inst/doc/markmyassignment-teacher.html) is a introduction on how to use ```markmyassignment``` as a teacher. 
+[Here](https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment-teacher.html) is a introduction on how to use ```markmyassignment``` as a teacher. 
 
 The tutorial is also included as a vignette accessible from R with `vignette("markmyassignment-teacher")`.
 

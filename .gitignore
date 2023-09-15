@@ -2,7 +2,5 @@
 .Rhistory
 .RData
 vignettes/markmyassignment.R
-vignettes/markmyassignment.html
 vignettes/markmyassignment-teacher.R
-vignettes/markmyassignment-teacher.html
 sandbox/*

@@ -90,11 +90,16 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
   }
     
   if(!is.null(mark_file)){
-    mark_file <- delete_circular_calls(mark_file)
+    del_out <- delete_circular_calls(mark_file)
+    mark_file <- del_out$txt_out
+    forbidden_rows <- del_out$remove_row
+    if(length(forbidden_rows)>0)
+      return(list(test_res=NULL,forbidden_rows=forbidden_rows))
     tf_path <- tempfile(pattern = "mark_file", fileext = ".txt")
     writeLines(text = mark_file, con = tf_path)
     source(file = tf_path, local = mark_my_env)
     unlink(x = tf_path)
+    
   } 
 
   # tasks <- "task2"
@@ -117,12 +122,13 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
                                  env = mark_my_env,
                                  stop_on_failure = FALSE,
                                  ...)
-  
+
+  mark_my_env$test_res <- test_res
   # Source in after code
   after_paths <- file.path(mark_my_run_code_dir(), run_code_paths[grepl("after",run_code_paths)])
   for(i in seq_along(after_paths)) source(file = after_paths[i], local = mark_my_env)
   
-  test_res
+  return(list(test_res = test_res,forbidden_rows=forbidden_rows))
 }
 
 #' @title
@@ -136,6 +142,7 @@ run_test_suite <- function(caller, tasks = NULL, mark_file = NULL, quiet = FALSE
 cheer <- function() {
   cat(sample(x = c("Yay! All done!",
                    "Good work!",
+                   "Brilliant!",
                    "You're a coding rockstar!",
                    "Keep up the good work!",
                    "Everything's correct!"), 1))
@@ -179,12 +186,14 @@ delete_circular_calls <- function(mark_file){
 
   warn_msg <- paste0("\n> ", msg_statement, "\ndue to: ", msg_forbidden, "\n")
     
+  forbidden_rows = c()
   if(any(remove_row)){
     warning("The following statement(s) were ignored/removed when running mark_my_file():\n",
             warn_msg)
+    forbidden_rows = txt_in[remove_row]
     txt_out <- txt_in[!remove_row]
   }
-  return(txt_out)
+  return(list(txt_out = txt_out, remove_row=forbidden_rows))
 }
 
 #' Forbidden functions for \code{mark_my_file()}
@@ -197,7 +206,7 @@ delete_circular_calls <- function(mark_file){
 forbidden_functions <- function(){
   ns <- ls(name = "package:markmyassignment")
   forbidden <- c("install.packages", "utils::install.packages",
-  "devtools::install_github", "install_github", "data", "system")
+  "devtools::install_github", "install_github", "data", "system","setwd")
   c(forbidden, ns, paste0("markmyassignment::", ns))
 }
 
