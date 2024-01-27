@@ -187,7 +187,7 @@ temp_folder_check_create <- function() {
 #' Check the path type. 
 #' 
 #' @param path Character element of url or local search path.
-#' @param github_token Authorization token for github.
+#' @param auth an auth request class with options \code{httpauth} and \code{userpwd}.
 #' 
 #' @return \code{path_type} object with c("path_local", "path_http", "path_error")
 #' 
@@ -293,7 +293,7 @@ get_file.path_github <- function(path, dest, ...){
 #' @description
 #' Check if there exist an assignmentfile and then load it.
 #' 
-#' @param path \code{path object} from \code{\link{path_type}}
+#' @param yml_path \code{path object} from \code{\link{path_type}}
 #' 
 #' @return assignment object
 #' 
