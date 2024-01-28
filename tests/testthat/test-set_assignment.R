@@ -21,7 +21,7 @@ test_that(desc="set_assignment() url",{
   expect_error(set_assignment(path = correct_url5))
   expect_error(set_assignment(path = wrong_url1))
   expect_error(set_assignment(wrong_url2))
-  expect_warning(suppressMessages(set_assignment(correct_local2)))
+  expect_warning(suppressMessages(set_assignment(correct_local2_with_url)))
 
   github_url1 <- "https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_assignment01.yml"
   github_url2 <- "https://api.github.com/repos/MansMeg/markmyassignment/contents/inst/extdata/example_assignment01.yml"
