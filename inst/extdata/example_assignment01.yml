@@ -3,11 +3,11 @@ description : An example of an assignment.
 tasks:
   task1:
     url: 
-      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task1.R
+      - example_task1.R
   task2:
     url:
-      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task2_a.R
-      - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_task2_b.R
+      - example_task2_a.R
+      - example_task2_b.R
 mandatory:
   url:
-    - https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_mandatory.R
+    - example_mandatory.R

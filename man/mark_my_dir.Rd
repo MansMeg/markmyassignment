@@ -26,8 +26,6 @@ To see the different task, see \code{\link{show_tasks}}.}
 \item{quiet}{Should test be run without output?}
 
 \item{...}{further arguments sent to \code{test_dir()}.}
-
-\item{mark_file}{Path to the file to mark.}
 }
 \description{
 Marks assignments in a directory. Stores the results.

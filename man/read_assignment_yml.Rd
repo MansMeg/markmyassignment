@@ -7,7 +7,7 @@
 read_assignment_yml(yml_path = NULL)
 }
 \arguments{
-\item{path}{\code{path object} from \code{\link{path_type}}}
+\item{yml_path}{\code{path object} from \code{\link{path_type}}}
 }
 \value{
 assignment object

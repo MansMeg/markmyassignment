@@ -9,8 +9,6 @@
 #' @param tasks
 #'   Which task should be corrected (if more than one). Default is all. 
 #'   To see the different task, see \code{\link{show_tasks}}.
-#' @param mark_file
-#'   Path to the file to mark.
 #' @param assignment_path
 #'   Assignment file to set before marking the assignment (url or local path).
 #' @param force_get_tests

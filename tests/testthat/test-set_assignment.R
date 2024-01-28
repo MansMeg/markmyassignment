@@ -1,7 +1,10 @@
 
 context("set_assignment")
 
-test_that(desc="set_assignment()",{
+test_that(desc="set_assignment() url",{
+  skip_if_offline()
+  skip_on_cran()
+  
   correct_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment01.yml"
   correct_url2 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment02.yml"
   correct_url3 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment03.yml"
@@ -9,26 +12,17 @@ test_that(desc="set_assignment()",{
   correct_url5 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment05.yml"
   wrong_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_lab_file.R"
   wrong_url2 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/file_that_do_not_exist.R"
-  super_wrong_path <- "XXX"
-  correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
-  correct_local2 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment02.yml")
-  wrong_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
-  wrong_local2 <- file.path(system.file(package = "markmyassignment"), "file_that_do_not_exist.R")
-  
+  correct_local2_with_url <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment02.yml")
+
   expect_is(suppressMessages(set_assignment(correct_url1)), "character")
   expect_warning(suppressMessages(set_assignment(path = correct_url2)))
   expect_is(suppressMessages(set_assignment(path = correct_url4)), "character")
-  expect_is(suppressMessages(set_assignment(correct_local1)), "character")
-  expect_warning(suppressMessages(set_assignment(correct_local2)))
   expect_error(set_assignment(path = correct_url3))
   expect_error(set_assignment(path = correct_url5))
   expect_error(set_assignment(path = wrong_url1))
   expect_error(set_assignment(wrong_url2))
-  expect_error(set_assignment(wrong_local1))
-  expect_error(set_assignment(wrong_local2))
-  expect_error(set_assignment(super_wrong_path))
-  
-  
+  expect_warning(suppressMessages(set_assignment(correct_local2_with_url)))
+
   github_url1 <- "https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_assignment01.yml"
   github_url2 <- "https://api.github.com/repos/MansMeg/markmyassignment/contents/inst/extdata/example_assignment01.yml"
   
@@ -37,7 +31,22 @@ test_that(desc="set_assignment()",{
   
 })
 
-test_that(desc="show_tasks()",{
+test_that(desc="set_assignment() locally",{
+  correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
+  wrong_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_lab_file.R")
+  wrong_local2 <- file.path(system.file(package = "markmyassignment"), "file_that_do_not_exist.R")
+  
+  expect_is(suppressMessages(set_assignment(correct_local1)), "character")
+  expect_error(set_assignment(wrong_local1))
+  expect_error(set_assignment(wrong_local2))
+  expect_error(set_assignment(super_wrong_path))
+  
+})
+
+test_that(desc="show_tasks() online",{
+  skip_on_cran()
+  skip_if_offline()
+  
   correct_url4 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment04.yml"
   suppressMessages(set_assignment(correct_url4))
   expect_equal(show_tasks(), c("task1"))
@@ -50,10 +59,26 @@ test_that(desc="show_tasks()",{
   expect_equal(suppressWarnings(show_tasks()), c("task1","task2"))
 })
 
+test_that(desc="show_tasks() locally",{
+  correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
+  suppressMessages(set_assignment(correct_local1))
+  expect_equal(show_tasks(), c("task1","task2"))
+})
+
+
 test_that(desc="show_assignment()",{
+  skip_on_cran()
+  skip_if_offline()  
   correct_url4 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment04.yml"
   suppressMessages(set_assignment(correct_url4))
   expect_output(show_assignment(), "Test assignment 04")
+  expect_output(show_assignment(), "task1")
+})
+
+test_that(desc="show_assignment() locally",{
+  correct_local1 <- file.path(system.file(package = "markmyassignment"), "extdata/example_assignment01.yml")
+  suppressMessages(set_assignment(correct_local1))
+  expect_output(show_assignment(), "Test assignment 01")
   expect_output(show_assignment(), "task1")
 })
 
@@ -73,6 +98,9 @@ test_that(desc="check_installed_packages()",{
 
 # path_type <- markmyassignment:::path_type
 test_that(desc="path_type()",{
+  skip_if_offline()
+  skip_on_cran()
+  
   correct_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment01.yml"
   correct_url2 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment02.yml"
   wrong_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/file_that_do_not_exist.R"
@@ -124,6 +152,9 @@ test_that(desc="path_type()",{
 
 # get_assignment_full_subpath <- markmyassignment:::get_assignment_full_subpath
 test_that(desc="get_assignment_full_subpath()",{
+  skip_if_offline()
+  skip_on_cran()
+  
   correct_url1 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment01.yml"
   correct_url1_path_type <- path_type(correct_url1)
   correct_url2 <- "https://raw.githubusercontent.com/MansMeg/markmyassignment/master/inst/extdata/example_assignment02.yml"
@@ -171,6 +202,8 @@ test_that(desc="remove_assignment()",{
 
 
 test_that(desc="assignment_template",{
+  skip_if_offline()
+  skip_on_cran()
   assignment_template_file <- file.path(system.file(package = "markmyassignment"), "extdata/assignment_template.yml")
   library(checkmate)
   expect_message(set_assignment(assignment_template_file), regexp = "Assignment template")

@@ -12,94 +12,107 @@
 
 <meta name="author" content="Mans Magnusson" />
 
-<meta name="date" content="2020-09-12" />
+<meta name="date" content="2024-01-27" />
 
 <title>A teachers’s introduction to markmyassignment</title>
 
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
   }
 });
 </script>
 
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -108,13 +121,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -122,6 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -317,61 +338,106 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">A teachers’s introduction to markmyassignment</h1>
+<h1 class="title toc-ignore">A teachers’s introduction to
+markmyassignment</h1>
 <h4 class="author">Mans Magnusson</h4>
-<h4 class="date">2020-09-12</h4>
+<h4 class="date">2024-01-27</h4>
 
 
 
-<p>The <code>markmyassignment</code> package is a tool to for teachers to set up testthat test suites for R programming labs or exams.</p>
-<p>The package is a wrapper for <code>testthat</code> test suites and a single assignment yml file online govern a lab or an exam. Students set the assignment they want to work with using <code>set_assignment()</code>. Then all test suites and assignment information are downloaded and stored in the <code>tempdir()</code> folder of the current R session. The students can then easily test their assignments with the function <code>mark_my_assignment()</code> or <code>mark_my_file()</code>.</p>
-<p><code>markmyassignment</code> makes it easy for students to get automatic feedback on their lab assignments (or exams) with very limited overhead. The only thing the students need are: - an URL to the assignment yml file online or locally, - internet connection and - <code>markmyassignment</code> installed on their local computer.</p>
-<p>The main purpose of the package is two-fold. First, making it possible for students to test their own assignments improve the learning since a good test suite guides the students toward problems in their code. The package also considerably speeds up the time it takes to correct labs for teachers.</p>
-<p>The package has been used at Linkoping University, Sweden, since 2013 in multiple R courses (advanced and beginners courses). The package has been very popular among students.</p>
+<p>The <code>markmyassignment</code> package is a tool to for teachers
+to set up testthat test suites for R programming labs or exams.</p>
+<p>The package is a wrapper for <code>testthat</code> test suites and a
+single assignment yml file online govern a lab or an exam. Students set
+the assignment they want to work with using
+<code>set_assignment()</code>. Then all test suites and assignment
+information are downloaded and stored in the <code>tempdir()</code>
+folder of the current R session. The students can then easily test their
+assignments with the function <code>mark_my_assignment()</code> or
+<code>mark_my_file()</code>.</p>
+<p><code>markmyassignment</code> makes it easy for students to get
+automatic feedback on their lab assignments (or exams) with very limited
+overhead. The only thing the students need are: - an URL to the
+assignment yml file online or locally, - internet connection and -
+<code>markmyassignment</code> installed on their local computer.</p>
+<p>The main purpose of the package is two-fold. First, making it
+possible for students to test their own assignments improve the learning
+since a good test suite guides the students toward problems in their
+code. The package also considerably speeds up the time it takes to
+correct labs for teachers.</p>
+<p>The package has been used at Linkoping University, Sweden, since 2013
+in multiple R courses (advanced and beginners courses). The package has
+been very popular among students.</p>
 <div id="installing-the-package" class="section level3">
 <h3>Installing the package</h3>
 <p>The easiest way to install the package in R is as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
 </div>
 <div id="how-to-get-help" class="section level3">
 <h3>How to get help</h3>
-<p>All documentation of the package and the functionality can be found using:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">help</span>(<span class="dt">package =</span> <span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
+<p>All documentation of the package and the functionality can be found
+using:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">help</span>(<span class="at">package =</span> <span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
 </div>
 <div id="students-usage" class="section level3">
 <h3>Students’ usage</h3>
-<p>See the students vignette for markmyassignment <a href="https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html">here</a> or in R:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">vignette</span>(<span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
+<p>See the students vignette for markmyassignment <a href="https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html">here</a>
+or in R:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
 </div>
 <div id="teachers-usage" class="section level3">
 <h3>Teachers’ usage</h3>
-<p>To use <code>markmyassignment</code> in a course, the following steps are needed.</p>
+<p>To use <code>markmyassignment</code> in a course, the following steps
+are needed.</p>
 <div id="create-a-lab-and-unit-test-files-using-testthat-for-tasks-in-the-lab" class="section level4">
-<h4>1. Create a lab and unit test files using <code>testthat</code> for tasks in the lab</h4>
-<p>The first step is to create a lab. =) Then produce unit tests using the <code>testthat</code> package for the assignments the students should turn in.</p>
-<p>If the task is to create a numeric vector with the values <code>pi</code> and <code>e</code> an example test file can be found <a href="https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_task1.R">here</a>.</p>
-<p>In a similar way, one or more mandatory test files can be used for testing of the overall lab file. One example is that there can be mandatory for students to supply a character element <code>name</code> the students name. An example test file can be found <a href="https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_mandatory.R">here</a>.</p>
+<h4>1. Create a lab and unit test files using <code>testthat</code> for
+tasks in the lab</h4>
+<p>The first step is to create a lab. =) Then produce unit tests using
+the <code>testthat</code> package for the assignments the students
+should turn in.</p>
+<p>If the task is to create a numeric vector with the values
+<code>pi</code> and <code>e</code> an example test file can be found <a href="https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_task1.R">here</a>.</p>
+<p>In a similar way, one or more mandatory test files can be used for
+testing of the overall lab file. One example is that there can be
+mandatory for students to supply a character element <code>name</code>
+the students name. An example test file can be found <a href="https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/example_mandatory.R">here</a>.</p>
 </div>
 <div id="create-an-assignment-yml-file" class="section level4">
 <h4>2. Create an assignment yml file</h4>
-<p>The next step is to put all tasks together to a full assignment. This is a collection of test files and mandatory test files. The assignment files is in <a href="https://yaml.org">yaml</a> format and consists of the root nodes <code>name</code> (assignment name), <code>description</code> (assignment description), <code>tasks</code> (tasks in assignments as separate nodes) and <code>mandatory</code> (optional, with URLs to mandatory test).</p>
-<p>A working template with descriptions of each part can be found <a href="https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/assignment_template.yml">here</a>. The assignment can be set with:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">set_assignment</span>(<span class="st">&quot;https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/assignment_template.yml&quot;</span>)</span></code></pre></div>
+<p>The next step is to put all tasks together to a full assignment. This
+is a collection of test files and mandatory test files. The assignment
+files is in <a href="https://yaml.org">yaml</a> format and consists of
+the root nodes <code>name</code> (assignment name),
+<code>description</code> (assignment description), <code>tasks</code>
+(tasks in assignments as separate nodes) and <code>mandatory</code>
+(optional, with URLs to mandatory test).</p>
+<p>A working template with descriptions of each part can be found <a href="https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/assignment_template.yml">here</a>.
+The assignment can be set with:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">set_assignment</span>(<span class="st">&quot;https://github.com/MansMeg/markmyassignment/blob/master/inst/extdata/assignment_template.yml&quot;</span>)</span></code></pre></div>
 <p>Give the URL to the assignment file to the students.</p>
 </div>
 <div id="the-students-work-with-their-assignment" class="section level4">
 <h4>3. The students work with their assignment</h4>
-<p>See the students vignette for markmyassignment <a href="https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html">here</a> or in R:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">vignette</span>(<span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
+<p>See the students vignette for markmyassignment <a href="https://htmlpreview.github.io/?https://github.com/MansMeg/markmyassignment/blob/master/vignettes/markmyassignment.html">here</a>
+or in R:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">&quot;markmyassignment&quot;</span>)</span></code></pre></div>
 </div>
 <div id="mark-all-student-solutions" class="section level4">
 <h4>4. Mark all student solutions</h4>
-<p>All solutions from the students can be collected and marked automatically. The assignment to test needs to be set with <code>set_assignment()</code>. The <code>mark_my_dir()</code> function can then be used for the directory with the student solutions. The function returns a <code>data.frame</code> with one row per unit test file and lab file. In this way, multiple files can be marked at the same time. Of course, some manual check is needed as well.</p>
+<p>All solutions from the students can be collected and marked
+automatically. The assignment to test needs to be set with
+<code>set_assignment()</code>. The <code>mark_my_dir()</code> function
+can then be used for the directory with the student solutions. The
+function returns a <code>data.frame</code> with one row per unit test
+file and lab file. In this way, multiple files can be marked at the same
+time. Of course, some manual check is needed as well.</p>
 </div>
 </div>
 <div id="additional-testthat-expectations" class="section level3">
 <h3>Additional testthat expectations</h3>
-<p>In marking of student lab files there are some extra exceptions included in <code>markmyassignment</code> with the purpose of testing student assignment. The included expectations are:</p>
+<p>In marking of student lab files there are some extra exceptions
+included in <code>markmyassignment</code> with the purpose of testing
+student assignment. The included expectations are:</p>
 <ul>
 <li><code>expect_attached_package</code></li>
 <li><code>expect_function_arguments</code></li>
@@ -382,17 +448,26 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><code>expect_package</code></li>
 <li><code>expect_self_contained</code></li>
 </ul>
-<p>See the documentation for each function for further information and usage.</p>
+<p>See the documentation for each function for further information and
+usage.</p>
 </div>
 <div id="using-testthat-functionality" class="section level3">
 <h3>Using testthat functionality</h3>
-<p>Since <code>markmyassignment</code> is in essence just a wrapper for <code>testthat</code>, it is simple to choose your own argument for <code>test_dir()</code> using <code>...</code> in <code>mark_my_assignment()</code>. As an example, to use the testthat summary reporter in testing the student assignment, just write:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">mark_my_assignment</span>(<span class="dt">reporter =</span> <span class="st">&quot;summary&quot;</span>)</span></code></pre></div>
+<p>Since <code>markmyassignment</code> is in essence just a wrapper for
+<code>testthat</code>, it is simple to choose your own argument for
+<code>test_dir()</code> using <code>...</code> in
+<code>mark_my_assignment()</code>. As an example, to use the testthat
+summary reporter in testing the student assignment, just write:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">mark_my_assignment</span>(<span class="at">reporter =</span> <span class="st">&quot;summary&quot;</span>)</span></code></pre></div>
 </div>
 <div id="using-private-urls" class="section level3">
 <h3>Using private URLs</h3>
-<p>It is possible to use basic authentication to access private http URLs (for example to test assignments without making them public). This is done by simply adding a <code>httr</code> authentication to the <code>set_assignment()</code> function. Here is an example of how to use a private repo on github:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">set_assignment</span>(<span class="st">&quot;&lt;github private repo url&gt;&quot;</span>, httr<span class="op">::</span><span class="kw">authenticate</span>(<span class="st">&quot;&lt;Github_Personal_Access_Token&gt;&quot;</span>, <span class="st">&quot;&quot;</span>))</span></code></pre></div>
+<p>It is possible to use basic authentication to access private http
+URLs (for example to test assignments without making them public). This
+is done by simply adding a <code>httr</code> authentication to the
+<code>set_assignment()</code> function. Here is an example of how to use
+a private repo on github:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">set_assignment</span>(<span class="st">&quot;&lt;github private repo url&gt;&quot;</span>, httr<span class="sc">::</span><span class="fu">authenticate</span>(<span class="st">&quot;&lt;Github_Personal_Access_Token&gt;&quot;</span>, <span class="st">&quot;&quot;</span>))</span></code></pre></div>
 </div>
 
 

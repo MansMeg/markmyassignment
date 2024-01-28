@@ -9,7 +9,7 @@ path_type(path, auth = NULL)
 \arguments{
 \item{path}{Character element of url or local search path.}
 
-\item{github_token}{Authorization token for github.}
+\item{auth}{an auth request class with options \code{httpauth} and \code{userpwd}.}
 }
 \value{
 \code{path_type} object with c("path_local", "path_http", "path_error")
