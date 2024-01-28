@@ -8,9 +8,9 @@ Description: Automatic marking of R assignments for students and teachers based
     on 'testthat' test suites.
 License: BSD_2_clause + file LICENSE
 Encoding: UTF-8
-Depends:
+Depends: 
     R (>= 3.6.0)
-Imports:
+Imports: 
     methods,
     yaml,
     testthat (>= 2.0.0),
@@ -19,8 +19,9 @@ Imports:
     codetools,
     rlang
 RoxygenNote: 7.2.3
-Suggests:
+Suggests: 
+    covr,
+    httptest,
     knitr,
-    rmarkdown,
-    covr
+    rmarkdown
 VignetteBuilder: knitr
