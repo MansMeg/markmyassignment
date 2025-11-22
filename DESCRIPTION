@@ -1,8 +1,14 @@
 Package: markmyassignment
 Type: Package
 Title: Automatic Marking of R Assignments
-Version: 0.8.8
-Author: Mans Magnusson, Oscar Pettersson
+Version: 0.8.9
+Authors@R: c(person(given = "Mans",
+                      family = "Magnusson",
+                      role = c("aut", "cre"),
+                      email = "mons.magnusson@gmail.com"),
+               person(given = "Oscar",
+                      family = "Pettersson",
+                      role = "aut"))
 Maintainer: Mans Magnusson <mons.magnusson@gmail.com>
 Description: Automatic marking of R assignments for students and teachers based
     on 'testthat' test suites.
@@ -18,7 +24,7 @@ Imports:
     checkmate (>= 1.0.0),
     codetools,
     rlang
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
 Suggests: 
     covr,
     httptest,

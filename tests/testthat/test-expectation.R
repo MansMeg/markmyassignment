@@ -37,12 +37,20 @@ test_that(desc="expect_function_arguments()",{
 
 test_that(desc="expect_function_code()",{
   expect_success(expect_function_code(object = base::mean, expected = "UseMethod"))
-  expect_failure(expect_function_code(object = base::mean, expected = "markmyassignment"), message = "'markmyassignment' not found in the body of base::mean")
+  expect_failure(expect_function_code(base::mean, "markmyassignment"),
+                 "'markmyassignment' not found in the body of `?base::mean`?")
+  # previous regex expected exactly: "'markmyassignment' not found in the body of base::mean"
+  # accept optional backticks around base::mean
 })
 
 
 test_that(desc="expect_no_forbidden_function_code()",{
-  expect_failure(expect_no_forbidden_function_code(object = base::mean, forbidden = "UseMethod"), message = "Forbidden code 'UseMethod' is found in the body of base::mean")
+  expect_failure(expect_no_forbidden_function_code(base::mean, "UseMethod"),
+                 "Forbidden code 'UseMethod' is found in the body of `?base::mean`?")
+  # previous regex expected exactly: "Forbidden code 'UseMethod' is found in the body of base::mean"
+  # accept optional backticks around base::mean
   expect_success(expect_no_forbidden_function_code(object = base::mean, forbidden = "markmyassignment"))
 })
+
+
 
