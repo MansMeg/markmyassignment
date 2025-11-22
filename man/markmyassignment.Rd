@@ -2,8 +2,18 @@
 % Please edit documentation in R/markmyassignment.R
 \docType{package}
 \name{markmyassignment}
+\alias{markmyassignment-package}
 \alias{markmyassignment}
 \title{Automatic Marking of R Assignments}
 \description{
 Automatic marking of R assignments for students and teachers based on testthat test suites.
+}
+\author{
+\strong{Maintainer}: Mans Magnusson \email{mons.magnusson@gmail.com}
+
+Authors:
+\itemize{
+  \item Oscar Pettersson
+}
+
 }
